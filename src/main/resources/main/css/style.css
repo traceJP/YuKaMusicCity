@@ -1,0 +1,43 @@
+/* 全局 */
+body {
+    height: 100%;
+}
+
+/* index.css */
+.bottom-zero {
+    margin-bottom: 0;
+}
+.navbar-center {
+    max-width: 768px;
+    margin: 0 auto;
+}
+.song-box {
+    max-width: 1080px;
+}
+.tab-title-red {
+    border-bottom: 2px solid #C10D0C;
+    padding-bottom: 3px;
+}
+.tab-title-gray {
+    border-bottom: 2px solid gray;
+    padding-bottom: 3px;
+}
+.tab-title-gray-dottedLine {
+    border-bottom: 1px dotted gray;
+    padding-bottom: 3px;
+}
+.lists-split-purchase {
+    padding: 0 10%;
+}
+.global-flex-box {
+    display: flex;
+}
+
+/* login.css */
+.login-form {
+    max-width: 500px;
+    margin: 5% auto;
+}
+
+
+
