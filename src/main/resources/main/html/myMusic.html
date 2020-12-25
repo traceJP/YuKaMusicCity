@@ -102,7 +102,7 @@
 
                 <div class="media" style="margin-top: 20px;">
                     <div class="media-left">
-                        <!-- 歌单图片长宽为200px，计划使用两张不同大小的图片+栅格隐藏，制作响应式效果 -->
+                        <!-- 歌单图片长宽为200px，计划使用两张不同大小的图片+栅格隐藏，制作响应式效果-->
                         <img class="media-object hidden-xs" src="../image/ge3.jpg" alt="..." width="200px">
                         <img class="media-object visible-xs-block" src="../image/ge3.jpg" alt="..." width="128px">
                     </div>
@@ -119,7 +119,8 @@
                             </div>
                             <div class="media-body">
                                 <a href="#">水野彩音</a>
-                                <span>2020-12-07&nbsp;创建</span>
+                                <!-- 屏幕<768隐藏创建时间 -->
+                                <span class="hidden-xs">2020-12-07&nbsp;创建</span>
                             </div>
                         </div>
 
@@ -151,7 +152,8 @@
                         <div class="media-left media-body text-left">
                             <span>
                                 <span style="margin-right: 5%;">歌曲列表</span>
-                                <small>113首歌</small>
+                                <!-- 屏幕<768隐藏歌曲数量 -->
+                                <small class="hidden-xs">113首歌</small>
                             </span>
                         </div>
                         <div class="media-right media-body text-right">
@@ -169,7 +171,7 @@
                                 <td>歌曲标题</td>
                                 <td>时长</td>
                                 <td>歌手</td>
-                                <!-- 小于768px不显示专辑列 -->
+                                <!-- 屏幕<768px不显示专辑列 -->
                                 <td class="hidden-xs">专辑</td>
                             </tr>
                         </thead>
@@ -265,8 +267,8 @@
                                 ，因为总有令人欣喜的旋律。
                             </span>
                             <div class="text-right" style="margin-top: 2%;">
-                                <span>2018年3月20日</span>
-                                <span style="margin: auto 3%;">|</span>
+                                <!-- 屏幕<768px不显示创建时间 -->
+                                <span style="margin: auto 3%;" class="hidden-xs">2018年3月20日</span>
                                 <a href="#">
                                     <span class="glyphicon glyphicon-thumbs-up"></span>
                                     <span>（122）</span>
@@ -298,8 +300,8 @@
                                 ，因为总有令人欣喜的旋律。
                             </span>
                             <div class="text-right" style="margin-top: 2%;">
-                                <span>2018年3月20日</span>
-                                <span style="margin: auto 3%;">|</span>
+                                <!-- 屏幕<768px不显示创建时间 -->
+                                <span style="margin: auto 3%;" class="hidden-xs">2018年3月20日</span>
                                 <a href="#">
                                     <span class="glyphicon glyphicon-thumbs-up"></span>
                                     <span>（122）</span>
@@ -331,8 +333,8 @@
                                 ，因为总有令人欣喜的旋律。
                             </span>
                             <div class="text-right" style="margin-top: 2%;">
-                                <span>2018年3月20日</span>
-                                <span style="margin: auto 3%;">|</span>
+                                <!-- 屏幕<768px不显示创建时间 -->
+                                <span style="margin: auto 3%;" class="hidden-xs">2018年3月20日</span>
                                 <a href="#">
                                     <span class="glyphicon glyphicon-thumbs-up"></span>
                                     <span>（122）</span>
@@ -376,9 +378,9 @@
         </div>
 
         <!-- 页脚 -->
-        <div class="jumbotron text-center" style="margin: 0;">
+        <!-- <div class="jumbotron text-center" style="margin: 0;">
             <p>。。。</p>
-        </div>
+        </div> -->
 
     </div>
 </body>
