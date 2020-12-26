@@ -1,5 +1,5 @@
 /* 全局 */
-body {
+html, body {
     height: 100%;
 }
 
@@ -37,6 +37,20 @@ body {
 .login-form {
     max-width: 500px;
     margin: 5% auto;
+}
+
+/* MyError-#ffffff */
+.background-fff {
+    background-color: #ffffff;
+}
+
+/* 渐变黑暗模式背景 */
+.background-max {
+    background-image: linear-gradient(25deg, #e82121, #cc4d64, #9f66a4, #217be8);
+}
+.background-tail {
+    color: #ffffff;
+    background-color: #222;
 }
 
 
