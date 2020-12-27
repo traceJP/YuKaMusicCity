@@ -7,7 +7,7 @@
     <!-- 配置Spring容器 -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:com/tracejp/yuka/config/spring.xml</param-value>
+        <param-value>classpath:config/spring.xml</param-value>
     </context-param>
 
     <!-- 配置SpringMVC -->
@@ -16,7 +16,7 @@
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>classpath:com/tracejp/yuka/config/spring-mvc.xml</param-value>
+            <param-value>classpath:config/spring-mvc.xml</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
@@ -33,14 +33,15 @@
             <param-name>encoding</param-name>
             <param-value>UTF-8</param-value>
         </init-param>
-        <init-param>
-            <param-name>forceRequestEncoding</param-name>
-            <param-value>true</param-value>
-        </init-param>
-        <init-param>
-            <param-name>forceResponseEncoding</param-name>
-            <param-value>true</param-value>
-        </init-param>
+<!-- bug:强制转码会导致请求静态资源时中文乱码 2020.12.27 -->
+<!--        <init-param>-->
+<!--            <param-name>forceRequestEncoding</param-name>-->
+<!--            <param-value>true</param-value>-->
+<!--        </init-param>-->
+<!--        <init-param>-->
+<!--            <param-name>forceResponseEncoding</param-name>-->
+<!--            <param-value>true</param-value>-->
+<!--        </init-param>-->
     </filter>
     <filter-mapping>
         <filter-name>characterEncodingFilter</filter-name>
