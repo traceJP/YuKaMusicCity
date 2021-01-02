@@ -23,15 +23,15 @@ var vueNav = new Vue({
             if(background_status === "black") {
                 document.getElementById("background-box").setAttribute("class", "")
                 this.bgNav = 'navbar-default'
-                vueRank.bgLeaderBoard = 'table-striped'
                 vueTail.bgTail = ''
+                vueError.bgError = ''
                 setBackgroundCookie("white")
                 background_status = "white"
             } else {
                 document.getElementById("background-box").setAttribute("class", "background-max")
                 this.bgNav = 'navbar-inverse'
-                vueRank.bgLeaderBoard = ''
                 vueTail.bgTail = 'background-tail'
+                vueError.bgError = 'background-max'
                 setBackgroundCookie("black")
                 background_status = "black"
             }
@@ -41,37 +41,16 @@ var vueNav = new Vue({
 
 })
 
-// 歌曲展示盒模型
-var vueSong = new Vue({
-    el: '#song_vue_object',
+// 错误提示盒模型
+var vueError = new Vue({
+    el: '#error_vue_object',
     data() {
         return {
-            hello : '紫罗兰永恒花园'
-            // TODO...
+            bgError: ''
         }
     },
 })
 
-// 专辑展示盒模型
-var vueAlbum = new Vue({
-    el: '#album_vue_object',
-    data() {
-        return {
-            // TODO...
-        }
-    }
-})
-
-// 排行榜盒模型
-var vueRank = new Vue({
-    el: '#rank_vue_object',
-    data() {
-        return {
-            // 排行榜背景样式
-            bgLeaderBoard: 'table-striped'
-        }
-    }
-})
 
 // 页脚盒模型
 var vueTail = new Vue({
@@ -87,7 +66,7 @@ var vueTail = new Vue({
         if(getBackgroundCookie() === "black") {
             document.getElementById("background-box").setAttribute("class", "background-max")
             vueNav.bgNav = 'navbar-inverse'
-            vueRank.bgLeaderBoard = ''
+            vueError.bgError = 'background-max'
             this.bgTail = 'background-tail'
             background_status = "black"
         }

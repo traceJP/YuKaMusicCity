@@ -21,9 +21,9 @@
 </head>
 
 <body>
-    <div id="bg-app" :class="bgMax" style="height: 100%;">
+    <div id="background-box" style="height: 100%;">
         <!-- 导航条 -->
-        <nav :class="bgNav" class="navbar bottom-zero">
+        <nav id="nav_vue_object" :class="bgNav" class="navbar bottom-zero">
             <div class="container-fluid navbar-center">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
@@ -40,14 +40,14 @@
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li><a href="index.html">发现音乐<span class="sr-only">(current)</span></a></li>
+                        <li><a href="#">发现音乐<span class="sr-only">(current)</span></a></li>
                         <li><a href="#">我的音乐</a></li>
                         <li @click="backgroundSwitch"><a href="#">改变主题</a></li>
-                        <li class="active"><a href="#">登录</a></li>
+                        <li class="active"><a :href="userNameButtonHref">{{ userName }}</a></li>
                     </ul>
                     <form class="navbar-form navbar-left">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="音乐/视频/电台/用户">
+                            <input type="text" class="form-control" placeholder="音乐/歌单/用户">
                         </div>
                     </form>
                 </div>
@@ -95,15 +95,15 @@
         <br/><br/><br/><br/><br/><br/>
 
         <!-- 页脚 -->
-        <div :class="bgTail" class="navbar-fixed-bottom jumbotron text-center" style="margin: 0;">
+        <div id="tail_vue_object" :class="bgTail" class="navbar-fixed-bottom jumbotron text-center" style="margin: 0;">
             <p>。。。</p>
         </div>
 
     </div>
 
-    <!-- 黑暗模式 -->
-    <script src="../js/gradienBackground.js"></script>
-    
+
+    <script src="../js/generalMethod.js"></script>
+    <script src="../js/loginViewObject.js"></script>
     <!-- 表单验证 -->
     <script type="text/javascript">
         $(document).ready(function() {
