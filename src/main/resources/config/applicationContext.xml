@@ -2,39 +2,34 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans.xsd
                            http://www.springframework.org/schema/context
-                           https://www.springframework.org/schema/context/spring-context.xsd">
-
-
+                           https://www.springframework.org/schema/context/spring-context.xsd http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
 
     <!-- 包扫描 -->
-    <context:component-scan base-package="com.tracejp.yuka.service"/>
+    <context:component-scan base-package="com.tracejp.yuka">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
 
     <!-- 配置数据源 -->
     <context:property-placeholder location="classpath:config/mysql-config.properties"/>
-    <bean class="org.apache.commons.dbcp2.BasicDataSource" id="dataSource">
-        <property name="driverClassName" value="${mysql.driver}"/>
-        <property name="url" value="${mysql.url}"/>
-        <property name="username" value="${mysql.username}"/>
+    <bean class="com.mchange.v2.c3p0.ComboPooledDataSource" id="dataSource">
+        <property name="driverClass" value="${mysql.driver}"/>
+        <property name="jdbcUrl" value="${mysql.url}"/>
+        <property name="user" value="${mysql.username}"/>
         <property name="password" value="${mysql.password}"/>
     </bean>
 
     <!-- 配置mybatis-spring -->
-    <bean class="org.mybatis.spring.SqlSessionFactoryBean">
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="configLocation" value="classpath:config/mybatis-config.xml"/>
         <property name="dataSource" ref="dataSource"/>
     </bean>
-
-<!--    <bean class=""-->
-
-    <!-- 配置将所有mybatis接口的实现类扫描到ioc中 -->
+    <!-- 扫描mybatis所有mapper自动注入 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.tracejp.yuka.dao"/>
     </bean>
-
-
-
 
 </beans>

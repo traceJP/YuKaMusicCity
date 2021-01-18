@@ -14,16 +14,13 @@
     <script src="../../static/vue.js"></script>
 
     <link rel="stylesheet" href="../css/style.css" />
-    
 
 </head>
 
 <body>
-
-    <div id="bg-app" :class="bgMax">
-
+    <div id="background-box">
         <!-- 导航条 -->
-        <nav :class="bgNav" class="navbar bottom-zero">
+        <nav id="nav_vue_object" :class="bgNav" class="navbar bottom-zero">
             <div class="container-fluid navbar-center">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
@@ -43,11 +40,11 @@
                         <li class="active"><a href="#">发现音乐<span class="sr-only">(current)</span></a></li>
                         <li><a href="#">我的音乐</a></li>
                         <li @click="backgroundSwitch"><a href="#">改变主题</a></li>
-                        <li><a href="login.html">登录</a></li>
+                        <li><a :href="userNameButtonHref">{{ userName }}</a></li>
                     </ul>
                     <form class="navbar-form navbar-left">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="音乐/视频/电台/用户">
+                            <input type="text" class="form-control" placeholder="音乐/歌单/用户">
                         </div>
                     </form>
                 </div>
@@ -93,7 +90,7 @@
         </div>
 
         <!-- 歌曲展示 -->
-        <div class="center-block song-box row">
+        <div id="song_vue_object" class="center-block song-box row">
             <h4 class="tab-title-red">
                 <span>
                     <span class="glyphicon glyphicon-chevron-right" style="color:#C10D0C"></span>
@@ -107,7 +104,7 @@
                     <div class="thumbnail">
                         <img src="../image/ge1.jpg">
                         <div class="caption">
-                            <h3>紫罗兰永恒花园</h3>
+                            <h3>{{ hello }}</h3>
                             <p>动漫歌单</p>
                         </div>
                     </div>
@@ -160,8 +157,8 @@
             </div>
         </div>
 
-        <!-- 专辑购买 -->
-        <div class="center-block song-box ">
+        <!-- 专辑展示盒 -->
+        <div id="album_vue_object" class="center-block song-box">
             <h4 class="tab-title-red">
                 <span>
                     <span class="glyphicon glyphicon-chevron-right" style="color:#C10D0C"></span>
@@ -253,7 +250,7 @@
         </div>
 
         <!-- 排行榜 -->
-        <div class="center-block song-box">
+        <div id="rank_vue_object" class="center-block song-box">
 
             <h4 class="tab-title-red">
                 <span>
@@ -290,9 +287,9 @@
                             <span>1</span>
                             <span style="margin: 20px;">努力工作把</span>
                             <a class="hidden-xs" href="#"><span class="glyphicon glyphicon-play-circle"
-                                style="font-size: 20px;"></span></a>
+                                    style="font-size: 20px;"></span></a>
                             <a class="hidden-xs" href="#"><span class="glyphicon glyphicon-heart-empty"
-                                style="font-size: 20px;"></span></a>
+                                    style="font-size: 20px;"></span></a>
                         </td>
                         <td class="">Bangalore</td>
                         <td class="hidden-xs">560001</td>
@@ -314,16 +311,18 @@
         </div>
 
         <!-- 抵消固定页脚 -->
-        <br/><br/><br/><br/><br/><br/>
+        <br /><br /><br /><br /><br /><br />
         <!-- 页脚 -->
-        <div :class="bgTail" class="jumbotron text-center" style="margin: 0;">
+        <div id="tail_vue_object" :class="bgTail" class="jumbotron text-center" style="margin: 0;">
             <p>。。。</p>
         </div>
 
     </div>
 
-    <!-- 黑暗模式 -->
-    <script src="../js/gradienBackground.js"></script>
+    <!-- 通用js -->
+    <script src="../js/generalMethod.js"></script>
+    <!-- index-vue对象 -->
+    <script src="../js/indexViewObject.js"></script>
 
 </body>
 

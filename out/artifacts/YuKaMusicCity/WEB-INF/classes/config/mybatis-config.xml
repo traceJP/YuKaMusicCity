@@ -4,6 +4,9 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
-
+    <!-- 批量注册dao包下的所有接口xml文件-->
+    <mappers>
+        <package name="com.tracejp.yuka.dao"/>
+    </mappers>
 
 </configuration>

@@ -5,9 +5,12 @@
          version="4.0">
 
     <!-- 配置Spring容器 -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:config/spring.xml</param-value>
+        <param-value>classpath:config/applicationContext.xml</param-value>
     </context-param>
 
     <!-- 配置SpringMVC -->
@@ -51,7 +54,6 @@
     <!-- Rest风格过滤器 -->
     <filter>
         <filter-name>hiddenHttpMethodFilter</filter-name>
-
         <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
     </filter>
     <filter-mapping>

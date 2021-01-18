@@ -16,14 +16,13 @@
     <link rel="stylesheet" href="../css/style.css" />
     <script src="../js/homeRespondToRegistration.js"></script>
 
-
 </head>
 
 <body>
 
-    <div id="bg-app" :class="bgMax" style="height: 105%;">
+    <div id="background-box" style="height: 105%;">
         <!-- 导航条 -->
-        <nav :class="bgNav" class="navbar bottom-zero">
+        <nav id="nav_vue_object" :class="bgNav" class="navbar bottom-zero">
             <div class="container-fluid navbar-center">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
@@ -40,14 +39,14 @@
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li><a href="index.html">发现音乐<span class="sr-only">(current)</span></a></li>
-                        <li class="active"><a href="#">我的音乐</a></li>
+                        <li class="active"><a href="#">发现音乐<span class="sr-only">(current)</span></a></li>
+                        <li><a href="#">我的音乐</a></li>
                         <li @click="backgroundSwitch"><a href="#">改变主题</a></li>
-                        <li><a href="login.html">登录</a></li>
+                        <li><a :href="userNameButtonHref">{{ userName }}</a></li>
                     </ul>
                     <form class="navbar-form navbar-left">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="音乐/视频/电台/用户">
+                            <input type="text" class="form-control" placeholder="音乐/歌单/用户">
                         </div>
                     </form>
                 </div>
@@ -56,7 +55,8 @@
 
         <!-- 展示页主体 -->
         <div class="row song-box center-block" style="margin-top: 3%;">
-            <div class="media">
+            <!-- 个人信息 -->
+            <div id="info_vue_object" class="media">
                 <div class="col-xs-12 col-sm-8">
                     <div class="media-left">
                         <img class="media-object img-thumbnail" src="../image/ge5.jpg" alt="..." width="140px">
@@ -86,20 +86,22 @@
                     <a href="#" class="btn btn-default btn-lg" role="button">编辑个人资料</a>
                 </div>
             </div>
+
             <hr />
 
             <!-- 个人等级 -->
-            <h4 class="tab-title-red" style="margin-top: 8%;">
-                <span>
-                    <a tabindex="0" role="button" data-toggle="level" data-trigger="focus" title="关于经验等级制度"
-                        data-content="111">
-                        <span class="glyphicon glyphicon-paperclip"></span>
-                    </a>
-                    <span style="margin-right: 5%;">我的等级</span>
-                    <small>Lv.8</small>
-                </span>
-            </h4>
-            <div>
+            <div id="level_vue_object" style="margin-top: 8%;">
+                <h4 class="tab-title-red">
+                    <span>
+                        <a tabindex="0" role="button" data-toggle="level" data-trigger="focus" title="关于经验等级制度"
+                            data-content="111">
+                            <span class="glyphicon glyphicon-paperclip"></span>
+                        </a>
+                        <span style="margin-right: 5%;">我的等级</span>
+                        <small>Lv.8</small>
+                    </span>
+                </h4>
+            
                 <h4 style="margin-left: 3%;">
                     <span class="glyphicon glyphicon-arrow-right"></span>
                     <span>距离下一级还需要登录123天</span>
@@ -123,19 +125,19 @@
             </div>
 
             <!-- 听歌排行榜 -->
-            <h4 style="margin-top: 8%;">
-                <span>
-                    <a tabindex="0" role="button" data-toggle="rank" data-trigger="focus" title="关于听歌排行榜"
-                        data-content="听歌时间短不会记录">
-                        <span class="glyphicon glyphicon-paperclip"></span>
-                    </a>
-                    <span style="margin-right: 5%;">听歌排行</span>
-                    <small>
-                        <span>累计听歌123首</span>
-                    </small>
-                </span>
-            </h4>
-            <div>
+            <div id="rank_vue_object" style="margin-top: 8%;">
+                <h4>
+                    <span>
+                        <a tabindex="0" role="button" data-toggle="rank" data-trigger="focus" title="关于听歌排行榜"
+                            data-content="听歌时间短不会记录">
+                            <span class="glyphicon glyphicon-paperclip"></span>
+                        </a>
+                        <span style="margin-right: 5%;">听歌排行</span>
+                        <small>
+                            <span>累计听歌123首</span>
+                        </small>
+                    </span>
+                </h4>
                 <table class="table table-hover">
                     <tbody>
                         <tr>
@@ -175,22 +177,24 @@
                     </tbody>
 
                 </table>
-                
+
             </div>
 
         </div>
 
-
-
+        <!-- 抵消固定页脚 -->
+        <br /><br /><br /><br /><br /><br />
         <!-- 页脚 -->
-        <!-- <div class="jumbotron text-center navbar-fixed-bottom" style="margin: 0;">
+        <div id="tail_vue_object" :class="bgTail" class="jumbotron text-center navbar-fixed-bottom" style="margin: 0;">
             <p>。。。</p>
-        </div> -->
+        </div>
+
     </div>
 
 
-    <!-- 黑暗模式 -->
-    <script src="../js/gradienBackground.js"></script>
+    <script src="../js/generalMethod.js"></script>
+    <script src="../js/homeViewObject.js"></script>
+    
 
 </body>
 
