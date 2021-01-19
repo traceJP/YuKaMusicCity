@@ -5,16 +5,16 @@ package com.tracejp.yuka.model.pojo;
  *
  * 前端使用注册服务传递参数的JavaBean
  *********************************/
-public class RegisteredParameterObject {
+public class RegisteredParameterPOJO {
 
     private String userName;
     private String email;
     private String password;
 
-    public RegisteredParameterObject() {
+    public RegisteredParameterPOJO() {
     }
 
-    public RegisteredParameterObject(String userName, String email, String password) {
+    public RegisteredParameterPOJO(String userName, String email, String password) {
         this.userName = userName;
         this.email = email;
         this.password = password;

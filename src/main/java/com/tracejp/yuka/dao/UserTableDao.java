@@ -1,13 +1,12 @@
 package com.tracejp.yuka.dao;
 
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.Map;
 
 /*********************************
  * @author traceJP
  *********************************/
-@Repository
 public interface UserTableDao {
 
     /**
@@ -19,8 +18,23 @@ public interface UserTableDao {
     /**
      * 查询User表中是否有对应的email记录
      * @param email
-     * @return 返回对应的email
+     * @return 存在返回1 不存在返回0
      */
-    String selectUserEmail(String email);
+    int selectHasUserEmail(@Param("email") String email);
+
+    /**
+     * 查询User表中对应的账号密码是否匹配
+     * @param email
+     * @param password
+     * @return 存在返回1 不存在返回0
+     */
+    int selectHasUserEmailAndPassword(@Param("email") String email, @Param("password") String password);
+
+    /**
+     * 通过email获得对应的用户唯一标识uid
+     * @param email 账号
+     * @return uid
+     */
+    String getUidByAccount(String email);
 
 }

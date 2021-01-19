@@ -30,10 +30,9 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.9.5</version>
+            <!-- 2.9.5版本的jackson有高危漏洞，GitHub提示 -->
+            <version>2.11.2</version>
         </dependency>
-
-
 
         <!-- spring-jdbc（事物管理）：未加入 -->
 
@@ -66,7 +65,7 @@
         <dependency>
             <groupId>com.mchange</groupId>
             <artifactId>c3p0</artifactId>
-            <version>0.9.5.2</version>
+            <version>0.9.5.4</version>
         </dependency>
 
 
@@ -84,7 +83,6 @@
             <artifactId>spring-jdbc</artifactId>
             <version>5.0.5.RELEASE</version>
         </dependency>
-
 
         <!-- servlet -->
         <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
