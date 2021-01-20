@@ -15,13 +15,13 @@ import javax.servlet.http.HttpSession;
  * @author traceJP
  *********************************/
 @Controller
+@ResponseBody
 public class UserAdminController {
 
     @Autowired
     private UserAdminService adminService;
 
     @PostMapping("/registered")
-    @ResponseBody
     public String registered(RegisteredParameterPOJO param) {
         return adminService.registered(param);
     }

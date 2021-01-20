@@ -15,11 +15,6 @@ public interface UserAdminService {
     int AUTO_LOGIN_SESSION_TIME = 7 * 3600;
 
     /**
-     * 用户令牌session过期时间（毫秒）
-     */
-    int TOKEN_SESSION_EXPIRED_TIME = 24 * 3600 * 1000;
-
-    /**
      * 用户注册服务
      *
      * @param param 前端参数传递
@@ -41,8 +36,9 @@ public interface UserAdminService {
     /**
      * 密码修改服务
      * @param password 前端传递密码参数
+     * @param uid
      * @return 返回一个响应状态码
      */
-    String updatePassword(String password);
+    String updatePassword(String uid, String password);
 
 }

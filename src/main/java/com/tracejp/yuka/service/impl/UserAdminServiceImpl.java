@@ -65,8 +65,12 @@ public class UserAdminServiceImpl implements UserAdminService {
 
     }
 
-    public String updatePassword(String password) {
-        return null;
+    public String updatePassword(String uid, String password) {
+        if(uid == null || password == null) {
+            return ResponseStatus.FAIL_PARAM_IS_NULL.getStatus();
+        }
+        userDao.updatePassword(uid, password);
+        return ResponseStatus.SUCCESS_200.getStatus();
     }
 
 

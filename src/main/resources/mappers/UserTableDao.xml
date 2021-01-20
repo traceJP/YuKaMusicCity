@@ -22,5 +22,8 @@
         SELECT user_uid FROM `user` WHERE user_name=#{email};
     </select>
 
+    <update id="updatePassword">
+        UPDATE `user` SET gmt_modified=NOW(), user_password=#{newPassword} WHERE user_uid=#{uid};
+    </update>
 
 </mapper>

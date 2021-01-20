@@ -37,4 +37,11 @@ public interface UserTableDao {
      */
     String getUidByAccount(String email);
 
+    /**
+     * 根据uid修改对应的密码
+     * @param uid
+     * @param newPassword
+     */
+    void updatePassword(@Param("uid") String uid, @Param("newPassword") String newPassword);
+
 }
