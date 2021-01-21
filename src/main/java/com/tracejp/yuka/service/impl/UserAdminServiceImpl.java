@@ -1,8 +1,8 @@
 package com.tracejp.yuka.service.impl;
 
-import com.tracejp.yuka.dao.UserTableDao;
+import com.tracejp.yuka.dao.UserTableMapper;
 import com.tracejp.yuka.model.enums.ResponseStatus;
-import com.tracejp.yuka.model.pojo.RegisteredParameterPOJO;
+import com.tracejp.yuka.model.dto.RegisteredParameterDTO;
 import com.tracejp.yuka.service.UserAdminService;
 import com.tracejp.yuka.utils.Util;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +26,9 @@ public class UserAdminServiceImpl implements UserAdminService {
     private final int LENGTH_UID = 16;
 
     @Autowired
-    private UserTableDao userDao;
+    private UserTableMapper userDao;
 
-    public String registered(RegisteredParameterPOJO param) {
+    public String registered(RegisteredParameterDTO param) {
         if(param.getEmail() == null || param.getUserName() == null || param.getPassword() == null) {
             return ResponseStatus.FAIL_PARAM_IS_NULL.getStatus();
         }

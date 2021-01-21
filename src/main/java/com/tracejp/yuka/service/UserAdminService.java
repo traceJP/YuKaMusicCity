@@ -1,6 +1,6 @@
 package com.tracejp.yuka.service;
 
-import com.tracejp.yuka.model.pojo.RegisteredParameterPOJO;
+import com.tracejp.yuka.model.dto.RegisteredParameterDTO;
 
 import javax.servlet.http.HttpSession;
 
@@ -21,7 +21,7 @@ public interface UserAdminService {
      * @return 返回一个响应状态码
      * 200ok  400注册失败  408超时
      */
-    String registered(RegisteredParameterPOJO param);
+    String registered(RegisteredParameterDTO param);
 
     /**
      * 用户登录服务

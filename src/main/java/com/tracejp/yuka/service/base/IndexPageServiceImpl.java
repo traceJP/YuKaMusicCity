@@ -1,10 +1,14 @@
 package com.tracejp.yuka.service.base;
 
+import com.tracejp.yuka.dao.ViewPageMapper;
 import com.tracejp.yuka.model.dao.IndexNewSongMusicDAO;
 import com.tracejp.yuka.model.dao.IndexPopularMusicListDAO;
 import com.tracejp.yuka.model.dao.IndexToDayRankMusicDao;
 import com.tracejp.yuka.service.IndexPageService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /*********************************
  * @author traceJP
@@ -12,26 +16,32 @@ import org.springframework.stereotype.Service;
 @Service
 public class IndexPageServiceImpl implements IndexPageService {
 
+    @Autowired
+    ViewPageMapper viewPage;
+
     public IndexPopularMusicListDAO[] popularRecommendation() {
-
-
-        return new IndexPopularMusicListDAO[0];
+        List<IndexPopularMusicListDAO> list = viewPage.getMusicListBaseInfoToPopular(POPULAR_RETURN_COUNT);
+        return list.toArray(new IndexPopularMusicListDAO[POPULAR_RETURN_COUNT]);
     }
 
     public IndexNewSongMusicDAO[] newSongRecommendation() {
-        return new IndexNewSongMusicDAO[0];
+        List<IndexNewSongMusicDAO> list = viewPage.getMusicBaseInfoToNewSong(NEW_SONG_RETURN_COUNT);
+        return list.toArray(new IndexNewSongMusicDAO[NEW_SONG_RETURN_COUNT]);
     }
 
     public IndexToDayRankMusicDao[] toDayRankOne() {
-        return new IndexToDayRankMusicDao[0];
+        List<IndexToDayRankMusicDao> list = viewPage.getMusicBaseInfoToRankMusic(TODAY_RANK_RETURN_COUNT);
+        return list.toArray(new IndexToDayRankMusicDao[TODAY_RANK_RETURN_COUNT]);
     }
 
     public IndexToDayRankMusicDao[] toDayRankTwo() {
-        return new IndexToDayRankMusicDao[0];
+        List<IndexToDayRankMusicDao> list = viewPage.getMusicBaseInfoToRankMusic(TODAY_RANK_RETURN_COUNT);
+        return list.toArray(new IndexToDayRankMusicDao[TODAY_RANK_RETURN_COUNT]);
     }
 
     public IndexToDayRankMusicDao[] toDayRankThree() {
-        return new IndexToDayRankMusicDao[0];
+        List<IndexToDayRankMusicDao> list = viewPage.getMusicBaseInfoToRankMusic(TODAY_RANK_RETURN_COUNT);
+        return list.toArray(new IndexToDayRankMusicDao[TODAY_RANK_RETURN_COUNT]);
     }
 
 }

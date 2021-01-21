@@ -1,20 +1,20 @@
-package com.tracejp.yuka.model.pojo;
+package com.tracejp.yuka.model.dto;
 
 /*********************************
  * @author traceJP
  *
  * 前端使用注册服务传递参数的JavaBean
  *********************************/
-public class RegisteredParameterPOJO {
+public class RegisteredParameterDTO {
 
     private String userName;
     private String email;
     private String password;
 
-    public RegisteredParameterPOJO() {
+    public RegisteredParameterDTO() {
     }
 
-    public RegisteredParameterPOJO(String userName, String email, String password) {
+    public RegisteredParameterDTO(String userName, String email, String password) {
         this.userName = userName;
         this.email = email;
         this.password = password;

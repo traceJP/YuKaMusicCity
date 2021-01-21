@@ -7,7 +7,7 @@ import java.util.Map;
 /*********************************
  * @author traceJP
  *********************************/
-public interface UserTableDao {
+public interface UserTableMapper {
 
     /**
      * 向User表中添加一条完整的记录

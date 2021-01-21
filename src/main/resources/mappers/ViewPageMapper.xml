@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tracejp.yuka.dao.ViewPageMapper">
+
+    <select id="getMusicListBaseInfoToPopular" resultType="com.tracejp.yuka.model.dao.IndexPopularMusicListDAO">
+        SELECT id, music_list_img_url, music_list_name
+        FROM `music_list`
+        ORDER BY music_list_play_count DESC
+        LIMIT #{resultCount};
+    </select>
+
+    <select id="getMusicBaseInfoToNewSong" resultType="com.tracejp.yuka.model.dao.IndexNewSongMusicDAO">
+        SELECT id, music_img_url, music_name, music_author
+        FROM `music_resources`
+        ORDER BY gmt_create DESC
+        LIMIT #{resultCount};
+    </select>
+
+
+    <select id="getMusicBaseInfoToRankMusic" resultType="com.tracejp.yuka.model.dao.IndexToDayRankMusicDao">
+        SELECT id, music_name
+        FROM `music_resources`
+        ORDER BY RAND()
+        LIMIT #{resultCount};
+    </select>
+
+
+</mapper>

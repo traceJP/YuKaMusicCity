@@ -1,6 +1,6 @@
 package com.tracejp.yuka.controller;
 
-import com.tracejp.yuka.model.pojo.RegisteredParameterPOJO;
+import com.tracejp.yuka.model.dto.RegisteredParameterDTO;
 import com.tracejp.yuka.service.UserAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,7 +22,7 @@ public class UserAdminController {
     private UserAdminService adminService;
 
     @PostMapping("/registered")
-    public String registered(RegisteredParameterPOJO param) {
+    public String registered(RegisteredParameterDTO param) {
         return adminService.registered(param);
     }
 

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @ResponseBody
 public class MasterViewController {
 
-//    @Autowired
+    @Autowired
     private BaseViewDataService viewService;
 
     /**
