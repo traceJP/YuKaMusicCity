@@ -25,7 +25,7 @@
     <select id="getUidByAccount" resultType="String">
         SELECT user_uid
         FROM `user`
-        WHERE user_name=#{email};
+        WHERE user_email=#{email};
     </select>
 
     <update id="updatePassword">

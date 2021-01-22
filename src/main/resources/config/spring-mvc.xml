@@ -16,6 +16,13 @@
 <!--        <property name="suffix" value=".html"/>-->
 <!--    </bean>-->
 
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/indexView"/>
+            <bean class="com.tracejp.yuka.interceptor.UserAttestInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
     <!-- 静态资源请求 -->
     <mvc:default-servlet-handler/>
     <!-- mvc驱动 -->

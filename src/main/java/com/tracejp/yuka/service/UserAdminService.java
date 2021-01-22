@@ -24,14 +24,14 @@ public interface UserAdminService {
     String registered(RegisteredParameterDTO param);
 
     /**
-     * 用户登录服务
+     * 用户登录服务（只适用于login.html页面）
      * @param email
      * @param password
      * @param isAutoLogin
      * @param session
      * @return 200ok 400登录失败
      */
-    String loginAttest(String email, String password, boolean isAutoLogin, HttpSession session);
+    String loginAttest(String email, String password, Boolean isAutoLogin, HttpSession session);
 
     /**
      * 密码修改服务

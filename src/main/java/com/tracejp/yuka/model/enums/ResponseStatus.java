@@ -13,12 +13,14 @@ public enum ResponseStatus {
     FAIL_EMAIL_PARAM_SAME("1003"),
     // 登录失败账号或密码错误
     FAIL_LOGIN_INFO_ERROR("1004"),
+    // 未登录拦截
+    FAIL_LOGIN_INTERCEPT("1005"),
     // 业务响应成功
     SUCCESS_200("200");
 
     private final String value;
 
-    private ResponseStatus(String value) {
+    ResponseStatus(String value) {
         this.value = value;
     }
 

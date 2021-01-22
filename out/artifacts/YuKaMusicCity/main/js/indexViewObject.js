@@ -1,3 +1,4 @@
+
 // 背景状态变量
 var background_status = 'white'
 
@@ -100,7 +101,30 @@ $(document).ready(function(){
         url: "/YuKaMusicCity/indexView",
         type: "GET",
         success: function(data) {
-            alert("发送请求成功")
-        }
+            // 测试渲染：热门推荐歌曲标题
+            vueSong.hello = data.newSongMusic[1].musicName
+
+
+            // TODO: 需要根据后端返回的数据渲染全局页面
+
+        },
+        error: function(res) {
+            // TODO：响应失败需要加载隐藏提示框
+        },
+    })
+})
+
+// 获取已登录的用户信息
+$(document).ready(function(){
+    $.ajax({
+        url: "/YuKaMusicCity/login",
+        type: "GET",
+        success: function(data) {
+            alert(data)
+            
+        },
+        error: function(res) {
+            
+        },
     })
 })

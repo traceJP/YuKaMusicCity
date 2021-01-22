@@ -27,7 +27,7 @@ public class UserAdminController {
     }
 
     @GetMapping("/login")
-    public String loginAttest(String email, String password, boolean isAutoLogin, HttpSession session) {
+    public String loginAttest(String email, String password, Boolean isAutoLogin, HttpSession session) {
         return adminService.loginAttest(email, password, isAutoLogin, session);
     }
 

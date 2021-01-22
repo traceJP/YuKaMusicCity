@@ -47,22 +47,23 @@ public class UserAdminServiceImpl implements UserAdminService {
         return ResponseStatus.SUCCESS_200.getStatus();
     }
 
-    public String loginAttest(String email, String password, boolean isAutoLogin, HttpSession session) {
-        if(email == null || password == null) {
+    public String loginAttest(String email, String password, Boolean isAutoLogin, HttpSession session) {
+        if(email == null || password == null || isAutoLogin == null) {
             return ResponseStatus.FAIL_PARAM_IS_NULL.getStatus();
         }
+        // 邮箱+密码检查
         if(userDao.selectHasUserEmailAndPassword(email, password) == 0) {
             return ResponseStatus.FAIL_LOGIN_INFO_ERROR.getStatus();
         }
-        // 登录成功将user信息放入session域中
+        // 登录成功后将用户信息放入session中
+        String uid = userDao.getUidByAccount(email);
+        session.setAttribute("uid", uid);
+        session.setAttribute("password", password);
+        // 勾选免登录->延长销毁时间
         if(isAutoLogin) {
-            String uid = userDao.getUidByAccount(email);
-            session.setAttribute("uid", uid);
-            session.setAttribute("password", password);
             session.setMaxInactiveInterval(AUTO_LOGIN_SESSION_TIME);
         }
         return ResponseStatus.SUCCESS_200.getStatus();
-
     }
 
     public String updatePassword(String uid, String password) {
