@@ -2,7 +2,7 @@ package com.tracejp.yuka.model.vo;
 
 import com.tracejp.yuka.model.dao.IndexNewSongMusicDAO;
 import com.tracejp.yuka.model.dao.IndexPopularMusicListDAO;
-import com.tracejp.yuka.model.dao.IndexToDayRankMusicDao;
+import com.tracejp.yuka.model.dao.IndexToDayRankMusicDAO;
 
 import java.util.Arrays;
 
@@ -13,18 +13,18 @@ public class IndexVO {
 
     private IndexPopularMusicListDAO[] popularMusicList;
     private IndexNewSongMusicDAO[] newSongMusic;
-    private IndexToDayRankMusicDao[] rankListOneMusic;
-    private IndexToDayRankMusicDao[] rankListTwoMusic;
-    private IndexToDayRankMusicDao[] rankListThreeMusic;
+    private IndexToDayRankMusicDAO[] rankListOneMusic;
+    private IndexToDayRankMusicDAO[] rankListTwoMusic;
+    private IndexToDayRankMusicDAO[] rankListThreeMusic;
 
     public IndexVO() {
     }
 
     public IndexVO(IndexPopularMusicListDAO[] popularMusicList,
                    IndexNewSongMusicDAO[] newSongMusic,
-                   IndexToDayRankMusicDao[] rankListOneMusic,
-                   IndexToDayRankMusicDao[] rankListTwoMusic,
-                   IndexToDayRankMusicDao[] rankListThreeMusic) {
+                   IndexToDayRankMusicDAO[] rankListOneMusic,
+                   IndexToDayRankMusicDAO[] rankListTwoMusic,
+                   IndexToDayRankMusicDAO[] rankListThreeMusic) {
         this.popularMusicList = popularMusicList;
         this.newSongMusic = newSongMusic;
         this.rankListOneMusic = rankListOneMusic;
@@ -48,27 +48,27 @@ public class IndexVO {
         this.newSongMusic = newSongMusic;
     }
 
-    public IndexToDayRankMusicDao[] getRankListOneMusic() {
+    public IndexToDayRankMusicDAO[] getRankListOneMusic() {
         return rankListOneMusic;
     }
 
-    public void setRankListOneMusic(IndexToDayRankMusicDao[] rankListOneMusic) {
+    public void setRankListOneMusic(IndexToDayRankMusicDAO[] rankListOneMusic) {
         this.rankListOneMusic = rankListOneMusic;
     }
 
-    public IndexToDayRankMusicDao[] getRankListTwoMusic() {
+    public IndexToDayRankMusicDAO[] getRankListTwoMusic() {
         return rankListTwoMusic;
     }
 
-    public void setRankListTwoMusic(IndexToDayRankMusicDao[] rankListTwoMusic) {
+    public void setRankListTwoMusic(IndexToDayRankMusicDAO[] rankListTwoMusic) {
         this.rankListTwoMusic = rankListTwoMusic;
     }
 
-    public IndexToDayRankMusicDao[] getRankListThreeMusic() {
+    public IndexToDayRankMusicDAO[] getRankListThreeMusic() {
         return rankListThreeMusic;
     }
 
-    public void setRankListThreeMusic(IndexToDayRankMusicDao[] rankListThreeMusic) {
+    public void setRankListThreeMusic(IndexToDayRankMusicDAO[] rankListThreeMusic) {
         this.rankListThreeMusic = rankListThreeMusic;
     }
 

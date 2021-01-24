@@ -2,7 +2,7 @@ package com.tracejp.yuka.service;
 
 import com.tracejp.yuka.model.dao.IndexNewSongMusicDAO;
 import com.tracejp.yuka.model.dao.IndexPopularMusicListDAO;
-import com.tracejp.yuka.model.dao.IndexToDayRankMusicDao;
+import com.tracejp.yuka.model.dao.IndexToDayRankMusicDAO;
 
 /*********************************
  * @author traceJP
@@ -41,18 +41,18 @@ public interface IndexPageService {
      * index页面每日排行榜-从左往右第1个榜单Service
      * @return 构建记录
      */
-    IndexToDayRankMusicDao[] toDayRankOne();
+    IndexToDayRankMusicDAO[] toDayRankOne();
 
     /**
      * index页面每日排行榜-从左往右第2个榜单Service
      * @return 构建记录
      */
-    IndexToDayRankMusicDao[] toDayRankTwo();
+    IndexToDayRankMusicDAO[] toDayRankTwo();
 
     /**
      * index页面每日排行榜-从左往右第3个榜单Service
      * @return 构建记录
      */
-    IndexToDayRankMusicDao[] toDayRankThree();
+    IndexToDayRankMusicDAO[] toDayRankThree();
 
 }

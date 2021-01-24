@@ -3,15 +3,15 @@ package com.tracejp.yuka.model.dao;
 /*********************************
  * @author traceJP
  *********************************/
-public class IndexToDayRankMusicDao {
+public class IndexToDayRankMusicDAO {
 
     private Integer id;
     private String musicName;
 
-    public IndexToDayRankMusicDao() {
+    public IndexToDayRankMusicDAO() {
     }
 
-    public IndexToDayRankMusicDao(Integer id, String musicName) {
+    public IndexToDayRankMusicDAO(Integer id, String musicName) {
         this.id = id;
         this.musicName = musicName;
     }
@@ -34,7 +34,7 @@ public class IndexToDayRankMusicDao {
 
     @Override
     public String toString() {
-        return "IndexToDayRankMusicDao{" +
+        return "IndexToDayRankMusicDAO{" +
                 "id=" + id +
                 ", musicName='" + musicName + '\'' +
                 '}';

@@ -15,7 +15,7 @@ public class UserAttestInterceptor implements HandlerInterceptor {
     /**
      * 自动登录
      * 用于一切与用户资源请求的拦截
-     * 主要验证session中是否存在用户信息
+     * 主要验证session中是否存在用户id
      * 存在 -> 通过
      * 不存在 -> 直接响应状态码 FAIL_LOGIN_INTERCEPT
      * @param request
@@ -27,8 +27,8 @@ public class UserAttestInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession();
         String sessionUid = (String) session.getAttribute("uid");
-        String sessionPassword = (String) session.getAttribute("password");
-        if(sessionUid == null || sessionPassword == null) {
+        if(sessionUid == null) {
+            // 未登录过的页面请求全部直接响应状态码1005
             response.getWriter().write(ResponseStatus.FAIL_LOGIN_INTERCEPT.getStatus());
         }
         return true;

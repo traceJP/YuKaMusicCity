@@ -16,9 +16,10 @@
 <!--        <property name="suffix" value=".html"/>-->
 <!--    </bean>-->
 
+    <!-- 登录服务拦截session验证 -->
     <mvc:interceptors>
         <mvc:interceptor>
-            <mvc:mapping path="/indexView"/>
+            <mvc:mapping path="/user/*"/>
             <bean class="com.tracejp.yuka.interceptor.UserAttestInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>

@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.tracejp.yuka.dao.ViewPageMapper">
+<mapper namespace="com.tracejp.yuka.dao.IndexViewPageMapper">
 
     <select id="getMusicListBaseInfoToPopular" resultType="com.tracejp.yuka.model.dao.IndexPopularMusicListDAO">
         SELECT id, music_list_img_url, music_list_name
@@ -20,7 +20,7 @@
     </select>
 
 
-    <select id="getMusicBaseInfoToRankMusic" resultType="com.tracejp.yuka.model.dao.IndexToDayRankMusicDao">
+    <select id="getMusicBaseInfoToRankMusic" resultType="com.tracejp.yuka.model.dao.IndexToDayRankMusicDAO">
         SELECT id, music_name
         FROM `music_resources`
         ORDER BY RAND()

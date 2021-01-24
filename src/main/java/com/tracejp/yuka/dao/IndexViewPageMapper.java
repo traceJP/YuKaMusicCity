@@ -2,7 +2,7 @@ package com.tracejp.yuka.dao;
 
 import com.tracejp.yuka.model.dao.IndexNewSongMusicDAO;
 import com.tracejp.yuka.model.dao.IndexPopularMusicListDAO;
-import com.tracejp.yuka.model.dao.IndexToDayRankMusicDao;
+import com.tracejp.yuka.model.dao.IndexToDayRankMusicDAO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -10,7 +10,8 @@ import java.util.List;
 /*********************************
  * @author traceJP
  *********************************/
-public interface ViewPageMapper {
+// TODO: 2021/1/23 需要重构 dao层接口改名以对应service层中base包中的类
+public interface IndexViewPageMapper {
 
     /**
      * 向music_list表中查询以歌单播放数为升序的记录
@@ -31,7 +32,7 @@ public interface ViewPageMapper {
      * @param resultCount 返回记录个数
      * @return
      */
-    List<IndexToDayRankMusicDao> getMusicBaseInfoToRankMusic(@Param("resultCount") Integer resultCount);
+    List<IndexToDayRankMusicDAO> getMusicBaseInfoToRankMusic(@Param("resultCount") Integer resultCount);
 
 
 }

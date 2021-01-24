@@ -44,4 +44,10 @@ public interface UserTableMapper {
      */
     void updatePassword(@Param("uid") String uid, @Param("newPassword") String newPassword);
 
+    /**
+     * 通过uid获取用户昵称
+     * @param uid
+     */
+    void selectUserName(@Param("uid") String uid);
+
 }

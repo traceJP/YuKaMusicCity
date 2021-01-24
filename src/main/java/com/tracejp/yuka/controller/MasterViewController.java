@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
+
 /*********************************
  * @author traceJP
  * 工程下所有视图的请求接收层
@@ -20,22 +22,17 @@ public class MasterViewController {
     @Autowired
     private BaseViewDataService viewService;
 
+    @GetMapping("/user/userName")
+    public String getUserName(HttpSession session) {
+        return viewService.getUserName(session);
+    }
+
     /**
      * index.html页面全局返回视图
      */
     @GetMapping("/indexView")
     public IndexVO indexViewDateModelShow() {
         return viewService.builderIndexData();
-    }
-
-    @GetMapping("/homeView")
-    public void homeViewDateModelShow() {
-
-    }
-
-    @GetMapping("/myMusicView")
-    public void myMusicViewDateModelShow() {
-
     }
 
     @GetMapping("/playlistView")
@@ -48,7 +45,17 @@ public class MasterViewController {
 
     }
 
-    @GetMapping("/updateView")
+    @GetMapping("/user/homeView")
+    public void homeViewDateModelShow() {
+
+    }
+
+    @GetMapping("/user/myMusicView")
+    public void myMusicViewDateModelShow() {
+
+    }
+
+    @GetMapping("/user/updateView")
     public void updateViewDateModelShow() {
 
     }

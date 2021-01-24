@@ -55,10 +55,9 @@ public class UserAdminServiceImpl implements UserAdminService {
         if(userDao.selectHasUserEmailAndPassword(email, password) == 0) {
             return ResponseStatus.FAIL_LOGIN_INFO_ERROR.getStatus();
         }
-        // 登录成功后将用户信息放入session中
+        // 登录成功后将用户uid放入session中
         String uid = userDao.getUidByAccount(email);
         session.setAttribute("uid", uid);
-        session.setAttribute("password", password);
         // 勾选免登录->延长销毁时间
         if(isAutoLogin) {
             session.setMaxInactiveInterval(AUTO_LOGIN_SESSION_TIME);
@@ -73,6 +72,8 @@ public class UserAdminServiceImpl implements UserAdminService {
         userDao.updatePassword(uid, password);
         return ResponseStatus.SUCCESS_200.getStatus();
     }
+
+
 
 
 }

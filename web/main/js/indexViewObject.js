@@ -117,11 +117,16 @@ $(document).ready(function(){
 // 获取已登录的用户信息
 $(document).ready(function(){
     $.ajax({
-        url: "/YuKaMusicCity/login",
+        url: "/YuKaMusicCity/user/userName",
         type: "GET",
         success: function(data) {
-            alert(data)
-            
+            if(data === 1005) {
+                // 无登录信息，不做任何变化
+            } else {
+                // 渲染登录信息到导航条
+                vueNav.userName = data
+                vueNav.userNameButtonHref = ''
+            }
         },
         error: function(res) {
             
