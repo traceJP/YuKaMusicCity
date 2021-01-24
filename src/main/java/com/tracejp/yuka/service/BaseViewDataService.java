@@ -1,5 +1,6 @@
 package com.tracejp.yuka.service;
 
+import com.tracejp.yuka.model.vo.HomeVO;
 import com.tracejp.yuka.model.vo.IndexVO;
 
 import javax.servlet.http.HttpSession;
@@ -18,13 +19,19 @@ public interface BaseViewDataService {
 
     /**
      * 构建index页面的基本返回数据
-     * @return vo视图数据
+     * @return IndexVO
      */
     IndexVO builderIndexData();
 
+    /**
+     * 构建home页面的基本返回数据
+     * @return HomeVO
+     */
+    HomeVO builderHomeData(String uid);
+
     // TODO: 2021/1/20 根据各个页面所需情况的总构建逻辑返回 根据各个页面的需求制作对应的service对象。
 
-//    void builderHomeData();
+
 
 
 

@@ -1,10 +1,11 @@
 package com.tracejp.yuka.service.impl;
 
 import com.tracejp.yuka.dao.UserTableMapper;
+import com.tracejp.yuka.model.vo.HomeVO;
 import com.tracejp.yuka.model.vo.IndexVO;
 import com.tracejp.yuka.service.BaseViewDataService;
-import com.tracejp.yuka.service.HomePageService;
-import com.tracejp.yuka.service.IndexPageService;
+import com.tracejp.yuka.service.HomePageBuilder;
+import com.tracejp.yuka.service.IndexPageBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,10 +18,10 @@ import javax.servlet.http.HttpSession;
 public class BaseViewDataServiceImpl implements BaseViewDataService {
 
     @Autowired
-    private IndexPageService indexService;
+    private IndexPageBuilder indexService;
 
     @Autowired
-    private HomePageService homeService;
+    private HomePageBuilder homeService;
 
     @Autowired
     private UserTableMapper userDao;
@@ -31,13 +32,14 @@ public class BaseViewDataServiceImpl implements BaseViewDataService {
         return uid;
     }
 
-    // TODO: 2021/1/24 在建造者模式下 service层应该调用指挥类，而不是直接调用各方法
     public IndexVO builderIndexData() {
-        return new IndexVO(indexService.popularRecommendation(),
-                indexService.newSongRecommendation(),
-                indexService.toDayRankOne(),
-                indexService.toDayRankTwo(),
-                indexService.toDayRankThree()
-        );
+        return indexService.createIndexVO();
     }
+
+    public HomeVO builderHomeData(String uid) {
+        return homeService.createHomeVO(uid);
+    }
+
+
+
 }

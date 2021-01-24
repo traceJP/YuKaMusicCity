@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="yuka_music@localhost" uuid="1d7e8523-3e15-4392-ac1c-7f4f6af5c8dd">
+    <data-source source="LOCAL" name="MySQL - yuka_music@localhost" uuid="1d7e8523-3e15-4392-ac1c-7f4f6af5c8dd">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/yuka_music</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/yuka_music?serverTimezone=GMT%2B8</jdbc-url>
     </data-source>
   </component>
 </project>

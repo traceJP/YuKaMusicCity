@@ -5,6 +5,7 @@ import com.tracejp.yuka.service.BaseViewDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
@@ -46,8 +47,8 @@ public class MasterViewController {
     }
 
     @GetMapping("/user/homeView")
-    public void homeViewDateModelShow() {
-
+    public void homeViewDateModelShow(@RequestParam(value = "uid") String uid) {
+        viewService.builderHomeData(uid);
     }
 
     @GetMapping("/user/myMusicView")

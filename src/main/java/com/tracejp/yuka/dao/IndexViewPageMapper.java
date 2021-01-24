@@ -10,7 +10,6 @@ import java.util.List;
 /*********************************
  * @author traceJP
  *********************************/
-// TODO: 2021/1/23 需要重构 dao层接口改名以对应service层中base包中的类
 public interface IndexViewPageMapper {
 
     /**

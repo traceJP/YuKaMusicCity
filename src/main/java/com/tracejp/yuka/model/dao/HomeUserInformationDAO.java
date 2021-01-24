@@ -5,7 +5,7 @@ import java.sql.Date;
 /*********************************
  * @author traceJP
  *********************************/
-public class HomeUserMaterialDAO {
+public class HomeUserInformationDAO {
 
     private Integer userId;
     private String userAvatarImgUrl;
@@ -14,10 +14,10 @@ public class HomeUserMaterialDAO {
     private String userSex;
     private Date userBirthday;
 
-    public HomeUserMaterialDAO() {
+    public HomeUserInformationDAO() {
     }
 
-    public HomeUserMaterialDAO(Integer userId, String userAvatarImgUrl, String userName, String userArea, String userSex, Date userBirthday) {
+    public HomeUserInformationDAO(Integer userId, String userAvatarImgUrl, String userName, String userArea, String userSex, Date userBirthday) {
         this.userId = userId;
         this.userAvatarImgUrl = userAvatarImgUrl;
         this.userName = userName;
@@ -76,7 +76,7 @@ public class HomeUserMaterialDAO {
 
     @Override
     public String toString() {
-        return "HomeUserMaterialDAO{" +
+        return "HomeUserInformationDAO{" +
                 "userId='" + userId + '\'' +
                 ", userAvatarImgUrl='" + userAvatarImgUrl + '\'' +
                 ", userName='" + userName + '\'' +
