@@ -30,10 +30,10 @@ public class UserAttestInterceptor implements HandlerInterceptor {
         if(sessionUid == null) {
             // 未登录过的页面请求全部直接响应状态码1005
             response.getWriter().write(ResponseStatus.FAIL_LOGIN_INTERCEPT.getStatus());
-        } else {
-            // 已登录则直接将uid放入request域中
-            request.setAttribute("uid", sessionUid);
         }
+        // 已登录则直接将uid放入request域中
+        request.setAttribute("uid", sessionUid);
+        // TODO: 2021/1/27 需要使登录天数+1
         return true;
     }
 

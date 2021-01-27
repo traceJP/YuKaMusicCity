@@ -11,12 +11,19 @@
         WHERE user_id=#{uid};
     </select>
 
+    <select id="selectUserLevel" resultType="com.tracejp.yuka.model.dao.HomeUserLevelDAO">
+        SELECT level_number, user_login_days, user_song_number
+        FROM `user_level`
+        WHERE user_id=#{uid}
+    </select>
+
     <select id="selectUserSongsRank" resultType="com.tracejp.yuka.model.dao.HomeListenToSongsDAO">
         SELECT music_resources.id, music_name, music_author, broadcast_number_times, COUNT(broadcast_number_times)
         FROM `music_resources`, `user_song_leaderboard`
         WHERE `music_resources`.id = `user_song_leaderboard`.music_id
         AND user_id=#{uid}
-
+        ORDER BY broadcast_number_times DESC
+        LIMIT #{resultCount}
     </select>
 
 

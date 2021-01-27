@@ -1,7 +1,10 @@
 package com.tracejp.yuka.model.vo;
 
+import com.tracejp.yuka.model.bo.HomeListenToSongsBO;
 import com.tracejp.yuka.model.bo.HomeUserInfomationBO;
 import com.tracejp.yuka.model.bo.HomeUserLevelBO;
+
+import java.util.Arrays;
 
 /*********************************
  * @author traceJP
@@ -10,12 +13,12 @@ public class HomeVO {
 
     HomeUserInfomationBO userInfomation;
     HomeUserLevelBO userLevel;
-    HomeListenToSongsRankBO songRank;
+    HomeListenToSongsBO[] songRank;
 
     public HomeVO() {
     }
 
-    public HomeVO(HomeUserInfomationBO userInfomation, HomeUserLevelBO userLevel, HomeListenToSongsRankBO songRank) {
+    public HomeVO(HomeUserInfomationBO userInfomation, HomeUserLevelBO userLevel, HomeListenToSongsBO[] songRank) {
         this.userInfomation = userInfomation;
         this.userLevel = userLevel;
         this.songRank = songRank;
@@ -37,11 +40,11 @@ public class HomeVO {
         this.userLevel = userLevel;
     }
 
-    public HomeListenToSongsRankBO getSongRank() {
+    public HomeListenToSongsBO[] getSongRank() {
         return songRank;
     }
 
-    public void setSongRank(HomeListenToSongsRankBO songRank) {
+    public void setSongRank(HomeListenToSongsBO[] songRank) {
         this.songRank = songRank;
     }
 
@@ -50,7 +53,7 @@ public class HomeVO {
         return "HomeVO{" +
                 "userInfomation=" + userInfomation +
                 ", userLevel=" + userLevel +
-                ", songRank=" + songRank +
+                ", songRank=" + Arrays.toString(songRank) +
                 '}';
     }
 

@@ -28,8 +28,7 @@ public class BaseViewDataServiceImpl implements BaseViewDataService {
 
     public String getUserName(HttpSession session) {
         String uid = (String) session.getAttribute("uid");
-        userDao.selectUserName(uid);
-        return uid;
+        return userDao.selectUserName(uid);
     }
 
     public IndexVO builderIndexData() {

@@ -4,23 +4,22 @@ import com.tracejp.yuka.model.dao.HomeUserLevelDAO;
 
 /*********************************
  * @author traceJP
- * 此BO中有DAO，完善传回业务，构造需要传入HomeUserLevelDAO对象，或使用set注入
  *********************************/
 public class HomeUserLevelBO {
-
-    // 登录天数进度条百分比-用精度表示
 
     private Float loginDaysPercentage;
     private Float listenToSongPercentage;
     private HomeUserLevelDAO homeUserLevelDAO;
+    private Integer songCountByUser;
 
     public HomeUserLevelBO() {
     }
 
-    public HomeUserLevelBO(Float loginDaysPercentage, Float listenToSongPercentage, HomeUserLevelDAO homeUserLevelDAO) {
+    public HomeUserLevelBO(Float loginDaysPercentage, Float listenToSongPercentage, HomeUserLevelDAO homeUserLevelDAO, Integer songCountByUser) {
         this.loginDaysPercentage = loginDaysPercentage;
         this.listenToSongPercentage = listenToSongPercentage;
         this.homeUserLevelDAO = homeUserLevelDAO;
+        this.songCountByUser = songCountByUser;
     }
 
     public Float getLoginDaysPercentage() {
@@ -47,12 +46,21 @@ public class HomeUserLevelBO {
         this.homeUserLevelDAO = homeUserLevelDAO;
     }
 
+    public Integer getSongCountByUser() {
+        return songCountByUser;
+    }
+
+    public void setSongCountByUser(Integer songCountByUser) {
+        this.songCountByUser = songCountByUser;
+    }
+
     @Override
     public String toString() {
         return "HomeUserLevelBO{" +
                 "loginDaysPercentage=" + loginDaysPercentage +
                 ", listenToSongPercentage=" + listenToSongPercentage +
                 ", homeUserLevelDAO=" + homeUserLevelDAO +
+                ", songCountByUser=" + songCountByUser +
                 '}';
     }
 

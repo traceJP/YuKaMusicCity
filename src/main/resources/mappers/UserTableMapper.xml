@@ -34,4 +34,22 @@
         WHERE user_uid=#{uid};
     </update>
 
+    <select id="selectUserName" resultType="java.lang.String">
+        SELECT user_name
+        FROM `user_info`
+        WHERE user_id=#{uid};
+    </select>
+
+    <select id="selectUserLastLoginTime" resultType="java.util.Date">
+        SELECT user_last_login_time
+        FROM user
+        WHERE user_uid=#{uid};
+    </select>
+
+    <update id="updateUserLastLoginTime">
+        UPDATE `user`
+        SET user_last_login_time=NOW(), gmt_modified=NOW()
+        WHERE user_uid=#{uid};
+    </update>
+
 </mapper>

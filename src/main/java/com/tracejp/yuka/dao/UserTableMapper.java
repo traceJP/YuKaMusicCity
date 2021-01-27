@@ -2,6 +2,7 @@ package com.tracejp.yuka.dao;
 
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.Map;
 
 /*********************************
@@ -48,6 +49,19 @@ public interface UserTableMapper {
      * 通过uid获取用户昵称
      * @param uid
      */
-    void selectUserName(@Param("uid") String uid);
+    String selectUserName(@Param("uid") String uid);
+
+    /**
+     * 查询用户最后登录时间
+     * @param uid uid
+     * @return 登录时间YYYY-MM-DD HH:MM:SS
+     */
+    Date selectUserLastLoginTime(@Param("uid") String uid);
+
+    /**
+     * 修改用户最后登录时间为当前时间
+     * @param uid uid
+     */
+    void updateUserLastLoginTime(@Param("uid") String uid);
 
 }
