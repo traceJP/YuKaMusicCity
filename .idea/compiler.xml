@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="YuKaMusicCity" target="1.5" />
+      <module name="YuKaMusicCity" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>

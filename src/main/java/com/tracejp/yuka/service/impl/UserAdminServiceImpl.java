@@ -9,7 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,6 +32,7 @@ public class UserAdminServiceImpl implements UserAdminService {
     @Autowired
     private UserTableMapper userDao;
 
+    @Override
     public String registered(RegisteredParameterDTO param) {
         if(param.getEmail() == null || param.getUserName() == null || param.getPassword() == null) {
             return ResponseStatus.FAIL_PARAM_IS_NULL.getStatus();
@@ -47,6 +52,7 @@ public class UserAdminServiceImpl implements UserAdminService {
         return ResponseStatus.SUCCESS_200.getStatus();
     }
 
+    @Override
     public String loginAttest(String email, String password, Boolean isAutoLogin, HttpSession session) {
         if(email == null || password == null || isAutoLogin == null) {
             return ResponseStatus.FAIL_PARAM_IS_NULL.getStatus();
@@ -65,6 +71,7 @@ public class UserAdminServiceImpl implements UserAdminService {
         return ResponseStatus.SUCCESS_200.getStatus();
     }
 
+    @Override
     public String updatePassword(String uid, String password) {
         if(uid == null || password == null) {
             return ResponseStatus.FAIL_PARAM_IS_NULL.getStatus();
@@ -73,7 +80,31 @@ public class UserAdminServiceImpl implements UserAdminService {
         return ResponseStatus.SUCCESS_200.getStatus();
     }
 
+    @Override
+    public boolean isTodayFirstLogin(String uid) {
+        Date lastLoginTime = userDao.selectUserLastLoginTime(uid);
+        Date currentTime = new Date();
+        DateFormat dfm = DateFormat.getDateInstance();
+        if(dfm.format(currentTime).equals(dfm.format(lastLoginTime))) {
+            return false;
+        }
+        return true;
+    }
 
+    @Override
+    public HttpServletResponse setFirstLoginCache(HttpServletResponse resp) {
+        Cookie firstCache = new Cookie("firstCache", "true");
+        // 当天晚上23:59:59减去当前时间，即为cache的存活时间
+        long overTime = Util.getOneDayEndTime();
+        long cut = System.currentTimeMillis();
+        int cookieTime = Math.toIntExact(overTime - cut);
+        firstCache.setMaxAge(cookieTime);
+        return resp;
+    }
 
+    @Override
+    public void replaceLoginTime(String uid) {
+        userDao.updateUserLastLoginTime(uid);
+    }
 
 }

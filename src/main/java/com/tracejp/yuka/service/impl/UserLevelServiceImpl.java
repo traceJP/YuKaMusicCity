@@ -27,29 +27,35 @@ public class UserLevelServiceImpl implements UserLevelService {
     @Autowired
     private UserLevelMapper levelDao;
 
+    @Override
     public void addLoginDays(String uid) {
         levelDao.updateLoginDaysPlusOne(uid);
     }
 
+    @Override
     public void addSongNumber(String uid) {
         levelDao.updateSongNumberPlusOne(uid);
     }
 
+    @Override
     public int overLoginConverter(int level, int loginNumber) {
         int total = readProperties(level, LOGIN_METHOD);
         return total - loginNumber;
     }
 
+    @Override
     public int overSongNumberConverter(int level, int songNumber) {
         int total = readProperties(level, SONG_METHOD);
         return total - songNumber;
     }
 
+    @Override
     public float percentageLoginConverter(int level, int loginNumber) {
         float total = readProperties(level, LOGIN_METHOD) - readProperties(level - 1, LOGIN_METHOD);
         return (float)loginNumber / total;
     }
 
+    @Override
     public float percentageSongNumberConverter(int level, int songNumber) {
         float total = readProperties(level, SONG_METHOD) - readProperties(level - 1, SONG_METHOD);
         return (float)songNumber / total;

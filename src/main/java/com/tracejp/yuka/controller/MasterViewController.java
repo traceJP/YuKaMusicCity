@@ -1,6 +1,7 @@
 package com.tracejp.yuka.controller;
 
 import com.tracejp.yuka.model.vo.IndexVO;
+import com.tracejp.yuka.model.vo.UpdateVO;
 import com.tracejp.yuka.service.BaseViewDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,9 +29,6 @@ public class MasterViewController {
         return viewService.getUserName(session);
     }
 
-    /**
-     * index.html页面全局返回视图
-     */
     @GetMapping("/indexView")
     public IndexVO indexViewDateModelShow() {
         return viewService.builderIndexData();
@@ -47,7 +45,7 @@ public class MasterViewController {
     }
 
     @GetMapping("/user/homeView")
-    public void homeViewDateModelShow(@RequestParam(value = "uid") String uid) {
+    public void homeViewDateModelShow(@RequestParam("uid") String uid) {
         viewService.builderHomeData(uid);
     }
 
@@ -57,12 +55,8 @@ public class MasterViewController {
     }
 
     @GetMapping("/user/updateView")
-    public void updateViewDateModelShow() {
-
+    public UpdateVO updateViewDateModelShow(@RequestParam("uid") String uid) {
+        return viewService.builderUpdateData(uid);
     }
-
-
-
-
 
 }

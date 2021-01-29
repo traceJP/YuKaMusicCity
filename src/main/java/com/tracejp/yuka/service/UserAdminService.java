@@ -1,7 +1,10 @@
 package com.tracejp.yuka.service;
 
+import com.sun.deploy.net.HttpResponse;
 import com.tracejp.yuka.model.dto.RegisteredParameterDTO;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /*********************************
@@ -41,7 +44,23 @@ public interface UserAdminService {
      */
     String updatePassword(String uid, String password);
 
+    /**
+     * 判断是否当天第一次登录
+     * @param uid uid
+     * @return 当天未登录则返回true
+     */
+    boolean isTodayFirstLogin(String uid);
 
+    /**
+     * 设置当天首次登录的缓存
+     * @param resp resp
+     */
+    HttpServletResponse setFirstLoginCache(HttpServletResponse resp);
 
+    /**
+     * 更新用户的最后登录时间
+     * @param uid uid
+     */
+    void replaceLoginTime(String uid);
 
 }

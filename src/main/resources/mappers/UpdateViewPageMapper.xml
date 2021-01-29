@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tracejp.yuka.dao.UpdateViewPageMapper">
+
+    <select id="selectUserInfo" resultType="com.tracejp.yuka.model.dao.UpdateBasicInformationDAO">
+        SELECT user_name, user_sex, user_birthday, user_avatar_img_url, user_introduction, user_area
+        FROM `user_info`
+        WHERE user_id=#{uid};
+    </select>
+
+    <select id="selectUserPrivacy" resultType="com.tracejp.yuka.model.dao.UpdateUserPrivacyDAO">
+        SELECT user_uid, user_email
+        FROM `user`
+        WHERE user_uid=#{uid};
+    </select>
+
+</mapper>

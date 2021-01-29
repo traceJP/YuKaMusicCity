@@ -24,7 +24,19 @@
     <!-- 配置mybatis-spring -->
      <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="configLocation" value="classpath:config/mybatis-config.xml"/>
-        <property name="mapperLocations" value="classpath:mappers/*.xml"/>
+        <!-- todo: bug 2021/1/29
+                映射文件配置地址出现问题，导致依赖关系错误，服务器部署失败
+                具体为：映射时通配符失效，导致指定多个配置文件时无效。但只指定一个配置文件的时候有效
+         -->
+        <property name="mapperLocations">
+            <array>
+                <value>classpath:mappers/HomeViewPageMapper.xml</value>
+                <value>classpath:mappers/IndexViewPageMapper.xml</value>
+                <value>classpath:mappers/UpdateViewPageMapper.xml</value>
+                <value>classpath:mappers/UserLevelMapper.xml</value>
+                <value>classpath:mappers/UserTableMapper.xml</value>
+            </array>
+        </property>
         <property name="dataSource" ref="dataSource"/>
     </bean>
     <!-- 扫描mybatis所有mapper自动注入 -->

@@ -1,5 +1,10 @@
 package com.tracejp.yuka.utils;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.Random;
 
 /*********************************
@@ -21,6 +26,18 @@ public class Util {
             sb.append(base.charAt(number));
         }
         return sb.toString();
+    }
+
+    /**
+     * 获取一天内的最大时间戳，即当天的23:59:59
+     * @return 时间戳
+     */
+    public static long getOneDayEndTime() {
+        Date date = new Date();
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(date.getTime()), ZoneId.systemDefault());
+        LocalDateTime endOfDay = localDateTime.with(LocalTime.MAX);
+        Date overTime = Date.from(endOfDay.atZone(ZoneId.systemDefault()).toInstant());
+        return overTime.getTime();
     }
 
 
