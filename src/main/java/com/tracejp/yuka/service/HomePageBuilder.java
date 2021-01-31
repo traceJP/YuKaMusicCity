@@ -24,25 +24,19 @@ public abstract class HomePageBuilder {
      * home页面 个人资料Service
      * @return HomeUserInfomationBO
      */
-    protected HomeUserInfomationBO personalInformation() {
-        return null;
-    }
+    protected abstract HomeUserInfomationBO personalInformation();
 
     /**
      * home页面 我的等级Service
      * @return HomeUserLevelBO
      */
-    protected HomeUserLevelBO myGrade() {
-        return null;
-    }
+    protected abstract HomeUserLevelBO myGrade();
 
     /**
      * home页面 听歌排行榜Service
      * @return HomeListenToSongsRankBO
      */
-    protected HomeListenToSongsBO[]   listenToSongsRank() {
-        return null;
-    }
+    protected abstract HomeListenToSongsBO[] listenToSongsRank();
 
     /**
      * 构建home页面需要的所有数据

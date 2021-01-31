@@ -18,17 +18,13 @@ public abstract class UpdatePageBuilder {
      * update页面个人信息Service
      * 如头像性别等
      */
-    protected UpdateBasicInformationDAO basicInformation() {
-        return null;
-    }
+    protected abstract UpdateBasicInformationDAO basicInformation();
 
     /**
      * update页面个人隐私信息Service
      * 如邮箱，个人标识等
      */
-    protected UpdateUserPrivacyDAO selfIntroduction() {
-        return null;
-    }
+    protected abstract UpdateUserPrivacyDAO selfIntroduction();
 
     /**
      * 构建update页面所有返回的数据

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tracejp.yuka.dao.CommentMapper">
+
+    <select id="selectCommentCount" resultType="java.lang.Integer">
+        SELECT COUNT(id)
+        FROM music_comment
+        WHERE `music_id`=#{id}
+        AND `comment_id_type`=#{type};
+    </select>
+
+    <select id="selectCommentElement" resultType="com.tracejp.yuka.model.dao.MusicCommentDAO">
+        SELECT
+               music_comment.user_id, user_avatar_img_url, user_name,
+               comment_text, comment_datetime, comment_awesome, comment_oppose
+        FROM music_comment, user_info
+        WHERE music_comment.user_id=user_info.user_id
+        AND music_id=#{id}
+        AND comment_id_type=#{type}
+        LIMIT #{begin}, #{resultCount};
+    </select>
+
+</mapper>

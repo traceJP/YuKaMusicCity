@@ -30,41 +30,31 @@ public abstract class IndexPageBuilder {
      * index页面热门推荐Service
      * @return 构建记录
      */
-    protected IndexPopularMusicListDAO[] popularRecommendation() {
-        return null;
-    }
+    protected abstract IndexPopularMusicListDAO[] popularRecommendation();
 
     /**
      * index页面新歌上架Service
      * @return 构建记录
      */
-    protected IndexNewSongMusicDAO[] newSongRecommendation() {
-        return null;
-    }
+    protected abstract IndexNewSongMusicDAO[] newSongRecommendation();
 
     /**
      * index页面每日排行榜-从左往右第1个榜单Service
      * @return 构建记录
      */
-    protected IndexToDayRankMusicDAO[] toDayRankOne() {
-        return null;
-    }
+    protected abstract IndexToDayRankMusicDAO[] toDayRankOne();
 
     /**
      * index页面每日排行榜-从左往右第2个榜单Service
      * @return 构建记录
      */
-    protected IndexToDayRankMusicDAO[] toDayRankTwo() {
-        return null;
-    }
+    protected abstract IndexToDayRankMusicDAO[] toDayRankTwo();
 
     /**
      * index页面每日排行榜-从左往右第3个榜单Service
      * @return 构建记录
      */
-    protected IndexToDayRankMusicDAO[] toDayRankThree() {
-        return null;
-    }
+    protected abstract IndexToDayRankMusicDAO[] toDayRankThree();
 
     /**
      * 构建index页面所需要的所有数据

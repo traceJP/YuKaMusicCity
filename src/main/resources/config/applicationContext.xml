@@ -30,9 +30,11 @@
          -->
         <property name="mapperLocations">
             <array>
+                <value>classpath:mappers/CommentMapper.xml</value>
                 <value>classpath:mappers/HomeViewPageMapper.xml</value>
                 <value>classpath:mappers/IndexViewPageMapper.xml</value>
                 <value>classpath:mappers/UpdateViewPageMapper.xml</value>
+                <value>classpath:mappers/SongViewPageMapper.xml</value>
                 <value>classpath:mappers/UserLevelMapper.xml</value>
                 <value>classpath:mappers/UserTableMapper.xml</value>
             </array>
