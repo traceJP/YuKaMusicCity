@@ -1,5 +1,6 @@
 package com.tracejp.yuka.controller;
 
+import com.tracejp.yuka.model.vo.HomeVO;
 import com.tracejp.yuka.model.vo.IndexVO;
 import com.tracejp.yuka.model.vo.SongVO;
 import com.tracejp.yuka.model.vo.UpdateVO;
@@ -36,9 +37,9 @@ public class MasterViewController {
         return viewService.builderIndexData();
     }
 
-    @GetMapping("/playlistView")
-    public void playlistViewDateModelShow() {
-
+    @GetMapping("/playlistView/{playlistId}")
+    public void playlistViewDateModelShow(@PathVariable("playlistId") Integer playlistId) {
+        viewService.builderPlaylistData(playlistId);
     }
 
     @GetMapping("/songView/{musicId}")
@@ -47,12 +48,12 @@ public class MasterViewController {
     }
 
     @GetMapping("/user/homeView")
-    public void homeViewDateModelShow(@RequestParam("uid") String uid) {
-        viewService.builderHomeData(uid);
+    public HomeVO homeViewDateModelShow(@RequestParam("uid") String uid) {
+        return viewService.builderHomeData(uid);
     }
 
     @GetMapping("/user/myMusicView")
-    public void myMusicViewDateModelShow() {
+    public void myMusicViewDateModelShow(@RequestParam("uid") String uid) {
 
     }
 

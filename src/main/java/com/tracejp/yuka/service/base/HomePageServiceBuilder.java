@@ -74,6 +74,9 @@ public class HomePageServiceBuilder extends HomePageBuilder {
     @Override
     protected HomeListenToSongsBO[] listenToSongsRank() {
         List<HomeListenToSongsDAO> listDAO = viewPage.selectUserSongsRank(userUid, RANK_RETURN_COUNT);
+        if(listDAO == null) {
+            return null;
+        }
         // 真实元素返回个数
         int realResultCount = listDAO.size();
         ListIterator<HomeListenToSongsDAO> iterator = listDAO.listIterator();

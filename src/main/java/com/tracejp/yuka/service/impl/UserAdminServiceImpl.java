@@ -85,6 +85,7 @@ public class UserAdminServiceImpl implements UserAdminService {
         Date lastLoginTime = userDao.selectUserLastLoginTime(uid);
         Date currentTime = new Date();
         DateFormat dfm = DateFormat.getDateInstance();
+        // TODO: 2021/2/1 用户注册需要初始化第一次登录时间参数，否则此处会出现npe异常
         if(dfm.format(currentTime).equals(dfm.format(lastLoginTime))) {
             return false;
         }

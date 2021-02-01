@@ -22,30 +22,45 @@ public class IndexPageServiceBuilder extends IndexPageBuilder {
     @Override
     protected IndexPopularMusicListDAO[] popularRecommendation() {
         List<IndexPopularMusicListDAO> list = viewPage.getMusicListBaseInfoToPopular(POPULAR_RETURN_COUNT);
+        if(list == null) {
+            return null;
+        }
         return list.toArray(new IndexPopularMusicListDAO[POPULAR_RETURN_COUNT]);
     }
 
     @Override
     protected IndexNewSongMusicDAO[] newSongRecommendation() {
         List<IndexNewSongMusicDAO> list = viewPage.getMusicBaseInfoToNewSong(NEW_SONG_RETURN_COUNT);
+        if(list == null) {
+            return null;
+        }
         return list.toArray(new IndexNewSongMusicDAO[NEW_SONG_RETURN_COUNT]);
     }
 
     @Override
     protected IndexToDayRankMusicDAO[] toDayRankOne() {
         List<IndexToDayRankMusicDAO> list = viewPage.getMusicBaseInfoToRankMusic(TODAY_RANK_RETURN_COUNT);
+        if(list == null) {
+            return null;
+        }
         return list.toArray(new IndexToDayRankMusicDAO[TODAY_RANK_RETURN_COUNT]);
     }
 
     @Override
     protected IndexToDayRankMusicDAO[] toDayRankTwo() {
         List<IndexToDayRankMusicDAO> list = viewPage.getMusicBaseInfoToRankMusic(TODAY_RANK_RETURN_COUNT);
+        if(list == null) {
+            return null;
+        }
         return list.toArray(new IndexToDayRankMusicDAO[TODAY_RANK_RETURN_COUNT]);
     }
 
     @Override
     protected IndexToDayRankMusicDAO[] toDayRankThree() {
         List<IndexToDayRankMusicDAO> list = viewPage.getMusicBaseInfoToRankMusic(TODAY_RANK_RETURN_COUNT);
+        if(list == null) {
+            return null;
+        }
         return list.toArray(new IndexToDayRankMusicDAO[TODAY_RANK_RETURN_COUNT]);
     }
 

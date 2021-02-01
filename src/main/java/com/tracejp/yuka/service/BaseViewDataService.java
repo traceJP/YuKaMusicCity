@@ -1,9 +1,6 @@
 package com.tracejp.yuka.service;
 
-import com.tracejp.yuka.model.vo.HomeVO;
-import com.tracejp.yuka.model.vo.IndexVO;
-import com.tracejp.yuka.model.vo.SongVO;
-import com.tracejp.yuka.model.vo.UpdateVO;
+import com.tracejp.yuka.model.vo.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -46,11 +43,17 @@ public interface BaseViewDataService {
      */
     SongVO builderSongData(Integer musicId);
 
-    // TODO: 2021/1/20 根据各个页面所需情况的总构建逻辑返回 根据各个页面的需求制作对应的service对象。
+    /**
+     * 构建playlist页面的基本返回数据
+     * @param musicListId musicListId
+     * @return PlaylistVO
+     */
+    PlaylistVO builderPlaylistData(Integer musicListId);
 
-
-
-
-
+    /**
+     * 构建myMusic页面的基本返回数据
+     * @param uid
+     */
+    void builderMyMusicData(String uid);
 
 }
