@@ -52,8 +52,9 @@ public interface BaseViewDataService {
 
     /**
      * 构建myMusic页面的基本返回数据
-     * @param uid
+     * @param uid uid
+     * @return MyMusicVO
      */
-    void builderMyMusicData(String uid);
+    MyMusicVO builderMyMusicData(String uid);
 
 }

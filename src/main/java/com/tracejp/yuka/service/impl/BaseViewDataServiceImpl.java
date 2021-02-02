@@ -4,6 +4,7 @@ import com.tracejp.yuka.dao.UserTableMapper;
 import com.tracejp.yuka.model.vo.*;
 import com.tracejp.yuka.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
@@ -27,7 +28,12 @@ public class BaseViewDataServiceImpl implements BaseViewDataService {
     private SongPageBuilder songService;
 
     @Autowired
+    @Qualifier("playlistPageServiceBuilder")
     private PlaylistPageBuilder playlistService;
+
+    @Autowired
+    @Qualifier("myMusicPageServiceBuilder")
+    private MyMusicPageBuilder myMusicService;
 
     @Autowired
     private UserTableMapper userDao;
@@ -64,8 +70,8 @@ public class BaseViewDataServiceImpl implements BaseViewDataService {
     }
 
     @Override
-    public void builderMyMusicData(String uid) {
-
+    public MyMusicVO builderMyMusicData(String uid) {
+        return myMusicService.createMyMusicVO(uid);
     }
 
 }

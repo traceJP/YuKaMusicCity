@@ -1,9 +1,6 @@
 package com.tracejp.yuka.controller;
 
-import com.tracejp.yuka.model.vo.HomeVO;
-import com.tracejp.yuka.model.vo.IndexVO;
-import com.tracejp.yuka.model.vo.SongVO;
-import com.tracejp.yuka.model.vo.UpdateVO;
+import com.tracejp.yuka.model.vo.*;
 import com.tracejp.yuka.service.BaseViewDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -53,8 +50,8 @@ public class MasterViewController {
     }
 
     @GetMapping("/user/myMusicView")
-    public void myMusicViewDateModelShow(@RequestParam("uid") String uid) {
-
+    public MyMusicVO myMusicViewDateModelShow(@RequestParam("uid") String uid) {
+        return viewService.builderMyMusicData(uid);
     }
 
     @GetMapping("/user/updateView")
