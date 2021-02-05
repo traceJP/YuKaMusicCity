@@ -1,4 +1,4 @@
-package com.tracejp.yuka.service;
+package com.tracejp.yuka.service.comment;
 
 import java.util.List;
 

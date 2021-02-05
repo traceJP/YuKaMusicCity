@@ -1,10 +1,10 @@
-package com.tracejp.yuka.service.base;
+package com.tracejp.yuka.service.pagebuilder;
 
 import com.tracejp.yuka.dao.IndexViewPageMapper;
 import com.tracejp.yuka.model.dao.IndexNewSongMusicDAO;
 import com.tracejp.yuka.model.dao.IndexPopularMusicListDAO;
 import com.tracejp.yuka.model.dao.IndexToDayRankMusicDAO;
-import com.tracejp.yuka.service.IndexPageBuilder;
+import com.tracejp.yuka.utils.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,46 +22,31 @@ public class IndexPageServiceBuilder extends IndexPageBuilder {
     @Override
     protected IndexPopularMusicListDAO[] popularRecommendation() {
         List<IndexPopularMusicListDAO> list = viewPage.getMusicListBaseInfoToPopular(POPULAR_RETURN_COUNT);
-        if(list == null) {
-            return null;
-        }
-        return list.toArray(new IndexPopularMusicListDAO[POPULAR_RETURN_COUNT]);
+        return (IndexPopularMusicListDAO[]) Util.ListTransformArray(list);
     }
 
     @Override
     protected IndexNewSongMusicDAO[] newSongRecommendation() {
         List<IndexNewSongMusicDAO> list = viewPage.getMusicBaseInfoToNewSong(NEW_SONG_RETURN_COUNT);
-        if(list == null) {
-            return null;
-        }
-        return list.toArray(new IndexNewSongMusicDAO[NEW_SONG_RETURN_COUNT]);
+        return (IndexNewSongMusicDAO[]) Util.ListTransformArray(list);
     }
 
     @Override
     protected IndexToDayRankMusicDAO[] toDayRankOne() {
         List<IndexToDayRankMusicDAO> list = viewPage.getMusicBaseInfoToRankMusic(TODAY_RANK_RETURN_COUNT);
-        if(list == null) {
-            return null;
-        }
-        return list.toArray(new IndexToDayRankMusicDAO[TODAY_RANK_RETURN_COUNT]);
+        return (IndexToDayRankMusicDAO[]) Util.ListTransformArray(list);
     }
 
     @Override
     protected IndexToDayRankMusicDAO[] toDayRankTwo() {
         List<IndexToDayRankMusicDAO> list = viewPage.getMusicBaseInfoToRankMusic(TODAY_RANK_RETURN_COUNT);
-        if(list == null) {
-            return null;
-        }
-        return list.toArray(new IndexToDayRankMusicDAO[TODAY_RANK_RETURN_COUNT]);
+        return (IndexToDayRankMusicDAO[]) Util.ListTransformArray(list);
     }
 
     @Override
     protected IndexToDayRankMusicDAO[] toDayRankThree() {
         List<IndexToDayRankMusicDAO> list = viewPage.getMusicBaseInfoToRankMusic(TODAY_RANK_RETURN_COUNT);
-        if(list == null) {
-            return null;
-        }
-        return list.toArray(new IndexToDayRankMusicDAO[TODAY_RANK_RETURN_COUNT]);
+        return (IndexToDayRankMusicDAO[]) Util.ListTransformArray(list);
     }
 
 }

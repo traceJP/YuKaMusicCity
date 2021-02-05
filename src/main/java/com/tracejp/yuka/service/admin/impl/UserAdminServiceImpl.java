@@ -1,9 +1,9 @@
-package com.tracejp.yuka.service.impl;
+package com.tracejp.yuka.service.admin.impl;
 
 import com.tracejp.yuka.dao.UserTableMapper;
 import com.tracejp.yuka.model.enums.ResponseStatus;
 import com.tracejp.yuka.model.dto.RegisteredParameterDTO;
-import com.tracejp.yuka.service.UserAdminService;
+import com.tracejp.yuka.service.admin.UserAdminService;
 import com.tracejp.yuka.utils.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

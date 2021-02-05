@@ -1,7 +1,7 @@
 package com.tracejp.yuka.controller;
 
 import com.tracejp.yuka.model.dto.RegisteredParameterDTO;
-import com.tracejp.yuka.service.UserAdminService;
+import com.tracejp.yuka.service.admin.UserAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

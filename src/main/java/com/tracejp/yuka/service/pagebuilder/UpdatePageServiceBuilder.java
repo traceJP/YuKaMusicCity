@@ -1,9 +1,8 @@
-package com.tracejp.yuka.service.base;
+package com.tracejp.yuka.service.pagebuilder;
 
 import com.tracejp.yuka.dao.UpdateViewPageMapper;
 import com.tracejp.yuka.model.dao.UpdateBasicInformationDAO;
 import com.tracejp.yuka.model.dao.UpdateUserPrivacyDAO;
-import com.tracejp.yuka.service.UpdatePageBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

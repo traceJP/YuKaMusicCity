@@ -1,8 +1,8 @@
 package com.tracejp.yuka.interceptor;
 
 import com.tracejp.yuka.model.enums.ResponseStatus;
-import com.tracejp.yuka.service.UserAdminService;
-import com.tracejp.yuka.service.UserLevelService;
+import com.tracejp.yuka.service.admin.UserAdminService;
+import com.tracejp.yuka.service.level.UserLevelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 

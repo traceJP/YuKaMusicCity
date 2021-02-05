@@ -1,12 +1,12 @@
-package com.tracejp.yuka.service.base;
+package com.tracejp.yuka.service.pagebuilder;
 
 import com.tracejp.yuka.dao.PlaylistViewMapper;
 import com.tracejp.yuka.model.bo.CommentPaginationInfoBO;
 import com.tracejp.yuka.model.dao.MusicCommentDAO;
 import com.tracejp.yuka.model.dao.PlaylistMessageDAO;
 import com.tracejp.yuka.model.dao.PlaylistMusicListElementDAO;
-import com.tracejp.yuka.service.PlaylistPageBuilder;
-import com.tracejp.yuka.service.impl.CommentServiceImpl;
+import com.tracejp.yuka.service.comment.impl.CommentServiceImpl;
+import com.tracejp.yuka.utils.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,11 +33,7 @@ public class PlaylistPageServiceBuilder extends PlaylistPageBuilder {
     @Override
     protected PlaylistMusicListElementDAO[] musicListMessage() {
         List<PlaylistMusicListElementDAO> list = viewPage.selectPlaylistMusicList(musicListId);
-        if(list == null) {
-            return null;
-        }
-        int listSize = list.size();
-        return list.toArray(new PlaylistMusicListElementDAO[listSize]);
+        return (PlaylistMusicListElementDAO[]) Util.ListTransformArray(list);
     }
 
     @Override
@@ -50,10 +46,7 @@ public class PlaylistPageServiceBuilder extends PlaylistPageBuilder {
     @Override
     protected MusicCommentDAO[] songCommentDefaultElementList() {
         List<MusicCommentDAO> list = commentService.getPaginationService(DEFAULT_PAGE, musicListId, DEFAULT_TYPE);
-        if(list == null) {
-            return null;
-        }
-        return list.toArray(new MusicCommentDAO[CommentServiceImpl.elementReturnCount]);
+        return (MusicCommentDAO[]) Util.ListTransformArray(list);
     }
 
 }

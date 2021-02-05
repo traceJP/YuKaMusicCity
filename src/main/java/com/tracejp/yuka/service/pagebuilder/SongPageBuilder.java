@@ -1,4 +1,4 @@
-package com.tracejp.yuka.service;
+package com.tracejp.yuka.service.pagebuilder;
 
 import com.tracejp.yuka.model.bo.CommentPaginationInfoBO;
 import com.tracejp.yuka.model.dao.MusicCommentDAO;

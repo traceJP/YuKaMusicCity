@@ -1,4 +1,4 @@
-package com.tracejp.yuka.service;
+package com.tracejp.yuka.service.pagebuilder;
 
 import com.tracejp.yuka.model.dao.UpdateBasicInformationDAO;
 import com.tracejp.yuka.model.dao.UpdateUserPrivacyDAO;

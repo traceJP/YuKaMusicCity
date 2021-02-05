@@ -1,8 +1,8 @@
-package com.tracejp.yuka.service.impl;
+package com.tracejp.yuka.service.comment.impl;
 
 import com.tracejp.yuka.dao.CommentMapper;
 import com.tracejp.yuka.model.dao.MusicCommentDAO;
-import com.tracejp.yuka.service.PaginationModelService;
+import com.tracejp.yuka.service.comment.PaginationModelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

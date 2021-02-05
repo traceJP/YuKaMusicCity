@@ -1,8 +1,8 @@
-package com.tracejp.yuka.service.impl;
+package com.tracejp.yuka.service.pagebuilder;
 
 import com.tracejp.yuka.dao.UserTableMapper;
 import com.tracejp.yuka.model.vo.*;
-import com.tracejp.yuka.service.*;
+import com.tracejp.yuka.service.pagebuilder.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
 package com.tracejp.yuka.controller;
 
 import com.tracejp.yuka.model.vo.*;
-import com.tracejp.yuka.service.BaseViewDataService;
+import com.tracejp.yuka.service.pagebuilder.BaseViewDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

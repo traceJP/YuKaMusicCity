@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 /*********************************
@@ -40,5 +41,17 @@ public class Util {
         return overTime.getTime();
     }
 
+    /**
+     * 集合转化为数组方法，并进行判空处理，放值NullPointException
+     * @param list 任意list集合
+     * @return Object[]
+     */
+    public static Object[] ListTransformArray(List list) {
+        if(list == null) {
+            return null;
+        }
+        int listSize = list.size();
+        return list.toArray(new Object[listSize]);
+    }
 
 }

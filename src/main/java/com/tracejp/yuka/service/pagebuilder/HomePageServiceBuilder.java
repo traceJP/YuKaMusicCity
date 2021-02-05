@@ -1,4 +1,4 @@
-package com.tracejp.yuka.service.base;
+package com.tracejp.yuka.service.pagebuilder;
 
 import com.tracejp.yuka.dao.HomeViewPageMapper;
 import com.tracejp.yuka.model.bo.HomeListenToSongsBO;
@@ -7,8 +7,7 @@ import com.tracejp.yuka.model.bo.HomeUserLevelBO;
 import com.tracejp.yuka.model.dao.HomeListenToSongsDAO;
 import com.tracejp.yuka.model.dao.HomeUserInformationDAO;
 import com.tracejp.yuka.model.dao.HomeUserLevelDAO;
-import com.tracejp.yuka.service.HomePageBuilder;
-import com.tracejp.yuka.service.UserLevelService;
+import com.tracejp.yuka.service.level.UserLevelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,7 @@
-package com.tracejp.yuka.service.impl;
+package com.tracejp.yuka.service.level.impl;
 
 import com.tracejp.yuka.dao.UserLevelMapper;
-import com.tracejp.yuka.service.UserLevelService;
+import com.tracejp.yuka.service.level.UserLevelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.stereotype.Service;

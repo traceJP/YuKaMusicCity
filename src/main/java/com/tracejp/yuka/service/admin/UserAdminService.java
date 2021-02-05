@@ -1,4 +1,4 @@
-package com.tracejp.yuka.service;
+package com.tracejp.yuka.service.admin;
 
 import com.sun.deploy.net.HttpResponse;
 import com.tracejp.yuka.model.dto.RegisteredParameterDTO;

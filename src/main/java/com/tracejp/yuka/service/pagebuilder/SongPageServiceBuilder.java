@@ -1,11 +1,11 @@
-package com.tracejp.yuka.service.base;
+package com.tracejp.yuka.service.pagebuilder;
 
 import com.tracejp.yuka.dao.SongViewPageMapper;
 import com.tracejp.yuka.model.bo.CommentPaginationInfoBO;
 import com.tracejp.yuka.model.dao.MusicCommentDAO;
 import com.tracejp.yuka.model.dao.SongMessageDAO;
-import com.tracejp.yuka.service.SongPageBuilder;
-import com.tracejp.yuka.service.impl.CommentServiceImpl;
+import com.tracejp.yuka.service.comment.impl.CommentServiceImpl;
+import com.tracejp.yuka.utils.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,10 +38,7 @@ public class SongPageServiceBuilder extends SongPageBuilder {
     @Override
     protected MusicCommentDAO[] songCommentDefaultElementList() {
         List<MusicCommentDAO> list = commentService.getPaginationService(DEFAULT_PAGE, musicId, DEFAULT_TYPE);
-        if(list == null) {
-            return null;
-        }
-        return list.toArray(new MusicCommentDAO[CommentServiceImpl.elementReturnCount]);
+        return (MusicCommentDAO[]) Util.ListTransformArray(list);
     }
 
 }

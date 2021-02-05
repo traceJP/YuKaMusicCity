@@ -1,8 +1,7 @@
-package com.tracejp.yuka.service;
+package com.tracejp.yuka.service.pagebuilder;
 
 import com.tracejp.yuka.model.dao.MyMusicUserMusicListDAO;
 import com.tracejp.yuka.model.vo.MyMusicVO;
-import com.tracejp.yuka.service.base.PlaylistPageServiceBuilder;
 
 /*********************************
  * @author traceJP

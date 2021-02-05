@@ -1,8 +1,8 @@
-package com.tracejp.yuka.service.base;
+package com.tracejp.yuka.service.pagebuilder;
 
 import com.tracejp.yuka.dao.MyMusicViewMapper;
 import com.tracejp.yuka.model.dao.MyMusicUserMusicListDAO;
-import com.tracejp.yuka.service.MyMusicPageBuilder;
+import com.tracejp.yuka.utils.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,22 +20,13 @@ public class MyMusicPageServiceBuilder extends MyMusicPageBuilder {
     @Override
     protected MyMusicUserMusicListDAO[] createMusicList() {
         List<MyMusicUserMusicListDAO> list = viewPage.selectCreateMusicList(userUid);
-        // TODO: 2021/2/2 可以抽象list集合判空方法到util类中
-        if(list == null) {
-            return null;
-        }
-        int listSize = list.size();
-        return list.toArray(new MyMusicUserMusicListDAO[listSize]);
+        return (MyMusicUserMusicListDAO[]) Util.ListTransformArray(list);
     }
 
     @Override
     protected MyMusicUserMusicListDAO[] favoritesMusicList() {
         List<MyMusicUserMusicListDAO> list = viewPage.selectFavoritesMusicList(userUid);
-        if(list == null) {
-            return null;
-        }
-        int listSize = list.size();
-        return list.toArray(new MyMusicUserMusicListDAO[listSize]);
+        return (MyMusicUserMusicListDAO[]) Util.ListTransformArray(list);
     }
 
     @Override
