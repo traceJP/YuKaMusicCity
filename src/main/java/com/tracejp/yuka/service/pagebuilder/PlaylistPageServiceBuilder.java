@@ -33,7 +33,9 @@ public class PlaylistPageServiceBuilder extends PlaylistPageBuilder {
     @Override
     protected PlaylistMusicListElementDAO[] musicListMessage() {
         List<PlaylistMusicListElementDAO> list = viewPage.selectPlaylistMusicList(musicListId);
-        return (PlaylistMusicListElementDAO[]) Util.ListTransformArray(list);
+        PlaylistMusicListElementDAO[] array = new PlaylistMusicListElementDAO[list.size()];
+        Util.listTransformArray(list, array);
+        return array;
     }
 
     @Override
@@ -46,7 +48,9 @@ public class PlaylistPageServiceBuilder extends PlaylistPageBuilder {
     @Override
     protected MusicCommentDAO[] songCommentDefaultElementList() {
         List<MusicCommentDAO> list = commentService.getPaginationService(DEFAULT_PAGE, musicListId, DEFAULT_TYPE);
-        return (MusicCommentDAO[]) Util.ListTransformArray(list);
+        MusicCommentDAO[] array = new MusicCommentDAO[list.size()];
+        Util.listTransformArray(list, array);
+        return array;
     }
 
 }

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tracejp.yuka.dao.SearchMapper">
+
+    <select id="selectDefaultSearch" resultMap="defaultResultMap">
+        <bind name="blurry" value="'%' + word + '%'"/>
+            SELECT id, music_name AS name, 1
+            FROM `music_resources`
+            WHERE music_name LIKE #{blurry} OR music_author LIKE #{blurry}
+        UNION
+            SELECT id, music_list_name AS name, 2
+            FROM `music_list`
+            WHERE music_list_name LIKE #{blurry}
+    </select>
+    <resultMap id="defaultResultMap" type="com.tracejp.yuka.model.vo.SearchVO">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <!-- type类型对应自主创建的1字段：1为歌曲，2为歌单 -->
+        <result column="1" property="type"/>
+    </resultMap>
+
+    <select id="selectMusicSearch" resultType="com.tracejp.yuka.model.vo.SearchVO">
+        <bind name="blurry" value="'%' + word + '%'"/>
+        SELECT id, music_name AS name
+        FROM `music_resources`
+        WHERE music_name LIKE #{blurry}
+        LIMIT #{resultCount}
+    </select>
+
+    <select id="selectListSearch" resultType="com.tracejp.yuka.model.vo.SearchVO">
+        <bind name="blurry" value="'%' + word + '%'"/>
+        SELECT id, music_list_name AS name
+        FROM `music_list`
+        WHERE music_list_name LIKE #{blurry}
+        LIMIT #{resultCount}
+    </select>
+
+    <select id="selectAuthorSearch" resultType="com.tracejp.yuka.model.vo.SearchVO">
+        <bind name="blurry" value="'%' + word + '%'"/>
+        SELECT id, music_name AS name
+        FROM `music_resources`
+        WHERE music_author LIKE #{blurry}
+        LIMIT #{resultCount}
+    </select>
+
+
+
+</mapper>

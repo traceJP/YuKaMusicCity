@@ -20,13 +20,17 @@ public class MyMusicPageServiceBuilder extends MyMusicPageBuilder {
     @Override
     protected MyMusicUserMusicListDAO[] createMusicList() {
         List<MyMusicUserMusicListDAO> list = viewPage.selectCreateMusicList(userUid);
-        return (MyMusicUserMusicListDAO[]) Util.ListTransformArray(list);
+        MyMusicUserMusicListDAO[] array = new MyMusicUserMusicListDAO[list.size()];
+        Util.listTransformArray(list, array);
+        return array;
     }
 
     @Override
     protected MyMusicUserMusicListDAO[] favoritesMusicList() {
         List<MyMusicUserMusicListDAO> list = viewPage.selectFavoritesMusicList(userUid);
-        return (MyMusicUserMusicListDAO[]) Util.ListTransformArray(list);
+        MyMusicUserMusicListDAO[] array = new MyMusicUserMusicListDAO[list.size()];
+        Util.listTransformArray(list, array);
+        return array;
     }
 
     @Override

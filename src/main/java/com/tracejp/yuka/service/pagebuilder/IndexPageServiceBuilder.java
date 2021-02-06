@@ -22,31 +22,41 @@ public class IndexPageServiceBuilder extends IndexPageBuilder {
     @Override
     protected IndexPopularMusicListDAO[] popularRecommendation() {
         List<IndexPopularMusicListDAO> list = viewPage.getMusicListBaseInfoToPopular(POPULAR_RETURN_COUNT);
-        return (IndexPopularMusicListDAO[]) Util.ListTransformArray(list);
+        IndexPopularMusicListDAO[] array = new IndexPopularMusicListDAO[list.size()];
+        Util.listTransformArray(list, array);
+        return array;
     }
 
     @Override
     protected IndexNewSongMusicDAO[] newSongRecommendation() {
         List<IndexNewSongMusicDAO> list = viewPage.getMusicBaseInfoToNewSong(NEW_SONG_RETURN_COUNT);
-        return (IndexNewSongMusicDAO[]) Util.ListTransformArray(list);
+        IndexNewSongMusicDAO[] array = new IndexNewSongMusicDAO[list.size()];
+        Util.listTransformArray(list, array);
+        return array;
     }
 
     @Override
     protected IndexToDayRankMusicDAO[] toDayRankOne() {
         List<IndexToDayRankMusicDAO> list = viewPage.getMusicBaseInfoToRankMusic(TODAY_RANK_RETURN_COUNT);
-        return (IndexToDayRankMusicDAO[]) Util.ListTransformArray(list);
+        IndexToDayRankMusicDAO[] array = new IndexToDayRankMusicDAO[list.size()];
+        Util.listTransformArray(list, array);
+        return array;
     }
 
     @Override
     protected IndexToDayRankMusicDAO[] toDayRankTwo() {
         List<IndexToDayRankMusicDAO> list = viewPage.getMusicBaseInfoToRankMusic(TODAY_RANK_RETURN_COUNT);
-        return (IndexToDayRankMusicDAO[]) Util.ListTransformArray(list);
+        IndexToDayRankMusicDAO[] array = new IndexToDayRankMusicDAO[list.size()];
+        Util.listTransformArray(list, array);
+        return array;
     }
 
     @Override
     protected IndexToDayRankMusicDAO[] toDayRankThree() {
         List<IndexToDayRankMusicDAO> list = viewPage.getMusicBaseInfoToRankMusic(TODAY_RANK_RETURN_COUNT);
-        return (IndexToDayRankMusicDAO[]) Util.ListTransformArray(list);
+        IndexToDayRankMusicDAO[] array = new IndexToDayRankMusicDAO[list.size()];
+        Util.listTransformArray(list, array);
+        return array;
     }
 
 }

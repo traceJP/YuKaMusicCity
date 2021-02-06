@@ -44,14 +44,13 @@ public class Util {
     /**
      * 集合转化为数组方法，并进行判空处理，放值NullPointException
      * @param list 任意list集合
-     * @return Object[]
+     * @param array
      */
-    public static Object[] ListTransformArray(List list) {
+    public static void listTransformArray(List<?> list, Object[] array) {
         if(list == null) {
-            return null;
+            return;
         }
-        int listSize = list.size();
-        return list.toArray(new Object[listSize]);
+        list.toArray(array);
     }
 
 }
