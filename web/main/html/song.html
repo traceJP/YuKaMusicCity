@@ -81,10 +81,62 @@
                         <div style="margin-top: 10px;">
                             <!-- 屏幕<768隐藏（分享，收藏）按钮 -->
                             <span>
-                                <a href="#" role="button" class="btn btn-info btn-sm">
+                                <a href="#" role="button" class="btn btn-info btn-sm"  data-toggle="modal" data-target=".bs-example-modal-sm">
                                     <span class="glyphicon glyphicon-plus-sign"></span>
                                     &nbsp;收藏
                                 </a>
+                                <!-- 收藏歌曲弹出框 -->
+                                <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                                    <div class="modal-dialog modal-sm" role="document">
+                                      <div class="modal-content">
+                                        <div class="list-group" style="margin-bottom: 0;">
+                                            <p class="list-group-item active text-center">
+                                                收藏到歌单
+                                            </p>
+                                            <div style="height: 255px; overflow: auto;"> <!-- 滚动条 -->
+                                                <a href="#" class="list-group-item">
+                                                    <div class="media-left">
+                                                          <img class="media-object" src="../image/ge1.jpg" alt="..." width="64px">
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading">Media heading</h4>
+                                                        歌曲数：1235首
+                                                    </div>
+                                                </a>
+                                                <a href="#" class="list-group-item">
+                                                    <div class="media-left">
+                                                        <img class="media-object" src="../image/ge1.jpg" alt="..." width="64px">
+                                                    </div>
+                                                    <div class="media-body">
+                                                      <h4 class="media-heading">Media heading</h4>
+                                                      歌曲数：1235首
+                                                    </div>
+                                                </a>
+                                                <a href="#" class="list-group-item">
+                                                    <div class="media-left">
+                                                        <img class="media-object" src="../image/ge1.jpg" alt="..." width="64px">
+                                                    </div>
+                                                    <div class="media-body">
+                                                      <h4 class="media-heading">Media heading</h4>
+                                                      歌曲数：1235首
+                                                    </div>
+                                                </a>
+                                                <a href="#" class="list-group-item">
+                                                    <div class="media-left">
+                                                        <img class="media-object" src="../image/ge1.jpg" alt="..." width="64px">
+                                                    </div>
+                                                    <div class="media-body">
+                                                      <h4 class="media-heading">Media heading</h4>
+                                                      歌曲数：1235首
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                      </div>
+                                    </div>
+                                </div>
+
                                 <a href="#" role="button" class="btn btn-default btn-sm hidden-xs">
                                     <span class="glyphicon glyphicon-share-alt"></span>
                                     &nbsp;分享

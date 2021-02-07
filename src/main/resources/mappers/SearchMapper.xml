@@ -5,8 +5,12 @@
 
 <mapper namespace="com.tracejp.yuka.dao.SearchMapper">
 
-    <select id="selectDefaultSearch" resultMap="defaultResultMap">
+    <sql id="blurryMax">
         <bind name="blurry" value="'%' + word + '%'"/>
+    </sql>
+
+    <select id="selectDefaultSearch" resultMap="defaultResultMap">
+        <include refid="blurryMax"/>
             SELECT id, music_name AS name, 1
             FROM `music_resources`
             WHERE music_name LIKE #{blurry} OR music_author LIKE #{blurry}
@@ -23,7 +27,7 @@
     </resultMap>
 
     <select id="selectMusicSearch" resultType="com.tracejp.yuka.model.vo.SearchVO">
-        <bind name="blurry" value="'%' + word + '%'"/>
+        <include refid="blurryMax"/>
         SELECT id, music_name AS name
         FROM `music_resources`
         WHERE music_name LIKE #{blurry}
@@ -31,7 +35,7 @@
     </select>
 
     <select id="selectListSearch" resultType="com.tracejp.yuka.model.vo.SearchVO">
-        <bind name="blurry" value="'%' + word + '%'"/>
+        <include refid="blurryMax"/>
         SELECT id, music_list_name AS name
         FROM `music_list`
         WHERE music_list_name LIKE #{blurry}
@@ -39,13 +43,11 @@
     </select>
 
     <select id="selectAuthorSearch" resultType="com.tracejp.yuka.model.vo.SearchVO">
-        <bind name="blurry" value="'%' + word + '%'"/>
+        <include refid="blurryMax"/>
         SELECT id, music_name AS name
         FROM `music_resources`
         WHERE music_author LIKE #{blurry}
         LIMIT #{resultCount}
     </select>
-
-
 
 </mapper>

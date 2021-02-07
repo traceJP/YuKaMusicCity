@@ -16,7 +16,9 @@ public enum ResponseStatus {
     // 未登录拦截
     FAIL_LOGIN_INTERCEPT("1005"),
     // 业务响应成功
-    SUCCESS_200("200");
+    SUCCESS_200("200"),
+    // 业务响应失败
+    SUCCESS_ERROR("404");
 
     private final String value;
 

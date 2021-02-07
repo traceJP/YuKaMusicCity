@@ -21,6 +21,8 @@ import javax.servlet.http.HttpSession;
 @ResponseBody
 public class MasterViewController {
 
+    // TODO: 2021/2/7 bug 使用RequestParam注解出现错误 该注解是对前端传入的参数进行解析，不是对request域中的参数进行解析
+
     @Autowired
     private BaseViewDataService viewService;
 

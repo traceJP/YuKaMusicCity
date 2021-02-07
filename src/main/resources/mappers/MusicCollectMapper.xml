@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tracejp.yuka.dao.MusicCollectMapper">
+
+    <insert id="insertMusicCollect">
+        INSERT INTO `music_list_value`(gmt_create, gmt_modified, music_list_id, music_id)
+        VALUES(NOW(), NOW(), #{listId}, #{musicId});
+    </insert>
+
+    <delete id="deleteMusicCollect">
+        DELETE FROM `music_list_value`
+        WHERE music_id=#{musicId}
+        AND music_list_id=#{listId};
+    </delete>
+
+    <select id="selectIsListFromUid" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM `music_list`
+        WHERE id=#{listId}
+        AND user_id=#{uid};
+    </select>
+
+    <select id="selectUserMusicList" resultType="com.tracejp.yuka.model.vo.MusicCollectVO">
+        SELECT music_list.id,music_list_name,music_list_img_url,count(music_id) AS music_count
+        FROM music_list,music_list_value
+        WHERE music_list.id=music_list_value.music_list_id
+        AND user_id=#{uid}
+        GROUP BY music_list.id;
+    </select>
+
+    <select id="selectListHasMusicId" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM `music_list_value`
+        WHERE music_id=#{musicId} AND music_list_id=#{listId};
+    </select>
+
+</mapper>
