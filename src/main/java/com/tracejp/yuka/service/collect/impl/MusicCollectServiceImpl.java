@@ -1,6 +1,6 @@
 package com.tracejp.yuka.service.collect.impl;
 
-import com.tracejp.yuka.dao.MusicCollectMapper;
+import com.tracejp.yuka.dao.CollectMapper;
 import com.tracejp.yuka.model.enums.ResponseStatus;
 import com.tracejp.yuka.model.vo.MusicCollectVO;
 import com.tracejp.yuka.service.collect.MusicCollectService;
@@ -17,7 +17,7 @@ import java.util.List;
 public class MusicCollectServiceImpl implements MusicCollectService {
 
     @Autowired
-    MusicCollectMapper musicCollect;
+    CollectMapper musicCollect;
 
     @Override
     public String addCollect(Integer musicId, Integer listId, String uid) {

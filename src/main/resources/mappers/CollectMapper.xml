@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tracejp.yuka.dao.CollectMapper">
+
+    <insert id="insertMusicCollect">
+        INSERT INTO `music_list_value`(gmt_create, gmt_modified, music_list_id, music_id)
+        VALUES(NOW(), NOW(), #{listId}, #{musicId});
+    </insert>
+
+    <delete id="deleteMusicCollect">
+        DELETE FROM `music_list_value`
+        WHERE music_id=#{musicId}
+        AND music_list_id=#{listId};
+    </delete>
+
+    <select id="selectIsListFromUid" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM `music_list`
+        WHERE id=#{listId}
+        AND user_id=#{uid};
+    </select>
+
+    <select id="selectUserMusicList" resultType="com.tracejp.yuka.model.vo.MusicCollectVO">
+        SELECT music_list.id,music_list_name,music_list_img_url,count(music_id) AS music_count
+        FROM music_list,music_list_value
+        WHERE music_list.id=music_list_value.music_list_id
+        AND user_id=#{uid}
+        GROUP BY music_list.id;
+    </select>
+
+    <select id="selectListHasMusicId" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM `music_list_value`
+        WHERE music_id=#{musicId} AND music_list_id=#{listId};
+    </select>
+
+
+
+    <insert id="insertUserMusicList">
+        INSERT INTO `music_list`(gmt_create, gmt_modified, music_list_name, music_list_img_url, user_id, is_user_default, music_list_play_count)
+        <if test="isDefault == true">
+            VALUES(NOW(), NOW(), #{listName}, #{imgUrl}, #{uid}, 1, 0);
+        </if>
+        <if test="isDefault == false">
+            VALUES(NOW(), NOW(), #{listName}, #{imgUrl}, #{uid}, 0, 0);
+        </if>
+    </insert>
+
+    <delete id="deleteUserMusicList">
+        # todo 需要根据service层中相关逻辑进行表记录删除，也可以通过其他service联合删除表记录
+    </delete>
+
+    <insert id="insertCollectMusicList">
+        INSERT INTO `user_keep_music_list`(gmt_create, gmt_modified, user_id, music_list_id)
+        VALUES(NOW(), NOW(), #{uid}, #{listId})
+    </insert>
+
+    <delete id="deleteCollectMusicList">
+        DELETE FROM user_keep_music_list
+        WHERE music_list_id=#{listId};
+    </delete>
+
+    <select id="selectIsUserCreateMusicList" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM `music_list`
+        WHERE id=#{listId}
+        AND user_id=#{uid}
+    </select>
+
+    <select id="selectIsUserCollectMusicList" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM `user_keep_music_list`
+        WHERE user_id=#{uid}
+        AND music_list_id=#{listId};
+    </select>
+
+</mapper>

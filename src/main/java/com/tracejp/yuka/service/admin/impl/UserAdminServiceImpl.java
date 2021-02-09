@@ -86,6 +86,10 @@ public class UserAdminServiceImpl implements UserAdminService {
         Date currentTime = new Date();
         DateFormat dfm = DateFormat.getDateInstance();
         // TODO: 2021/2/1 用户注册需要初始化第一次登录时间参数，否则此处会出现npe异常
+        System.out.println(lastLoginTime);
+        System.out.println(currentTime);
+        System.out.println(dfm.format(currentTime));
+        System.out.println(dfm.format(lastLoginTime));
         if(dfm.format(currentTime).equals(dfm.format(lastLoginTime))) {
             return false;
         }
@@ -93,14 +97,14 @@ public class UserAdminServiceImpl implements UserAdminService {
     }
 
     @Override
-    public HttpServletResponse setFirstLoginCache(HttpServletResponse resp) {
+    public void setFirstLoginCache(HttpServletResponse resp) {
         Cookie firstCache = new Cookie("firstCache", "true");
         // 当天晚上23:59:59减去当前时间，即为cache的存活时间
         long overTime = Util.getOneDayEndTime();
         long cut = System.currentTimeMillis();
         int cookieTime = Math.toIntExact(overTime - cut);
         firstCache.setMaxAge(cookieTime);
-        return resp;
+        resp.addCookie(firstCache);
     }
 
     @Override

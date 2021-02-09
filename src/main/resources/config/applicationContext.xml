@@ -40,7 +40,7 @@
                 <value>classpath:mappers/UserLevelMapper.xml</value>
                 <value>classpath:mappers/UserTableMapper.xml</value>
                 <value>classpath:mappers/SearchMapper.xml</value>
-                <value>classpath:mappers/MusicCollectMapper.xml</value>
+                <value>classpath:mappers/CollectMapper.xml</value>
             </array>
         </property>
         <property name="dataSource" ref="dataSource"/>

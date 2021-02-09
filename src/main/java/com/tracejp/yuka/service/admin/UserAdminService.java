@@ -55,7 +55,7 @@ public interface UserAdminService {
      * 设置当天首次登录的缓存
      * @param resp resp
      */
-    HttpServletResponse setFirstLoginCache(HttpServletResponse resp);
+    void setFirstLoginCache(HttpServletResponse resp);
 
     /**
      * 更新用户的最后登录时间
