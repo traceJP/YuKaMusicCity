@@ -3,10 +3,9 @@ package com.tracejp.yuka.controller;
 import com.tracejp.yuka.model.dto.RegisteredParameterDTO;
 import com.tracejp.yuka.service.admin.UserAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,8 +13,7 @@ import javax.servlet.http.HttpSession;
 /*********************************
  * @author traceJP
  *********************************/
-@Controller
-@ResponseBody
+@RestController
 public class UserAdminController {
 
     @Autowired

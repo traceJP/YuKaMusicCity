@@ -8,6 +8,7 @@ import com.tracejp.yuka.service.comment.impl.CommentServiceImpl;
 import com.tracejp.yuka.utils.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.annotation.RequestScope;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
  * @author traceJP
  *********************************/
 @Service
+@RequestScope
 public class SongPageServiceBuilder extends SongPageBuilder {
 
     @Autowired

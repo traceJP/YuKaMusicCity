@@ -42,7 +42,6 @@ public class UserAttestInterceptor implements HandlerInterceptor {
             response.getWriter().write(ResponseStatus.FAIL_LOGIN_INTERCEPT.getStatus());
         }
         // 已登录：进行各种检查项
-        request.setAttribute("uid", sessionUid);
         toDayFirstLogin(request, response, sessionUid);
         adminService.replaceLoginTime(sessionUid);
         return true;

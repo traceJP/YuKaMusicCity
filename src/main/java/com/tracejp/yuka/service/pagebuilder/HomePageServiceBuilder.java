@@ -10,6 +10,7 @@ import com.tracejp.yuka.model.dao.HomeUserLevelDAO;
 import com.tracejp.yuka.service.level.UserLevelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.annotation.RequestScope;
 
 import java.util.Date;
 import java.util.List;
@@ -19,6 +20,7 @@ import java.util.ListIterator;
  * @author traceJP
  *********************************/
 @Service
+@RequestScope
 public class HomePageServiceBuilder extends HomePageBuilder {
 
     @Autowired

@@ -51,6 +51,9 @@
 
     <delete id="deleteUserMusicList">
         # todo 需要根据service层中相关逻辑进行表记录删除，也可以通过其他service联合删除表记录
+
+
+
     </delete>
 
     <insert id="insertCollectMusicList">

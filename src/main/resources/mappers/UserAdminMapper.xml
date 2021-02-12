@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tracejp.yuka.dao.UserAdminMapper">
+
+    <insert id="addUserRecord" parameterType="com.tracejp.yuka.model.dto.RegisteredParameterDTO">
+        INSERT INTO `user`(gmt_create, gmt_modified, user_uid, user_name, user_email, user_password)
+        VALUES (NOW(),NOW(),#{uid}, #{name}, #{email}, #{password});
+    </insert>
+
+    <select id="selectHasUserEmail" resultType="int">
+        SELECT count(*)
+        FROM `user`
+        WHERE user_email=#{email};
+    </select>
+
+    <select id="selectHasUserEmailAndPassword" resultType="int">
+        SELECT count(*)
+        FROM `user`
+        WHERE user_email=#{email} AND user_password=#{password};
+    </select>
+
+    <select id="getUidByAccount" resultType="String">
+        SELECT user_uid
+        FROM `user`
+        WHERE user_email=#{email};
+    </select>
+
+    <select id="selectUserName" resultType="java.lang.String">
+        SELECT user_name
+        FROM `user_info`
+        WHERE user_id=#{uid};
+    </select>
+
+    <select id="selectUserLastLoginTime" resultType="java.util.Date">
+        SELECT user_last_login_time
+        FROM user
+        WHERE user_uid=#{uid};
+    </select>
+
+    <update id="updateUserLastLoginTime">
+        UPDATE `user`
+        SET user_last_login_time=NOW(), gmt_modified=NOW()
+        WHERE user_uid=#{uid};
+    </update>
+
+
+    <update id="updateEmail">
+        UPDATE `user`
+        SET gmt_modified=NOW(), user_email=#{newEmail}
+        WHERE user_uid=#{uid};
+    </update>
+
+    <update id="updatePassword">
+        UPDATE `user`
+        SET gmt_modified=NOW(), user_password=#{newPassword}
+        WHERE user_uid=#{uid};
+    </update>
+
+    <update id="updateName">
+        UPDATE `user_info`
+        SET gmt_modified=NOW(), user_name=#{newName}
+        WHERE user_id=#{uid};
+    </update>
+
+    <update id="updateSex">
+        UPDATE `user_info`
+        SET gmt_modified=NOW(), user_sex=#{newSex}
+        WHERE user_id=#{uid};
+    </update>
+
+    <update id="updateBirthday">
+        UPDATE `user_info`
+        SET gmt_modified=NOW(), user_birthday=#{newBirthday}
+        WHERE user_id=#{uid};
+    </update>
+
+    <select id="selectAvatar" resultType="java.lang.String">
+        SELECT user_avatar_img_url
+        FROM `user_info`
+        WHERE user_id=#{uid};
+    </select>
+
+    <update id="updateAvatar">
+        UPDATE `user_info`
+        SET gmt_modified=NOW(), user_avatar_img_url=#{newAvatarUrl}
+        WHERE user_id=#{uid};
+    </update>
+
+    <update id="updateIntroduction">
+        UPDATE `user_info`
+        SET gmt_modified=NOW(), user_introduction=#{newIntroduction}
+        WHERE user_id=#{uid};
+    </update>
+
+    <update id="updateArea">
+        UPDATE `user_info`
+        SET gmt_modified=NOW(), user_area=#{newArea}
+        WHERE user_id=#{uid};
+    </update>
+
+</mapper>

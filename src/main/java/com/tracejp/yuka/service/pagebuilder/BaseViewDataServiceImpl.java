@@ -1,8 +1,7 @@
 package com.tracejp.yuka.service.pagebuilder;
 
-import com.tracejp.yuka.dao.UserTableMapper;
+import com.tracejp.yuka.dao.UserAdminMapper;
 import com.tracejp.yuka.model.vo.*;
-import com.tracejp.yuka.service.pagebuilder.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -36,7 +35,7 @@ public class BaseViewDataServiceImpl implements BaseViewDataService {
     private MyMusicPageBuilder myMusicService;
 
     @Autowired
-    private UserTableMapper userDao;
+    private UserAdminMapper userDao;
 
     @Override
     public String getUserName(HttpSession session) {

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tracejp.yuka.dao.FileDownloadMapper">
+
+    <select id="selectMusicResourcesUrl" resultType="java.lang.String">
+        SELECT music_url
+        FROM `music_resources`
+        WHERE id=#{id};
+    </select>
+
+    <select id="selectMusicResourcesUrlByList" resultType="java.lang.String">
+        SELECT music_url
+        FROM `music_resources`
+        WHERE id IN (
+            SELECT music_id FROM `music_list_value` WHERE music_list_id=#{id}
+            );
+    </select>
+
+    <select id="selectMusicListName" resultType="java.lang.String">
+        SELECT music_list_name
+        FROM music_list
+        WHERE id=#{id};
+    </select>
+
+</mapper>

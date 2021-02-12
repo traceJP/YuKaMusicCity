@@ -37,14 +37,6 @@ public interface UserAdminService {
     String loginAttest(String email, String password, Boolean isAutoLogin, HttpSession session);
 
     /**
-     * 密码修改服务
-     * @param password 前端传递密码参数
-     * @param uid
-     * @return 返回一个响应状态码
-     */
-    String updatePassword(String uid, String password);
-
-    /**
      * 判断是否当天第一次登录
      * @param uid uid
      * @return 当天未登录则返回true

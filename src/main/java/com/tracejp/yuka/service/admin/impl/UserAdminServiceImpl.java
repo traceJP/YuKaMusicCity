@@ -1,6 +1,6 @@
 package com.tracejp.yuka.service.admin.impl;
 
-import com.tracejp.yuka.dao.UserTableMapper;
+import com.tracejp.yuka.dao.UserAdminMapper;
 import com.tracejp.yuka.model.enums.ResponseStatus;
 import com.tracejp.yuka.model.dto.RegisteredParameterDTO;
 import com.tracejp.yuka.service.admin.UserAdminService;
@@ -30,7 +30,7 @@ public class UserAdminServiceImpl implements UserAdminService {
     private final int LENGTH_UID = 16;
 
     @Autowired
-    private UserTableMapper userDao;
+    private UserAdminMapper userDao;
 
     @Override
     public String registered(RegisteredParameterDTO param) {
@@ -68,15 +68,6 @@ public class UserAdminServiceImpl implements UserAdminService {
         if(isAutoLogin) {
             session.setMaxInactiveInterval(AUTO_LOGIN_SESSION_TIME);
         }
-        return ResponseStatus.SUCCESS_200.getStatus();
-    }
-
-    @Override
-    public String updatePassword(String uid, String password) {
-        if(uid == null || password == null) {
-            return ResponseStatus.FAIL_PARAM_IS_NULL.getStatus();
-        }
-        userDao.updatePassword(uid, password);
         return ResponseStatus.SUCCESS_200.getStatus();
     }
 
