@@ -7,18 +7,20 @@ import java.sql.Date;
  *********************************/
 public class MusicCommentDAO {
 
-    String userId;
-    String userAvatarImgUrl;
-    String userName;
-    String commentText;
-    Date commentDatetime;
-    Integer commentAwesome;
-    Integer commentOppose;
+    private Integer id;
+    private String userId;
+    private String userAvatarImgUrl;
+    private String userName;
+    private String commentText;
+    private Date commentDatetime;
+    private Integer commentAwesome;
+    private Integer commentOppose;
 
     public MusicCommentDAO() {
     }
 
-    public MusicCommentDAO(String userId, String userAvatarImgUrl, String userName, String commentText, Date commentDatetime, Integer commentAwesome, Integer commentOppose) {
+    public MusicCommentDAO(Integer id, String userId, String userAvatarImgUrl, String userName, String commentText, Date commentDatetime, Integer commentAwesome, Integer commentOppose) {
+        this.id = id;
         this.userId = userId;
         this.userAvatarImgUrl = userAvatarImgUrl;
         this.userName = userName;
@@ -26,6 +28,14 @@ public class MusicCommentDAO {
         this.commentDatetime = commentDatetime;
         this.commentAwesome = commentAwesome;
         this.commentOppose = commentOppose;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getUserId() {
@@ -87,7 +97,8 @@ public class MusicCommentDAO {
     @Override
     public String toString() {
         return "MusicCommentDAO{" +
-                "userId='" + userId + '\'' +
+                "id=" + id +
+                ", userId='" + userId + '\'' +
                 ", userAvatarImgUrl='" + userAvatarImgUrl + '\'' +
                 ", userName='" + userName + '\'' +
                 ", commentText='" + commentText + '\'' +

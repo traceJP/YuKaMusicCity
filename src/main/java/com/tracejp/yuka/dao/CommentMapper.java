@@ -1,6 +1,7 @@
 package com.tracejp.yuka.dao;
 
 import com.tracejp.yuka.model.dao.MusicCommentDAO;
+import com.tracejp.yuka.model.vo.CommentStatusVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -31,5 +32,64 @@ public interface CommentMapper {
                                                @Param("begin") Integer begin,
                                                @Param("resultCount") Integer resultCount
                                                );
+
+
+    /**
+     * 向music_comment中添加一条评论记录
+     * @param id
+     * @param type
+     * @param text
+     * @param uid
+     */
+    void insertCommentText(@Param("id") Integer id,
+                           @Param("type") Integer type,
+                           @Param("text") String text,
+                           @Param("uid") String uid);
+
+    /**
+     * 查询用户对当前评论的操作状态（单个操作）
+     * @param id
+     * @param uid
+     * @return
+     */
+    Integer selectCommentStatus(@Param("id") Integer id, @Param("uid") String uid);
+
+    /**
+     * 查询用户对当前评论的操作状态（集合操作）
+     * @param commentList
+     * @param uid
+     * @return
+     */
+    List<CommentStatusVO> selectCommentStatusList(@Param("commentList") Integer[] commentList,
+                                                  @Param("uid") String uid);
+
+    /**
+     * 替换用户对评论的操作状态
+     * @param id
+     * @param status
+     * @param uid
+     */
+    void replaceCommentStatus(@Param("id") Integer id, @Param("status") Integer status, @Param("uid") String uid);
+
+    /**
+     * 删除点赞，点踩
+     * @param id
+     * @param uid
+     */
+    void deleteCommentKeep(@Param("id") Integer id, @Param("uid") String uid);
+
+    /**
+     * 对点赞字段进行增减操作
+     * @param id
+     * @param type type=1时增加 / type=-1时减少
+     */
+    void updateAddCommentUpvoteNumber(@Param("id") Integer id, @Param("type") Integer type);
+
+    /**
+     * 对点踩字段进行增减操作
+     * @param id
+     * @param type type=1时增加 / type=-1时减少
+     */
+    void updateAddCommentOpposeNumber(@Param("id") Integer id, @Param("type") Integer type);
 
 }

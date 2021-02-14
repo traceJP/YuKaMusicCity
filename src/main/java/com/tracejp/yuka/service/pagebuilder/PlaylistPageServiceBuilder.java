@@ -49,10 +49,7 @@ public class PlaylistPageServiceBuilder extends PlaylistPageBuilder {
 
     @Override
     protected MusicCommentDAO[] songCommentDefaultElementList() {
-        List<MusicCommentDAO> list = commentService.getPaginationService(DEFAULT_PAGE, musicListId, DEFAULT_TYPE);
-        MusicCommentDAO[] array = new MusicCommentDAO[list.size()];
-        Util.listTransformArray(list, array);
-        return array;
+        return commentService.getPaginationService(DEFAULT_PAGE, musicListId, DEFAULT_TYPE);
     }
 
 }

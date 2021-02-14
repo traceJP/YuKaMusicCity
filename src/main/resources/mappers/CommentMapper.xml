@@ -14,7 +14,7 @@
 
     <select id="selectCommentElement" resultType="com.tracejp.yuka.model.dao.MusicCommentDAO">
         SELECT
-               music_comment.user_id, user_avatar_img_url, user_name,
+               music_comment.id,music_comment.user_id, user_avatar_img_url, user_name,
                comment_text, comment_datetime, comment_awesome, comment_oppose
         FROM music_comment, user_info
         WHERE music_comment.user_id=user_info.user_id
@@ -22,5 +22,57 @@
         AND comment_id_type=#{type}
         LIMIT #{begin}, #{resultCount};
     </select>
+
+
+    <insert id="insertCommentText">
+        INSERT INTO `music_comment`(gmt_create, gmt_modified, music_id, user_id, comment_text, comment_datetime,
+                                    comment_awesome, comment_oppose, comment_id_type)
+        VALUES(NOW(), NOW(), #{id}, #{uid}, #{text}, NOW(), 0, 0, #{type});
+    </insert>
+
+
+    <select id="selectCommentStatus" resultType="java.lang.Integer">
+        SELECT upvote_oppose
+        FROM `user_keep_comment`
+        WHERE user_id=#{uid}
+        AND id=#{id};
+    </select>
+
+    <select id="selectCommentStatusList" resultType="com.tracejp.yuka.model.vo.CommentStatusVO">
+        SELECT comment_id, upvote_oppose
+        FROM `user_keep_comment`
+        WHERE user_id=#{uid}
+        AND comment_id IN
+        <foreach collection="commentList" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+
+    <insert id="replaceCommentStatus">
+        REPLACE INTO `user_keep_comment`(gmt_create, gmt_modified, user_id, comment_id, upvote_oppose)
+        VALUES(NOW(), NOW(), #{uid}, #{id}, #{status});
+    </insert>
+
+    <delete id="deleteCommentKeep">
+        DELETE FROM `user_keep_comment`
+        WHERE comment_id=#{id}
+        AND user_id=#{uid};
+    </delete>
+
+    <update id="updateAddCommentUpvoteNumber">
+        UPDATE `music_comment`
+        SET comment_awesome=
+            <if test="type == 1">comment_awesome + 1</if>
+            <if test="type == -1">comment_awesome - 1</if>
+        WHERE id=#{id};
+    </update>
+
+    <update id="updateAddCommentOpposeNumber">
+        UPDATE `music_comment`
+        SET comment_oppose=
+        <if test="type == 1">comment_oppose + 1</if>
+        <if test="type == -1">comment_oppose - 1</if>
+        WHERE id=#{id};
+    </update>
 
 </mapper>

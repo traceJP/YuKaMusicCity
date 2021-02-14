@@ -4,6 +4,7 @@ import java.util.List;
 
 /*********************************
  * @author traceJP
+ * 评论分页模型
  *********************************/
 public interface PaginationModelService<T> {
 
@@ -14,7 +15,7 @@ public interface PaginationModelService<T> {
      * @param type 1为歌曲  2为歌单
      * @return 返回记录集合
      */
-    List<T> getPaginationService(Integer pageNumber, Integer id, Integer type);
+    T[] getPaginationService(Integer pageNumber, Integer id, Integer type);
 
     /**
      * 获取记录总数
