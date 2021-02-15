@@ -19,6 +19,14 @@ public interface UserLevelService {
     void addSongNumber(String uid);
 
     /**
+     * 用户升级处理
+     * @param uid uid
+     * @param songNumber 当前听歌数
+     * @param loginNumber 当前登录天数
+     */
+    void userUpgrade(String uid, int level, int songNumber, int loginNumber);
+
+    /**
      * 根据等级和当前登录天数转化为剩余登录天数
      * @param level 等级
      * @param loginNumber 登录天数

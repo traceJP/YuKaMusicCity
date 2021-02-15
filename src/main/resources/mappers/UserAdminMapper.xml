@@ -6,8 +6,22 @@
 <mapper namespace="com.tracejp.yuka.dao.UserAdminMapper">
 
     <insert id="addUserRecord" parameterType="com.tracejp.yuka.model.dto.RegisteredParameterDTO">
-        INSERT INTO `user`(gmt_create, gmt_modified, user_uid, user_name, user_email, user_password)
-        VALUES (NOW(),NOW(),#{uid}, #{name}, #{email}, #{password});
+        INSERT INTO `user`(user_uid, user_email, user_password, user_last_login_time)
+        VALUES(#{uid}, #{email}, #{password}, NOW());
+    </insert>
+    <insert id="addUserInfoBlankRecord">
+        INSERT INTO `user_info`(user_id, user_name)
+        VALUES(#{uid}, #{name});
+    </insert>
+    <insert id="addUserLevelBlankRecord">
+        INSERT INTO `user_level`(user_id, level_number, user_song_number, user_login_days)
+        VALUES(#{uid}, 0, 0, 0);
+    </insert>
+    <insert id="addUserMusicListILikeBlankRecord">
+        <bind name="listName" value="我喜欢"/>
+        <bind name="listImg" value=""/>
+        INSERT INTO `music_list`(music_list_name, music_list_img_url, user_id, is_user_default, music_list_play_count)
+        VALUES(#{listName}, #{listImg}, #{uid}, 1, 0);
     </insert>
 
     <select id="selectHasUserEmail" resultType="int">
@@ -42,38 +56,38 @@
 
     <update id="updateUserLastLoginTime">
         UPDATE `user`
-        SET user_last_login_time=NOW(), gmt_modified=NOW()
+        SET user_last_login_time=NOW()
         WHERE user_uid=#{uid};
     </update>
 
 
     <update id="updateEmail">
         UPDATE `user`
-        SET gmt_modified=NOW(), user_email=#{newEmail}
+        SET user_email=#{newEmail}
         WHERE user_uid=#{uid};
     </update>
 
     <update id="updatePassword">
         UPDATE `user`
-        SET gmt_modified=NOW(), user_password=#{newPassword}
+        SET user_password=#{newPassword}
         WHERE user_uid=#{uid};
     </update>
 
     <update id="updateName">
         UPDATE `user_info`
-        SET gmt_modified=NOW(), user_name=#{newName}
+        SET user_name=#{newName}
         WHERE user_id=#{uid};
     </update>
 
     <update id="updateSex">
         UPDATE `user_info`
-        SET gmt_modified=NOW(), user_sex=#{newSex}
+        SET user_sex=#{newSex}
         WHERE user_id=#{uid};
     </update>
 
     <update id="updateBirthday">
         UPDATE `user_info`
-        SET gmt_modified=NOW(), user_birthday=#{newBirthday}
+        SET user_birthday=#{newBirthday}
         WHERE user_id=#{uid};
     </update>
 
@@ -85,19 +99,19 @@
 
     <update id="updateAvatar">
         UPDATE `user_info`
-        SET gmt_modified=NOW(), user_avatar_img_url=#{newAvatarUrl}
+        SET user_avatar_img_url=#{newAvatarUrl}
         WHERE user_id=#{uid};
     </update>
 
     <update id="updateIntroduction">
         UPDATE `user_info`
-        SET gmt_modified=NOW(), user_introduction=#{newIntroduction}
+        SET user_introduction=#{newIntroduction}
         WHERE user_id=#{uid};
     </update>
 
     <update id="updateArea">
         UPDATE `user_info`
-        SET gmt_modified=NOW(), user_area=#{newArea}
+        SET user_area=#{newArea}
         WHERE user_id=#{uid};
     </update>
 

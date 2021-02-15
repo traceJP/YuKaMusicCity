@@ -14,8 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.text.DateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 /*********************************
  * @author traceJP
@@ -42,13 +40,11 @@ public class UserAdminServiceImpl implements UserAdminService {
         }
         String uid = Util.getRandomString(LENGTH_UID);
         String password = DigestUtils.md5DigestAsHex(param.getPassword().getBytes());
-        Map<String, Object> map = new HashMap<String, Object>(4);
-        map.put("uid", uid);
-        map.put("name", param.getUserName());
-        map.put("email", param.getEmail());
-        map.put("password", password);
-        // 注册
-        userDao.addUserRecord(map);
+        // 注册初始化数据库
+        userDao.addUserRecord(uid, param.getEmail(), password);
+        userDao.addUserInfoBlankRecord(uid, param.getUserName());
+        userDao.addUserLevelBlankRecord(uid);
+        userDao.addUserMusicListILikeBlankRecord(uid);
         return ResponseStatus.SUCCESS_200.getStatus();
     }
 
@@ -72,15 +68,16 @@ public class UserAdminServiceImpl implements UserAdminService {
     }
 
     @Override
+    public String loginExit(HttpSession session) {
+        session.invalidate();
+        return ResponseStatus.SUCCESS_200.getStatus();
+    }
+
+    @Override
     public boolean isTodayFirstLogin(String uid) {
         Date lastLoginTime = userDao.selectUserLastLoginTime(uid);
         Date currentTime = new Date();
         DateFormat dfm = DateFormat.getDateInstance();
-        // TODO: 2021/2/1 用户注册需要初始化第一次登录时间参数，否则此处会出现npe异常
-//        System.out.println(lastLoginTime);
-//        System.out.println(currentTime);
-//        System.out.println(dfm.format(currentTime));
-//        System.out.println(dfm.format(lastLoginTime));
         if(dfm.format(currentTime).equals(dfm.format(lastLoginTime))) {
             return false;
         }

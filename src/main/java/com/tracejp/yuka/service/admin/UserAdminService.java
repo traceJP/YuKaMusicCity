@@ -1,9 +1,7 @@
 package com.tracejp.yuka.service.admin;
 
-import com.sun.deploy.net.HttpResponse;
 import com.tracejp.yuka.model.dto.RegisteredParameterDTO;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -28,13 +26,20 @@ public interface UserAdminService {
 
     /**
      * 用户登录服务（只适用于login.html页面）
-     * @param email
-     * @param password
-     * @param isAutoLogin
-     * @param session
+     * @param email 邮箱
+     * @param password 密码
+     * @param isAutoLogin 是否自动登录
+     * @param session session
      * @return 200ok 400登录失败
      */
     String loginAttest(String email, String password, Boolean isAutoLogin, HttpSession session);
+
+    /**
+     * 用户登录退出服务
+     * @param session
+     * @return
+     */
+    String loginExit(HttpSession session);
 
     /**
      * 判断是否当天第一次登录

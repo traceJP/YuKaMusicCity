@@ -39,12 +39,18 @@ public abstract class HomePageBuilder {
     protected abstract HomeListenToSongsBO[] listenToSongsRank();
 
     /**
+     * 查询时进行用户的升级判断
+     */
+    protected abstract void userUpgrade();
+
+    /**
      * 构建home页面需要的所有数据
      * @param uid 该信息来源uid
      * @return HomeVO
      */
     public HomeVO createHomeVO(String uid) {
         userUid = uid;
+        userUpgrade();
         return new HomeVO(
                 personalInformation(),
                 myGrade(),

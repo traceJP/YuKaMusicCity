@@ -3,6 +3,7 @@ package com.tracejp.yuka.controller;
 import com.tracejp.yuka.model.dto.RegisteredParameterDTO;
 import com.tracejp.yuka.service.admin.UserAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,6 +28,11 @@ public class UserAdminController {
     @GetMapping("/login")
     public String loginAttest(String email, String password, Boolean isAutoLogin, HttpSession session) {
         return adminService.loginAttest(email, password, isAutoLogin, session);
+    }
+
+    @DeleteMapping("/user/loginOut")
+    public String loginExit(HttpSession session) {
+        return adminService.loginExit(session);
     }
 
 

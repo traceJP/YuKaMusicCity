@@ -62,12 +62,31 @@ public interface CollectMapper {
                              @Param("isDefault") Boolean isDefault
                              );
 
-
     /**
      * 通过歌单id删除music_list表中相应的记录
      * @param listId
      */
     void deleteUserMusicList(@Param("listId") Integer listId);
+    /**
+     * 通过歌单id删除music_list_value表中相应的记录
+     * @param listId
+     */
+    void deleteUserMusicListValue(@Param("listId") Integer listId);
+    /**
+     * 通过歌单id删除user_keep_music_list表中相应的记录
+     * @param listId
+     */
+    void deleteUserKeepMusicList(@Param("listId") Integer listId);
+    /**
+     * 删除用户保存评论（需要借助comment表进行集合的查询）
+     * @param listId
+     */
+    void deleteUserKeepComment(@Param("listId") Integer listId);
+    /**
+     * 删除歌单下所有的评论（需要在删除用户保存评论后执行）
+     * @param listId
+     */
+    void deleteMusicListComment(@Param("listId") Integer listId);
 
     /**
      * 通过用户id和歌单id向user_keep_music_list表中添加一条记录
@@ -97,9 +116,5 @@ public interface CollectMapper {
      * @return
      */
     Integer selectIsUserCollectMusicList(@Param("uid") String uid, @Param("listId") Integer listId);
-
-
-
-
 
 }

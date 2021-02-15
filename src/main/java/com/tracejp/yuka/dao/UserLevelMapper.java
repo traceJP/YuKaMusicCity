@@ -17,4 +17,10 @@ public interface UserLevelMapper {
      */
     void updateSongNumberPlusOne(String uid);
 
+    /**
+     * 用户升级
+     * @param uid uid
+     */
+    void updateUserLevelNumber(String uid);
+
 }

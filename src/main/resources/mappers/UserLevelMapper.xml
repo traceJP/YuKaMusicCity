@@ -7,14 +7,20 @@
 
     <update id="updateLoginDaysPlusOne">
         UPDATE `user_level`
-        SET user_login_days = user_login_days + 1, gmt_modified = NOW()
+        SET user_login_days = user_login_days + 1
         WHERE user_id=#{uid}
     </update>
 
     <update id="updateSongNumberPlusOne">
         UPDATE `user_level`
-        SET user_song_number = user_song_number + 1, gmt_modified = NOW()
+        SET user_song_number = user_song_number + 1
         WHERE user_id=#{uid}
+    </update>
+
+    <update id="updateUserLevelNumber">
+        UPDATE `user_level`
+        SET level_number = level_number + 1
+        WHERE user_id=#{uid};
     </update>
 
 </mapper>

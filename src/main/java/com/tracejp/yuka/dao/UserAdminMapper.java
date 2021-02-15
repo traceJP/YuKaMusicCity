@@ -11,10 +11,32 @@ import java.util.Map;
 public interface UserAdminMapper {
 
     /**
-     * 向User表中添加一条完整的记录
-     * @param param
+     * 向user表中添加一条完整记录
+     * @param uid
+     * @param email
+     * @param password
      */
-    void addUserRecord(Map<String, Object> param);
+    void addUserRecord(@Param("uid") String uid, @Param("email") String email, @Param("password") String password);
+
+    /**
+     * 向user_info表中添加一条空白记录
+     * @param uid 用户唯一标识
+     * @param name 用户昵称
+     */
+    void addUserInfoBlankRecord(@Param("uid") String uid, @Param("name") String name);
+
+    /**
+     * 向user_level表中添加一条空白记录
+     * @param uid 用户唯一标识
+     */
+    void addUserLevelBlankRecord(@Param("uid") String uid);
+
+    /**
+     * 向music_list表中添加一条用户默认歌单记录
+     * @param uid 用户唯一标识
+     */
+    void addUserMusicListILikeBlankRecord(@Param("uid") String uid);
+
 
     /**
      * 查询User表中是否有对应的email记录

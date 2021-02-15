@@ -56,10 +56,22 @@ public class HomePageServiceBuilder extends HomePageBuilder {
     @Override
     protected HomeUserLevelBO myGrade() {
         HomeUserLevelDAO levelDAO = viewPage.selectUserLevel(userUid);
-        int overLogin = levelService.overLoginConverter(levelDAO.getLevelNumber(), levelDAO.getUserLoginDays());
-        int overSong = levelService.overSongNumberConverter(levelDAO.getLevelNumber(), levelDAO.getUserSongNumber());
-        float percentageLogin = levelService.percentageLoginConverter(levelDAO.getLevelNumber(), levelDAO.getUserLoginDays());
-        float percentageSong = levelService.percentageSongNumberConverter(levelDAO.getLevelNumber(), levelDAO.getUserSongNumber());
+        int overLogin = levelService.overLoginConverter(
+                levelDAO.getLevelNumber(),
+                levelDAO.getUserLoginDays()
+        );
+        int overSong = levelService.overSongNumberConverter(
+                levelDAO.getLevelNumber(),
+                levelDAO.getUserSongNumber()
+        );
+        float percentageLogin = levelService.percentageLoginConverter(
+                levelDAO.getLevelNumber(),
+                levelDAO.getUserLoginDays()
+        );
+        float percentageSong = levelService.percentageSongNumberConverter(
+                levelDAO.getLevelNumber(),
+                levelDAO.getUserSongNumber()
+        );
         int countMusic = levelDAO.getUserSongNumber();
         // 将DAO对象总值替换成剩余值，并延续给BO对象使用
         levelDAO.setUserLoginDays(overLogin);
@@ -92,6 +104,17 @@ public class HomePageServiceBuilder extends HomePageBuilder {
             listBO[i].setMusicNumberPercentage(percentage);
         }
         return listBO;
+    }
+
+    @Override
+    protected void userUpgrade() {
+        HomeUserLevelDAO levelDAO = viewPage.selectUserLevel(userUid);
+        levelService.userUpgrade(
+                userUid,
+                levelDAO.getLevelNumber(),
+                levelDAO.getUserSongNumber(),
+                levelDAO.getUserLoginDays()
+                );
     }
 
 }

@@ -47,9 +47,16 @@ public class ListCollectServiceImpl implements ListCollectService {
         if(!isUserCreateMusicList(uid, listId)) {
             return ResponseStatus.SUCCESS_ERROR.getStatus();
         }
-        // TODO: 2021/2/8 删除歌单需要删除清空对应歌曲表的记录
-        //        记录包括/ 歌单表，歌单值表，歌单评论表，歌单评论记录表，歌单用户收藏表
-
+        // 清除歌单表
+        musicCollect.deleteUserMusicList(listId);
+        // 清除歌单值表
+        musicCollect.deleteUserMusicListValue(listId);
+        // 清除用户收藏表
+        musicCollect.deleteUserKeepMusicList(listId);
+        // 清除歌单评论记录表
+        musicCollect.deleteUserKeepComment(listId);
+        // 清除歌单评论表
+        musicCollect.deleteMusicListComment(listId);
         return ResponseStatus.SUCCESS_200.getStatus();
     }
 

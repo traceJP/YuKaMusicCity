@@ -38,6 +38,17 @@ public class UserLevelServiceImpl implements UserLevelService {
     }
 
     @Override
+    public void userUpgrade(String uid, int level, int songNumber, int loginNumber) {
+         level += 1;
+         int nextSongNumber = readProperties(level, SONG_METHOD);
+         int nextLoginNumber = readProperties(level, LOGIN_METHOD);
+         // 当两者都大于等于下一等级所需数时，进行用户升级处理
+         if(songNumber >= nextSongNumber && loginNumber >= nextLoginNumber) {
+             levelDao.updateUserLevelNumber(uid);
+         }
+    }
+
+    @Override
     public int overLoginConverter(int level, int loginNumber) {
         int total = readProperties(level, LOGIN_METHOD);
         return total - loginNumber;

@@ -1,5 +1,6 @@
 package com.tracejp.yuka.utils;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -7,6 +8,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
+
+import static org.springframework.beans.factory.config.ConfigurableBeanFactory.SCOPE_PROTOTYPE;
 
 /*********************************
  * @author traceJP
@@ -72,8 +75,8 @@ public class LocalFileCommandUtil {
         multipartFile = builder.multipartFile;
     }
 
-    // TODO: 2021/2/12 可能会存有并发bug，需要调整bean生命周期
     @Component
+    @Scope(SCOPE_PROTOTYPE)
     public static final class Builder {
 
         private String configUrl;

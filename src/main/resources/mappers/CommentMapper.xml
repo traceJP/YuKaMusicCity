@@ -25,9 +25,9 @@
 
 
     <insert id="insertCommentText">
-        INSERT INTO `music_comment`(gmt_create, gmt_modified, music_id, user_id, comment_text, comment_datetime,
+        INSERT INTO `music_comment`(music_id, user_id, comment_text, comment_datetime,
                                     comment_awesome, comment_oppose, comment_id_type)
-        VALUES(NOW(), NOW(), #{id}, #{uid}, #{text}, NOW(), 0, 0, #{type});
+        VALUES(#{id}, #{uid}, #{text}, NOW(), 0, 0, #{type});
     </insert>
 
 
@@ -49,8 +49,8 @@
     </select>
 
     <insert id="replaceCommentStatus">
-        REPLACE INTO `user_keep_comment`(gmt_create, gmt_modified, user_id, comment_id, upvote_oppose)
-        VALUES(NOW(), NOW(), #{uid}, #{id}, #{status});
+        REPLACE INTO `user_keep_comment`(user_id, comment_id, upvote_oppose)
+        VALUES(#{uid}, #{id}, #{status});
     </insert>
 
     <delete id="deleteCommentKeep">
