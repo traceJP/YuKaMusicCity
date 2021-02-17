@@ -12,15 +12,16 @@
     <script src="../../static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
     <!-- vue -->
     <script src="../../static/vue.js"></script>
+    <script src="../../static/axios.min.js"></script>
 
     <link rel="stylesheet" href="../css/style.css" />
 
 </head>
 
 <body>
-    <div id="background-box">
+    <div id="vue-model" :class="backgroundBox">
         <!-- 导航条 -->
-        <nav id="nav_vue_object" :class="bgNav" class="navbar bottom-zero">
+        <nav :class="bgNav" class="navbar bottom-zero">
             <div class="container-fluid navbar-center">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
@@ -38,13 +39,19 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="#">发现音乐<span class="sr-only">(current)</span></a></li>
-                        <li><a href="#">我的音乐</a></li>
+                        <li><a :href="myMusicButtonHref">我的音乐</a></li>
                         <li @click="backgroundSwitch"><a href="#">改变主题</a></li>
                         <li><a :href="userNameButtonHref">{{ userName }}</a></li>
                     </ul>
                     <form class="navbar-form navbar-left">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="音乐/歌单/用户">
+                            <input v-on:input="searchRequest" v-model="searchValue" type="text" class="form-control" placeholder="音乐/歌单/用户">
+                            <div class="list-group" style="z-index: 1024;position: absolute;">
+                                <a v-for="item in searchResponse" @click="searchRouter(item.id, item.type)" class="list-group-item">
+                                    {{ item.name }}
+                                    <span class="badge">{{ item.type=="1" ? "歌曲" : "歌单" }}</span>
+                                </a>
+                            </div>  
                         </div>
                     </form>
                 </div>
@@ -90,7 +97,7 @@
         </div>
 
         <!-- 歌曲展示 -->
-        <div id="song_vue_object" class="center-block song-box row">
+        <div class="center-block song-box row">
             <h4 class="tab-title-red">
                 <span>
                     <span class="glyphicon glyphicon-chevron-right" style="color:#C10D0C"></span>
@@ -99,58 +106,12 @@
                 </span>
             </h4>
             <div class="text-center">
-
-                <div class="col-sm-6 col-md-4">
+                <div v-for="items in popularMusicList" @click="playlistRouter(items.id)" class="col-sm-6 col-md-4">
                     <div class="thumbnail">
-                        <img src="../image/ge1.jpg">
+                        <img :src="items.musicListImgUrl">
                         <div class="caption">
-                            <h3>{{ hello }}</h3>
-                            <p>动漫歌单</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <img src="../image/ge2.jpg">
-                        <div class="caption">
-                            <h3>紫罗兰永恒花园</h3>
-                            <p>动漫歌单</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <img src="../image/ge3.jpg">
-                        <div class="caption">
-                            <h3>紫罗兰永恒花园</h3>
-                            <p>动漫歌单</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <img src="../image/ge4.jpg">
-                        <div class="caption">
-                            <h3>紫罗兰永恒花园</h3>
-                            <p>动漫歌单</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <img src="../image/ge4.jpg">
-                        <div class="caption">
-                            <h3>紫罗兰永恒花园</h3>
-                            <p>动漫歌单</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <img src="../image/ge4.jpg">
-                        <div class="caption">
-                            <h3>紫罗兰永恒花园</h3>
-                            <p>动漫歌单</p>
+                            <h3>{{ items.musicListName }}</h3>
+                            <p>{{ items.musicListType }}歌单</p>
                         </div>
                     </div>
                 </div>
@@ -158,7 +119,7 @@
         </div>
 
         <!-- 专辑展示盒 -->
-        <div id="album_vue_object" class="center-block song-box">
+        <div class="center-block song-box">
             <h4 class="tab-title-red">
                 <span>
                     <span class="glyphicon glyphicon-chevron-right" style="color:#C10D0C"></span>
@@ -168,74 +129,39 @@
             </h4>
             <div id="carousel-example-generic" class="carousel slide text-center" data-ride="carousel">
                 <div class="carousel-inner lists-split-purchase" role="listbox">
-                    <div class="item active">
+                    <div v-for="i in 3" class="item" :class="i==3? 'active':''">
                         <div class="row">
-                            <div class="col-sm-4 col-md-3 visible-lg-block visible-md-block">
-                                <img src="../image/ge1.jpg">
+                            <div @click="songRouter(newSongMusic[i - 1].id)" class="col-sm-4 col-md-3 visible-lg-block visible-md-block">
+                                <img :src="newSongMusic[i - 1].musicImgUrl">
                                 <div class="caption">
-                                    <h3>不完美人生指南</h3>
-                                    <p>林俊杰</p>
+                                    <h3>{{ newSongMusic[i - 1].musicName }}</h3>
+                                    <p>{{ newSongMusic[i - 1].musicAuthor }}</p>
                                 </div>
                             </div>
-                            <div class="col-sm-4 col-md-3 hidden-xs">
-                                <img src="../image/ge1.jpg">
+                            <div @click="songRouter(newSongMusic[i + 2].id)" class="col-sm-4 col-md-3 hidden-xs">
+                                <img :src="newSongMusic[i + 2].musicImgUrl">
                                 <div class="caption">
-                                    <h3>不完美人生指南</h3>
-                                    <p>林俊杰</p>
+                                    <h3>{{ newSongMusic[i + 2].musicName }}</h3>
+                                    <p>{{ newSongMusic[i + 2].musicAuthor }}</p>
                                 </div>
                             </div>
-                            <div class="col-sm-4 col-md-3 hidden-xs">
-                                <img src="../image/ge1.jpg">
+                            <div @click="songRouter(newSongMusic[i + 5].id)" class="col-sm-4 col-md-3 hidden-xs">
+                                <img :src="newSongMusic[i + 5].musicImgUrl">
                                 <div class="caption">
-                                    <h3>不完美人生指南</h3>
-                                    <p>林俊杰</p>
+                                    <h3>{{ newSongMusic[i + 5].musicName }}</h3>
+                                    <p>{{ newSongMusic[i + 5].musicAuthor }}</p>
                                 </div>
                             </div>
-                            <div class="col-sm-4 col-md-3 col-xs-12">
-                                <img src="../image/ge1.jpg">
+                            <div @click="songRouter(newSongMusic[i + 8].id)" class="col-sm-4 col-md-3 col-xs-12">
+                                <img :src="newSongMusic[i + 8].musicImgUrl">
                                 <div class="caption">
-                                    <h3>不完美人生指南</h3>
-                                    <p>林俊杰</p>
+                                    <h3>{{ newSongMusic[i + 8].musicName }}</h3>
+                                    <p>{{ newSongMusic[i + 8].musicAuthor }}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="item">
-                        <div class="row">
-                            <div class="col-sm-4 col-md-3 visible-lg-block visible-md-block">
-                                <img src="../image/ge2.jpg">
-                                <div class="caption">
-                                    <h3>你的酒馆打了羊</h3>
-                                    <p>周杰伦</p>
-                                </div>
-                            </div>
-                            <div class="col-sm-4 col-md-3 hidden-xs">
-                                <img src="../image/ge2.jpg">
-                                <div class="caption">
-                                    <h3>你的酒馆打了羊</h3>
-                                    <p>周杰伦</p>
-                                </div>
-                            </div>
-                            <div class="col-sm-4 col-md-3 hidden-xs">
-                                <img src="../image/ge2.jpg">
-                                <div class="caption">
-                                    <h3>你的酒馆打了羊</h3>
-                                    <p>周杰伦</p>
-                                </div>
-                            </div>
-                            <div class="col-sm-4 col-md-3 col-xs-12">
-                                <img src="../image/ge2.jpg">
-                                <div class="caption">
-                                    <h3>你的酒馆打了羊</h3>
-                                    <p>周杰伦</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- ... -->
-
+                    
                     <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
                         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                         <span class="sr-only">Previous</span>
@@ -250,7 +176,7 @@
         </div>
 
         <!-- 排行榜 -->
-        <div id="rank_vue_object" class="center-block song-box">
+        <div class="center-block song-box">
 
             <h4 class="tab-title-red">
                 <span>
@@ -263,49 +189,44 @@
             <table :class="bgLeaderBoard" class="table">
                 <thead>
                     <tr>
-                        <th class="">
+                        <th>
                             <img src="../image/ge1.jpg" width="80" />
                             <span class="hidden-xs">音乐飙升榜</span>
-
                         </th>
-                        <th class="">
-                            <img src="../image/ge1.jpg" width="80" />
+                        <th>
+                            <img src="../image/ge2.jpg" width="80" />
                             <span class="hidden-xs">音乐飙升榜</span>
 
                         </th>
                         <th class="hidden-xs">
-                            <img src="../image/ge1.jpg" width="80" />
+                            <img src="../image/ge3.jpg" width="80" />
                             <span>音乐飙升榜</span>
-
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     <!-- 排行榜模板 -->
-                    <tr>
-                        <td class="">
-                            <span>1</span>
-                            <span style="margin: 20px;">努力工作把</span>
-                            <a class="hidden-xs" href="#"><span class="glyphicon glyphicon-play-circle"
-                                    style="font-size: 20px;"></span></a>
-                            <a class="hidden-xs" href="#"><span class="glyphicon glyphicon-heart-empty"
-                                    style="font-size: 20px;"></span></a>
+                    <tr v-for="i in 10">
+                        <td>
+                            <span style="margin-right: 10px;">{{ i }}</span>
+                            <span>{{ rankListOneMusic[i-1].musicName }}</span>
+                            <a href="#" @click="songRouter(rankListOneMusic[i-1].id)">
+                                <span class="glyphicon glyphicon-play-circle" style="font-size: 20px;"></span>
+                            </a>
                         </td>
-                        <td class="">Bangalore</td>
-                        <td class="hidden-xs">560001</td>
+                        <td>
+                            <span>{{ rankListTwoMusic[i-1].musicName }}</span>
+                            <a href="#" @click="songRouter(rankListOneMusic[i-1].id)">
+                                <span class="glyphicon glyphicon-play-circle" style="font-size: 20px;"></span>
+                            </a>
+                        </td>
+                        <td class="hidden-xs">
+                            <span>{{ rankListThreeMusic[i-1].musicName }}</span>
+                            <a href="#" @click="songRouter(rankListOneMusic[i-1].id)">
+                                <span class="glyphicon glyphicon-play-circle" style="font-size: 20px;"></span>
+                            </a>
+                        </td>
                     </tr>
-
-                    <tr>
-                        <td class="">Sachin</td>
-                        <td class="">Mumbai</td>
-                        <td class="hidden-xs">400003</td>
-                    </tr>
-                    <tr>
-                        <td class="">Uma</td>
-                        <td class="">Pune</td>
-                        <td class="hidden-xs">411027</td>
-                    </tr>
-
                 </tbody>
             </table>
         </div>

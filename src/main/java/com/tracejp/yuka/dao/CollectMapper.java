@@ -58,6 +58,7 @@ public interface CollectMapper {
      */
     void insertUserMusicList(@Param("uid") String uid,
                              @Param("listName") String listName,
+                             @Param("listType") String listType,
                              @Param("imgUrl") String imgUrl,
                              @Param("isDefault") Boolean isDefault
                              );

@@ -18,8 +18,8 @@
         VALUES(#{uid}, 0, 0, 0);
     </insert>
     <insert id="addUserMusicListILikeBlankRecord">
-        <bind name="listName" value="我喜欢"/>
-        <bind name="listImg" value=""/>
+        <bind name="listName" value="'我喜欢'"/>
+        <bind name="listImg" value="'../image/ge3.jpg'"/>
         INSERT INTO `music_list`(music_list_name, music_list_img_url, user_id, is_user_default, music_list_play_count)
         VALUES(#{listName}, #{listImg}, #{uid}, 1, 0);
     </insert>

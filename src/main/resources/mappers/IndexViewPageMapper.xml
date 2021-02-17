@@ -6,8 +6,9 @@
 <mapper namespace="com.tracejp.yuka.dao.IndexViewPageMapper">
 
     <select id="getMusicListBaseInfoToPopular" resultType="com.tracejp.yuka.model.dao.IndexPopularMusicListDAO">
-        SELECT id, music_list_img_url, music_list_name
+        SELECT id, music_list_img_url, music_list_name, music_list_type
         FROM `music_list`
+        WHERE is_user_default=0
         ORDER BY music_list_play_count DESC
         LIMIT #{resultCount};
     </select>

@@ -18,6 +18,7 @@
             SELECT id, music_list_name AS name, 2
             FROM `music_list`
             WHERE music_list_name LIKE #{blurry}
+        LIMIT #{resultCount}
     </select>
     <resultMap id="defaultResultMap" type="com.tracejp.yuka.model.vo.SearchVO">
         <result column="id" property="id"/>

@@ -8,14 +8,16 @@ public class IndexPopularMusicListDAO {
     private Integer id;
     private String musicListImgUrl;
     private String musicListName;
+    private String musicListType;
 
     public IndexPopularMusicListDAO() {
     }
 
-    public IndexPopularMusicListDAO(Integer id, String musicListImgUrl, String musicListName) {
+    public IndexPopularMusicListDAO(Integer id, String musicListImgUrl, String musicListName, String musicListType) {
         this.id = id;
         this.musicListImgUrl = musicListImgUrl;
         this.musicListName = musicListName;
+        this.musicListType = musicListType;
     }
 
     public Integer getId() {
@@ -42,12 +44,21 @@ public class IndexPopularMusicListDAO {
         this.musicListName = musicListName;
     }
 
+    public String getMusicListType() {
+        return musicListType;
+    }
+
+    public void setMusicListType(String musicListType) {
+        this.musicListType = musicListType;
+    }
+
     @Override
     public String toString() {
-        return "MusicListDAO{" +
+        return "IndexPopularMusicListDAO{" +
                 "id=" + id +
                 ", musicListImgUrl='" + musicListImgUrl + '\'' +
                 ", musicListName='" + musicListName + '\'' +
+                ", musicListType='" + musicListType + '\'' +
                 '}';
     }
 

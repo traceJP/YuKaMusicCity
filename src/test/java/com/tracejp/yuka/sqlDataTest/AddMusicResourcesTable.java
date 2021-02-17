@@ -28,7 +28,7 @@ public class AddMusicResourcesTable {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, result[i][1]);
             // 图片
-            ps.setString(2, "../image/ge5.jpg");
+            ps.setString(2, "../image/ge3.jpg");
             ps.setString(3, result[i][2]);
             ps.setString(4, result[i][0]);
             ps.execute();

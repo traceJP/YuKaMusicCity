@@ -14,7 +14,7 @@ public interface ListCollectService {
      * @param fileImg 歌单展示图片封装类
      * @return
      */
-    String addUserMusicList(String uid, String listName, MultipartFile fileImg);
+    String addUserMusicList(String uid, String listName, String listType, MultipartFile fileImg);
 
     /**
      * 通过歌单id和用户id删除歌单

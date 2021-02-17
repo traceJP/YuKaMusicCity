@@ -47,8 +47,8 @@ public class CollectController {
     }
 
     @PostMapping("/addMusicList")
-    public String createUserMusicList(@SessionAttribute String uid, String listName, MultipartFile fileImg) {
-        return listService.addUserMusicList(uid, listName, fileImg);
+    public String createUserMusicList(@SessionAttribute String uid, String listName, String listType, MultipartFile fileImg) {
+        return listService.addUserMusicList(uid, listName, listType, fileImg);
     }
 
     @DeleteMapping("/deleteMusicList")

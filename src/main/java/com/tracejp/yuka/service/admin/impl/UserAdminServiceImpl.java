@@ -54,7 +54,8 @@ public class UserAdminServiceImpl implements UserAdminService {
             return ResponseStatus.FAIL_PARAM_IS_NULL.getStatus();
         }
         // 邮箱+密码检查
-        if(userDao.selectHasUserEmailAndPassword(email, password) == 0) {
+        String passwordMD5 = DigestUtils.md5DigestAsHex(password.getBytes());
+        if(userDao.selectHasUserEmailAndPassword(email, passwordMD5) == 0) {
             return ResponseStatus.FAIL_LOGIN_INFO_ERROR.getStatus();
         }
         // 登录成功后将用户uid放入session中

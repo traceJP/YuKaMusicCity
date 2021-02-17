@@ -22,6 +22,9 @@ public class SearchServiceImpl implements SearchService<SearchVO> {
 
     @Override
     public SearchVO[] searchHandler(String word, Integer resultCount) {
+        if("".equals(word)) {
+            return null;
+        }
         String[] parsingArray = parsingKeyWord(word);
         String parsingKey = parsingArray[0] + SUFFIX;
         SearchVO[] searchVO = null;
