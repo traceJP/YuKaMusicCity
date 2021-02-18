@@ -14,7 +14,6 @@ import org.springframework.web.context.annotation.RequestScope;
 
 import java.util.Date;
 import java.util.List;
-import java.util.ListIterator;
 
 /*********************************
  * @author traceJP
@@ -38,7 +37,8 @@ public class HomePageServiceBuilder extends HomePageBuilder {
                 infoDAO.getUserName(),
                 infoDAO.getUserArea(),
                 infoDAO.getUserSex(),
-                null
+                null,
+                infoDAO.getUserIntroduction()
         );
         Date birthday = infoDAO.getUserBirthday();
         if(birthday == null) {
@@ -90,18 +90,25 @@ public class HomePageServiceBuilder extends HomePageBuilder {
         if(listDAO == null) {
             return null;
         }
-        // 真实元素返回个数
-        int realResultCount = listDAO.size();
-        ListIterator<HomeListenToSongsDAO> iterator = listDAO.listIterator();
-        HomeListenToSongsBO[] listBO = new HomeListenToSongsBO[realResultCount];
-        for(int i = 0; i < realResultCount; i++) {
-            HomeListenToSongsDAO element = iterator.next();
-            listBO[i].setId(element.getId());
-            listBO[i].setMusicName(element.getMusicName());
-            listBO[i].setMusicAuthor(element.getMusicAuthor());
-            listBO[i].setBroadcastNumberTimes(element.getBroadcastNumberTimes());
-            float percentage = (float)element.getBroadcastNumberTimes() / (float)element.getBroadcastNumberTimesTotal();
+        // 查询每首歌的所有听歌次数总和
+        for (HomeListenToSongsDAO item : listDAO) {
+            Integer sum = viewPage.selectSongSum(item.getId());
+            item.setBroadcastNumberTimesTotal(sum);
+        }
+        // 计算百分比属性并封装到BO中
+        HomeListenToSongsBO[] listBO = new HomeListenToSongsBO[listDAO.size()];
+        for(int i = 0;i < listBO.length;i++) {
+            listBO[i] = new HomeListenToSongsBO();
+        }
+        int i = 0;
+        for(HomeListenToSongsDAO item : listDAO) {
+            listBO[i].setId(item.getId());
+            listBO[i].setMusicName(item.getMusicName());
+            listBO[i].setMusicAuthor(item.getMusicAuthor());
+            listBO[i].setBroadcastNumberTimes(item.getBroadcastNumberTimes());
+            float percentage = (float)item.getBroadcastNumberTimes() / (float)item.getBroadcastNumberTimesTotal();
             listBO[i].setMusicNumberPercentage(percentage);
+            i++;
         }
         return listBO;
     }

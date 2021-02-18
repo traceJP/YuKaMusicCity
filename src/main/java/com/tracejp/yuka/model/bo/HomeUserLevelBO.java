@@ -9,16 +9,16 @@ public class HomeUserLevelBO {
 
     private Float loginDaysPercentage;
     private Float listenToSongPercentage;
-    private HomeUserLevelDAO homeUserLevelDAO;
+    private HomeUserLevelDAO homeUserLevel;
     private Integer songCountByUser;
 
     public HomeUserLevelBO() {
     }
 
-    public HomeUserLevelBO(Float loginDaysPercentage, Float listenToSongPercentage, HomeUserLevelDAO homeUserLevelDAO, Integer songCountByUser) {
+    public HomeUserLevelBO(Float loginDaysPercentage, Float listenToSongPercentage, HomeUserLevelDAO homeUserLevel, Integer songCountByUser) {
         this.loginDaysPercentage = loginDaysPercentage;
         this.listenToSongPercentage = listenToSongPercentage;
-        this.homeUserLevelDAO = homeUserLevelDAO;
+        this.homeUserLevel = homeUserLevel;
         this.songCountByUser = songCountByUser;
     }
 
@@ -38,12 +38,12 @@ public class HomeUserLevelBO {
         this.listenToSongPercentage = listenToSongPercentage;
     }
 
-    public HomeUserLevelDAO getHomeUserLevelDAO() {
-        return homeUserLevelDAO;
+    public HomeUserLevelDAO getHomeUserLevel() {
+        return homeUserLevel;
     }
 
-    public void setHomeUserLevelDAO(HomeUserLevelDAO homeUserLevelDAO) {
-        this.homeUserLevelDAO = homeUserLevelDAO;
+    public void setHomeUserLevel(HomeUserLevelDAO homeUserLevel) {
+        this.homeUserLevel = homeUserLevel;
     }
 
     public Integer getSongCountByUser() {
@@ -59,7 +59,7 @@ public class HomeUserLevelBO {
         return "HomeUserLevelBO{" +
                 "loginDaysPercentage=" + loginDaysPercentage +
                 ", listenToSongPercentage=" + listenToSongPercentage +
-                ", homeUserLevelDAO=" + homeUserLevelDAO +
+                ", homeUserLevelDAO=" + homeUserLevel +
                 ", songCountByUser=" + songCountByUser +
                 '}';
     }

@@ -7,30 +7,32 @@ import java.sql.Date;
  *********************************/
 public class HomeUserInformationDAO {
 
-    private Integer userId;
+    private String userId;
     private String userAvatarImgUrl;
     private String userName;
     private String userArea;
     private String userSex;
     private Date userBirthday;
+    private String userIntroduction;
 
     public HomeUserInformationDAO() {
     }
 
-    public HomeUserInformationDAO(Integer userId, String userAvatarImgUrl, String userName, String userArea, String userSex, Date userBirthday) {
+    public HomeUserInformationDAO(String userId, String userAvatarImgUrl, String userName, String userArea, String userSex, Date userBirthday, String userIntroduction) {
         this.userId = userId;
         this.userAvatarImgUrl = userAvatarImgUrl;
         this.userName = userName;
         this.userArea = userArea;
         this.userSex = userSex;
         this.userBirthday = userBirthday;
+        this.userIntroduction = userIntroduction;
     }
 
-    public Integer getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -74,6 +76,14 @@ public class HomeUserInformationDAO {
         this.userBirthday = userBirthday;
     }
 
+    public String getUserIntroduction() {
+        return userIntroduction;
+    }
+
+    public void setUserIntroduction(String userIntroduction) {
+        this.userIntroduction = userIntroduction;
+    }
+
     @Override
     public String toString() {
         return "HomeUserInformationDAO{" +
@@ -82,7 +92,8 @@ public class HomeUserInformationDAO {
                 ", userName='" + userName + '\'' +
                 ", userArea='" + userArea + '\'' +
                 ", userSex='" + userSex + '\'' +
-                ", userBirthday='" + userBirthday + '\'' +
+                ", userBirthday=" + userBirthday +
+                ", userIntroduction='" + userIntroduction + '\'' +
                 '}';
     }
 

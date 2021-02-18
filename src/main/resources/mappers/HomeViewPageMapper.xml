@@ -6,7 +6,7 @@
 <mapper namespace="com.tracejp.yuka.dao.HomeViewPageMapper">
 
     <select id="selectUserInfo" resultType="com.tracejp.yuka.model.dao.HomeUserInformationDAO">
-        SELECT user_id, user_avatar_img_url, user_name, user_area, user_sex, user_birthday
+        SELECT user_id, user_avatar_img_url, user_name, user_area, user_sex, user_birthday, user_introduction
         FROM `user_info`
         WHERE user_id=#{uid};
     </select>
@@ -18,7 +18,7 @@
     </select>
 
     <select id="selectUserSongsRank" resultType="com.tracejp.yuka.model.dao.HomeListenToSongsDAO">
-        SELECT music_resources.id, music_name, music_author, broadcast_number_times, COUNT(broadcast_number_times)
+        SELECT `music_resources`.id, music_name, music_author, broadcast_number_times
         FROM `music_resources`, `user_song_leaderboard`
         WHERE `music_resources`.id = `user_song_leaderboard`.music_id
         AND user_id=#{uid}
@@ -26,5 +26,10 @@
         LIMIT #{resultCount}
     </select>
 
+    <select id="selectSongSum" resultType="java.lang.Integer">
+        SELECT SUM(broadcast_number_times)
+        FROM `user_song_leaderboard`
+        WHERE music_id=#{musicId};
+    </select>
 
 </mapper>

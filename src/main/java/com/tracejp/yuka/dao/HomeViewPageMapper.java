@@ -34,4 +34,11 @@ public interface HomeViewPageMapper {
      */
     List<HomeListenToSongsDAO> selectUserSongsRank(@Param("uid") String uid, @Param("resultCount") Integer resultCount);
 
+    /**
+     * 通过music_id查询对应歌曲被所有人听过的次数总和
+     * @param musicId 音乐id
+     * @return
+     */
+    Integer selectSongSum(@Param("musicId") Integer musicId);
+
 }

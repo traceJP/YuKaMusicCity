@@ -5,31 +5,32 @@ package com.tracejp.yuka.model.bo;
  *********************************/
 public class HomeUserInfomationBO {
 
-    private Integer userId;
+    private String userId;
     private String userAvatarImgUrl;
     private String userName;
     private String userArea;
     private String userSex;
     private Integer userAge;
+    private String userIntroduction;
 
     public HomeUserInfomationBO() {
     }
 
-    public HomeUserInfomationBO(Integer userId, String userAvatarImgUrl, String userName, String userArea, String userSex, Integer userAge) {
+    public HomeUserInfomationBO(String userId, String userAvatarImgUrl, String userName, String userArea, String userSex, Integer userAge, String userIntroduction) {
         this.userId = userId;
         this.userAvatarImgUrl = userAvatarImgUrl;
         this.userName = userName;
         this.userArea = userArea;
         this.userSex = userSex;
         this.userAge = userAge;
+        this.userIntroduction = userIntroduction;
     }
 
-
-    public Integer getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -73,15 +74,24 @@ public class HomeUserInfomationBO {
         this.userAge = userAge;
     }
 
+    public String getUserIntroduction() {
+        return userIntroduction;
+    }
+
+    public void setUserIntroduction(String userIntroduction) {
+        this.userIntroduction = userIntroduction;
+    }
+
     @Override
     public String toString() {
         return "HomeUserInfomationBO{" +
-                "userId=" + userId +
+                "userId='" + userId + '\'' +
                 ", userAvatarImgUrl='" + userAvatarImgUrl + '\'' +
                 ", userName='" + userName + '\'' +
                 ", userArea='" + userArea + '\'' +
                 ", userSex='" + userSex + '\'' +
                 ", userAge=" + userAge +
+                ", userIntroduction='" + userIntroduction + '\'' +
                 '}';
     }
 

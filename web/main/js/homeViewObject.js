@@ -1,96 +1,91 @@
-// 背景状态变量
-var background_status = 'white'
+var app = new Vue({
+    el: '#vue-model',
 
-// 导航条盒模型
-var vueNav = new Vue({
-    el: '#nav_vue_object',
-    data() {
-        return {
-            // 导航条背景色
-            bgNav: 'navbar-default',
-            // TODO：我的音乐按钮
+    data: {
+        // 背景状态
+        backgroundStatus: 'white',
+        // 全局背景色变量
+        backgroundBox: '',
+        // 页脚背景颜色变量
+        bgTail: '',
 
-            // 登录按钮
-            userName: '登录',
-            // 登录按钮链接
-            userNameButtonHref: 'login.html',
-        }
+        // 导航条背景色
+        bgNav: 'navbar-default',
+        // 我的音乐按钮
+        myMusicButtonHref: 'myError.html',
+        // 登录按钮
+        userName: '登录',
+        // 登录按钮链接
+        userNameButtonHref: 'login.html',
+        // 搜索框绑定值
+        searchValue: '',
+        // 搜索框回显响应数据
+        searchResponse: [],
+        
+
+        // 用户基本信息
+        userInfomation: '',
+        // 用户头像
+        avtar : '../image/ge3.jpg',
+        // 用户名
+        name: 'admin',
+        // 用户性别
+        sex: '未设置性别',
+        // 用户年龄
+        age: '未知年龄',
+        // 用户个人简介
+        introduction: '编辑个签，展示我的独特态度~',
+        // 用户所在地区
+        area: '地球村',
+        // 用户等级信息初始化数据
+        userLevel: '',
+        // 登录进度条
+        loginDays: {width: '0%'},
+        // 听歌进度条
+        ListenSong: {width: '0%'},
+
+        // 用户听歌排行初始化数据
+        songRank: [],
+
     },
 
     methods: {
         // 背景变换按钮
-        backgroundSwitch: function() {
-            if(background_status === "black") {
-                document.getElementById("background-box").setAttribute("class", "")
-                this.bgNav = 'navbar-default'
-                vueTail.bgTail = ''
-                setBackgroundCookie("white")
-                background_status = "white"
-            } else {
-                document.getElementById("background-box").setAttribute("class", "background-max")
-                this.bgNav = 'navbar-inverse'
-                vueTail.bgTail = 'background-tail'
-                setBackgroundCookie("black")
-                background_status = "black"
-            }
-        }
+        backgroundSwitch: function() { backgroundSwitchFun(this) },
+        // 歌曲页面跳转
+        songRouter: function(musicId) {
+            window.location.href = "/YuKaMusicCity/main/html/song.html?id=" + musicId
+        },
+        searchRequest: function(event) {
+            searchRequestFun()
+        },
+        // bootStrap弹出框按钮
+        bootStrapWindow: function(id) {
+            $(id).popover("show")
+        },
 
+    },
+    created: function() {
+        initBackgroundFun(this)
+        getUserNameService()
+        getPageDataService("user/homeView")
     },
 
 })
 
-// 个人信息盒模型
-var vueInfo = new Vue({
-    el: '#info_vue_object',
-    data() {
-        return {
-
-        }
-    },
-})
-
-// 个人等级盒模型
-var vueLevel = new Vue({
-    el: '#level_vue_object',
-    data() {
-        return {
-
-        }
-    },
-})
-
-// 个人听歌排行榜盒模型
-var vueRank = new Vue({
-    el: '#rank_vue_object',
-    data() {
-        return {
-
-        }
-    },
-})
-
-
-
-// 页脚盒模型
-var vueTail = new Vue({
-    el: '#tail_vue_object',
-    data() {
-        return {
-            // 页脚背景
-            bgTail: '',
-        }
-    },
-    // 初始化背景变换
-    mounted: function() {
-        if(getBackgroundCookie() === "black") {
-            document.getElementById("background-box").setAttribute("class", "background-max")
-            vueNav.bgNav = 'navbar-inverse'
-            this.bgTail = 'background-tail'
-            background_status = "black"
-        }
-    },
-})
-
-
-
-
+// 初始化页面渲染
+function initPageData(model) {
+    console.log(model)
+    app.userInfomation = model.userInfomation
+    let info = model.userInfomation
+    if(info.userName != null) app.name = info.userName
+    if(info.userSex != null) app.sex = info.userSex
+    if(info.userAge != null) app.age = info.userAge
+    if(info.introduction != null) app.introduction = info.introduction
+    if(info.userArea != null) app.area = info.userArea
+    app.userLevel = model.userLevel
+    app.songRank = model.songRank
+    // 进度条渲染
+    app.loginDays.width = (Number(app.userLevel.loginDaysPercentage)*100).toFixed(2) + "%"
+    app.ListenSong.width = (Number(app.userLevel.listenToSongPercentage)*100).toFixed(2) + "%"
+}
