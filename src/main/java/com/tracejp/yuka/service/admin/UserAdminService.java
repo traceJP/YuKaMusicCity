@@ -42,6 +42,13 @@ public interface UserAdminService {
     String loginExit(HttpSession session);
 
     /**
+     * 是否存在相同email，需要操作返回json数据
+     * @param email 传入email值
+     * @return json: {"valid":boolean}   ***返回true表示可以通过
+     */
+    String hasSameEmail(String email);
+
+    /**
      * 判断是否当天第一次登录
      * @param uid uid
      * @return 当天未登录则返回true

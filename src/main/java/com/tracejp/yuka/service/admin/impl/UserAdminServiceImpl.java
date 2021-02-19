@@ -1,5 +1,7 @@
 package com.tracejp.yuka.service.admin.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tracejp.yuka.dao.UserAdminMapper;
 import com.tracejp.yuka.model.enums.ResponseStatus;
 import com.tracejp.yuka.model.dto.RegisteredParameterDTO;
@@ -14,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /*********************************
  * @author traceJP
@@ -72,6 +76,25 @@ public class UserAdminServiceImpl implements UserAdminService {
     public String loginExit(HttpSession session) {
         session.invalidate();
         return ResponseStatus.SUCCESS_200.getStatus();
+    }
+
+    @Override
+    public String hasSameEmail(String email) {
+        boolean result = true;
+        int count =  userDao.selectHasUserEmail(email);
+        if(count == 1) {
+            result = false;
+        }
+        Map<String, Boolean> map = new HashMap<String, Boolean>(1);
+        map.put("valid", result);
+        ObjectMapper mapper = new ObjectMapper();
+        String resultString = "";
+        try {
+            resultString = mapper.writeValueAsString(map);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return resultString;
     }
 
     @Override

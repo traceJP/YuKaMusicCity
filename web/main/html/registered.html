@@ -6,24 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YuKa音乐</title>
 
+    <!-- jquery -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Bootstrap -->
-    <link href="../../static/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="../../static/jquery-3.5.1.min.js"></script>
-    <script src="../../static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-    <!-- bootstrapValidator -->
-    <link rel="stylesheet" href="../../static/bootstrapValidator/css/bootstrapValidator.min.css">
-    <script src="../../static/bootstrapValidator/js/bootstrapValidator.min.js"></script>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-validator/0.5.3/css/bootstrapValidator.min.css"
+        rel="stylesheet">
+    <script src="https://cdn.bootcdn.net/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js"></script>
     <!-- vue -->
-    <script src="../../static/vue.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.1/vue.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js"></script>
 
     <link rel="stylesheet" href="../css/style.css" />
 
 </head>
 
 <body>
-    <div id="bg-app" :class="bgMax" style="height: 100%;">
+    <div id="vue-model" :class="backgroundBox" style="height: 100%;">
         <!-- 导航条 -->
-        <nav class="navbar navbar-default bottom-zero">
+        <nav :class="bgNav" class="navbar bottom-zero">
             <div class="container-fluid navbar-center">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
@@ -40,77 +42,80 @@
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li><a href="index.html">发现音乐<span class="sr-only">(current)</span></a></li>
-                        <li><a href="#">我的音乐</a></li>
+                        <li><a href="/main/html/index.html">发现音乐<span class="sr-only">(current)</span></a></li>
+                        <li><a :href="myMusicButtonHref">我的音乐</a></li>
                         <li @click="backgroundSwitch"><a href="#">改变主题</a></li>
-                        <li class="active"><a href="#">登录</a></li>
+                        <li class="active"><a :href="userNameButtonHref">{{ userName }}</a></li>
                     </ul>
                     <form class="navbar-form navbar-left">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="音乐/视频/电台/用户">
+                            <input v-on:input="searchRequest" v-model="searchValue" type="text" class="form-control"
+                                placeholder="音乐/歌单/用户">
+                            <div class="list-group" style="z-index: 1024;position: absolute;">
+                                <a v-for="item in searchResponse" @click="searchRouter(item.id, item.type)"
+                                    class="list-group-item">
+                                    {{ item.name }}
+                                    <span class="badge">{{ item.type=="1" ? "歌曲" : "歌单" }}</span>
+                                </a>
+                            </div>
                         </div>
                     </form>
                 </div>
             </div>
         </nav>
 
+        <div v-if="responseInputOk"  class="alert alert-success">
+            <strong>注册成功！</strong>即将跳转到首页！
+        </div>
+
         <!-- 注册表单 -->
         <div class="login-form row">
 
-            <form id="defaultForm" class="form-horizontal col-md-12"
-                data-bv-message="This value is not valid"
+            <form id="defaultForm" class="form-horizontal col-md-12" data-bv-message="This value is not valid"
                 data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
                 data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
-                data-bv-feedbackicons-validating="glyphicon glyphicon-refresh"
-                >
+                data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
                 <div class="form-group col-md-12">
                     <label for="exampleInputEmail1">用户名</label>
-                    <input type="text" class="form-control" name="username"
-                        placeholder="请输入您的用户名"
-                        required data-bv-notempty-message="用户名不能为空"
-                        pattern="^[a-zA-Z0-9]+$" data-bv-regexp-message="用户名只能由字母和数字组成"
-                        data-bv-stringlength="true" data-bv-stringlength-min="6" data-bv-stringlength-max="20" data-bv-stringlength-message="用户名必须超过6个且少于20个字符"
-                        autocomplete="off"/>
-                     <!-- data-bv-remote="true" data-bv-remote-url="remote.php" data-bv-remote-message="用户名不可用" -->
+                    <input v-model="nameValue" type="text" class="form-control" name="username" placeholder="请输入您的用户名" required
+                        data-bv-notempty-message="用户名不能为空" data-bv-stringlength="true" data-bv-stringlength-min="6"
+                        data-bv-stringlength-max="20" data-bv-stringlength-message="用户名必须超过6个且少于20个字符"
+                        autocomplete="off" />
                 </div>
                 <div class="form-group col-md-12">
                     <label for="exampleInputEmail1">邮箱账号</label>
-                    <input class="form-control" name="email" type="email"
-                        placeholder="请输入您的邮箱"
-                        required data-bv-notempty-message="邮箱不能为空"
-                        data-bv-emailaddress-message="请输入有效的电子邮件地址"
-                        autocomplete="off"/>
+                    <input v-model="emailValue" class="form-control" name="email" type="email" placeholder="请输入您的邮箱" required
+                        data-bv-notempty-message="邮箱不能为空" data-bv-emailaddress-message="请输入有效的电子邮件地址"
+                        autocomplete="off" data-bv-remote="true" data-bv-remote-url="/YuKaMusicCity/hasEmail" data-bv-remote-message="邮箱已被注册" />
                 </div>
                 <div class="form-group col-md-12">
                     <label for="exampleInputPassword1">密码</label>
-                    <input type="password" class="form-control" name="password"
-                        placeholder="请输入密码"
-                        required data-bv-notempty-message="密码不能为空"
-                        data-bv-identical="true" data-bv-identical-field="confirmPassword" data-bv-identical-message="两次密码不相同"
-                        data-bv-different="true" data-bv-different-field="username" data-bv-different-message="密码不能和用户名相同"
-                        data-bv-stringlength="true" data-bv-stringlength-min="8" data-bv-stringlength-message="密码过于简单"
-                    />
+                    <input v-model="passwordValue" type="password" class="form-control" name="password" placeholder="请输入密码" required
+                        data-bv-notempty-message="密码不能为空" data-bv-identical="true"
+                        data-bv-identical-field="confirmPassword" data-bv-identical-message="两次密码不相同"
+                        data-bv-different="true" data-bv-different-field="username"
+                        data-bv-different-message="密码不能和用户名相同" data-bv-stringlength="true" data-bv-stringlength-min="8"
+                        data-bv-stringlength-message="密码过于简单" />
                 </div>
                 <div class="form-group col-md-12">
                     <label for="exampleInputPassword1">确认密码</label>
-                    <input type="password" class="form-control" name="confirmPassword"
-                        placeholder="请再次输入密码"
-                        required data-bv-notempty-message="确认密码不能为空"
-                        data-bv-identical="true" data-bv-identical-field="password" data-bv-identical-message="两次密码不相同"
-                        data-bv-different="true" data-bv-different-field="username" data-bv-different-message="密码不能和用户名相同"/>
+                    <input v-model="passwordValue2" type="password" class="form-control" name="confirmPassword" placeholder="请再次输入密码" required
+                        data-bv-notempty-message="确认密码不能为空" data-bv-identical="true" data-bv-identical-field="password"
+                        data-bv-identical-message="两次密码不相同" data-bv-different="true" data-bv-different-field="username"
+                        data-bv-different-message="密码不能和用户名相同" />
                 </div>
                 <a href="login.html">
                     <p class="text-right col-md-12">前往登录&nbsp;<span class="glyphicon glyphicon-menu-right"></span></p>
                 </a>
                 <div class="col-md-12">
-                    <button type="submit" class="btn btn-default">立即注册</button>
+                    <button @click="submitButton" class="btn btn-default" :disabled="responseInputOk">{{ responseInputOk? "注册成功" : "立即注册" }}</button>
                 </div>
             </form>
 
         </div>
 
         <!-- 抵消固定页脚 -->
-        <br/><br/><br/><br/><br/><br/>
+        <br /><br /><br /><br /><br /><br />
 
         <!-- 页脚 -->
         <div :class="bgTail" class="navbar-fixed-bottom jumbotron text-center" style="margin: 0;">
@@ -119,15 +124,8 @@
 
     </div>
 
-    <!-- 黑暗模式 -->
-    <script src="../js/gradienBackground.js"></script>
-    <!-- 表单验证 -->
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#defaultForm').bootstrapValidator();
-        });
-    </script>
-
+    <script src="../js/generalMethod.js"></script>
+    <script src="../js/registeredViewObject.js"></script>
 
 </body>
 

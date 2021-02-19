@@ -30,6 +30,11 @@ public class UserAdminController {
         return adminService.loginAttest(email, password, isAutoLogin, session);
     }
 
+    @GetMapping("/hasEmail")
+    public String hasEmail(String email) {
+        return adminService.hasSameEmail(email);
+    }
+
     @DeleteMapping("/user/loginOut")
     public String loginExit(HttpSession session) {
         return adminService.loginExit(session);

@@ -56,8 +56,16 @@ var app = new Vue({
         songRouter: function(musicId) {
             window.location.href = "/YuKaMusicCity/main/html/song.html?id=" + musicId
         },
+        // 搜索栏数据请求和跳转
         searchRequest: function(event) {
             searchRequestFun()
+        },
+        searchRouter: function(id, type) {
+            if(type == "1") {
+                window.location.href = "/YuKaMusicCity/main/html/song.html?id=" + id
+            } else if(type == "2") {
+                window.location.href = "/YuKaMusicCity/main/html/playlist.html?id=" + id
+            }
         },
         // bootStrap弹出框按钮
         bootStrapWindow: function(id) {

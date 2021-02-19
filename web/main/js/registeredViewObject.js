@@ -15,24 +15,26 @@ var app = new Vue({
         
         // 我的音乐按钮
         myMusicButtonHref: 'myError.html',
-        // 登录按钮
-        userName: '登录',
-        // 登录按钮链接
-        userNameButtonHref: 'login.html',
+        // 注册按钮
+        userName: '注册',
+        // 注册按钮链接
+        userNameButtonHref: 'registered.html',
         // 搜索框绑定值
         searchValue: '',
         // 搜索框回显响应数据
         searchResponse: [],
 
-        // 表单回显：登录失败则设置为true
-        responseInputError: false,
-        // 表单：邮箱账号值
-        accountValue: '',
+
+        // 表单回显：注册成功设置为true
+        responseInputOk: false,
+        // 表单：用户名值
+        nameValue: '',
+        // 表单：邮箱值
+        emailValue: '',
         // 表单：密码值
         passwordValue: '',
-        // 表单：是否自动登录
-        isAutoLogin: false,
-
+        // 密码确认值
+        passwordValue2: '',
     },
 
     methods: {
@@ -68,26 +70,41 @@ function submitAxios() {
         return;
     }
     axios.request({
-        url: '/YuKaMusicCity/login',
+        url: '/YuKaMusicCity/registered',
+        method: 'post',
         params: {
-            email: app.accountValue,
+            userName: app.nameValue,
+            email: app.emailValue,
             password: app.passwordValue,
-            isAutoLogin: app.isAutoLogin,
         },
     })
     .then(response => {
         if(response.data == "200") {
-            // 登录成功
-            window.location.href = "/YuKaMusicCity/main/html/index.html"
-        } else {
-            // 登录失败
-            app.passwordValue = ""
-            $("#defaultForm").data("bootstrapValidator").resetForm();
-            $("#defaultForm").data("bootstrapValidator").validate();
-            app.responseInputError = true
+            // 注册成功
+            app.responseInputOk = true
             setTimeout(() =>{
-                app.responseInputError = false
+                // 3秒后自动登录
+                registeredAfterLogin()
             },3000);
+        }
+    })
+    .catch(error => {
+        console.log("请求失败" + error)
+    })
+}
+
+function registeredAfterLogin() {
+    axios.request({
+        url: '/YuKaMusicCity/login',
+        params: {
+            email: app.emailValue,
+            password: app.passwordValue,
+            isAutoLogin: false,    // 默认false
+        },
+    })
+    .then(response => {
+        if(response.data == "200") {
+            window.location.href = "/YuKaMusicCity/main/html/index.html"
         }
     })
     .catch(error => {
