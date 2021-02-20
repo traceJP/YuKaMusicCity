@@ -62,8 +62,8 @@ var app = new Vue({
 
 function submitAxios() {
     // 触发检查
-    $("#defaultForm").data("bootstrapValidator").validate();
-    let flag =  $("#defaultForm").data("bootstrapValidator").isValid();
+    $("#defaultForm").data("bootstrapValidator").validate()
+    let flag =  $("#defaultForm").data("bootstrapValidator").isValid()
     if(flag == false) {
         return;
     }
@@ -82,8 +82,8 @@ function submitAxios() {
         } else {
             // 登录失败
             app.passwordValue = ""
-            $("#defaultForm").data("bootstrapValidator").resetForm();
-            $("#defaultForm").data("bootstrapValidator").validate();
+            $("#defaultForm").data("bootstrapValidator").resetForm()
+            $("#defaultForm").data("bootstrapValidator").validate()
             app.responseInputError = true
             setTimeout(() =>{
                 app.responseInputError = false

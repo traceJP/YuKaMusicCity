@@ -36,6 +36,12 @@
         WHERE user_email=#{email} AND user_password=#{password};
     </select>
 
+    <select id="selectHasUserIdAndPassword" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM `user`
+        WHERE user_uid=#{uid} AND user_password=#{password};
+    </select>
+
     <select id="getUidByAccount" resultType="String">
         SELECT user_uid
         FROM `user`

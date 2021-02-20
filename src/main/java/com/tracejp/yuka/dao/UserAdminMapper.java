@@ -46,12 +46,20 @@ public interface UserAdminMapper {
     int selectHasUserEmail(@Param("email") String email);
 
     /**
-     * 查询User表中对应的账号密码是否匹配
+     * 查询User表中对应的邮箱密码是否匹配
      * @param email
      * @param password
      * @return 存在返回1 不存在返回0
      */
     int selectHasUserEmailAndPassword(@Param("email") String email, @Param("password") String password);
+
+    /**
+     * 查询User表中对应的uid密码是否匹配
+     * @param uid
+     * @param password
+     * @return
+     */
+    int selectHasUserIdAndPassword(@Param("uid") String uid, @Param("password") String password);
 
     /**
      * 通过email获得对应的用户唯一标识uid

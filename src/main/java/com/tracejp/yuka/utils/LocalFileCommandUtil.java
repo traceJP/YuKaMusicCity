@@ -90,7 +90,7 @@ public class LocalFileCommandUtil {
             configUrl = "properties/LocalFileUrlConfig.properties";
             configKey = null;
             fileName = null;
-            fileType = null;
+            fileType = "jpg";
             multipartFile = null;
         }
 
@@ -125,7 +125,8 @@ public class LocalFileCommandUtil {
         public Builder builderMultipartFile(MultipartFile multipartFile) {
             this.multipartFile = multipartFile;
             this.fileName = multipartFile.getOriginalFilename();
-            this.fileType = multipartFile.getContentType();
+            String[] type = multipartFile.getContentType().split("/");
+            this.fileType = type[1];
             return this;
         }
 

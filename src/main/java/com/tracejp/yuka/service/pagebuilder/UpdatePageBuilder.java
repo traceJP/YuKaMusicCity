@@ -17,12 +17,14 @@ public abstract class UpdatePageBuilder {
     /**
      * update页面个人信息Service
      * 如头像性别等
+     * @return
      */
     protected abstract UpdateBasicInformationDAO basicInformation();
 
     /**
      * update页面个人隐私信息Service
      * 如邮箱，个人标识等
+     * @return
      */
     protected abstract UpdateUserPrivacyDAO selfIntroduction();
 

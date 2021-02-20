@@ -19,11 +19,12 @@ public interface UserUpdateService {
 
     /**
      * 密码修改服务
+     * @param oldPassword 旧密码
      * @param newPassword 前端传递密码参数
      * @param uid
      * @return 返回一个响应状态码
      */
-    String updateUserPassword(String uid, String newPassword);
+    String updateUserPassword(String uid, String oldPassword, String newPassword);
 
     /**
      * 昵称修改服务
@@ -47,7 +48,7 @@ public interface UserUpdateService {
      * @param newBirthday
      * @return
      */
-    String updateUserBirthday(String uid, Date newBirthday);
+    String updateUserBirthday(String uid, String newBirthday);
 
     /**
      * 头像修改服务

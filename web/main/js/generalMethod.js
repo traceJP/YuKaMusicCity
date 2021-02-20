@@ -60,6 +60,31 @@ function getUrlParam(name) {
     return null
 }
 
+// 通过图片对象获取本地地址
+function getImg(file) {
+    let url = ''
+    if (window.createObjectURL !== undefined) {
+      url = window.createObjectURL(file)
+    } else if (window.URL !== undefined) {
+      url = window.URL.createObjectURL(file)
+    } else if (window.webkitURL !== undefined) {
+      url = window.webkitURL.createObjectURL(file)
+    }
+    return url
+}
+
+// 时间戳转日期
+function formatDate(date) {
+    if(date == null) {
+        return null
+    }
+    let dateObj = new Date(date)
+    let YY = dateObj.getFullYear() + '-'
+    let MM = (dateObj.getMonth() + 1 < 10 ? '0' + (dateObj.getMonth() + 1) : dateObj.getMonth() + 1) + '-'
+    let DD = (dateObj.getDate() < 10 ? '0' + (dateObj.getDate()) : dateObj.getDate())
+    return YY + MM + DD
+}
+
 // 搜索请求方法
 function searchRequestFun() {
     axios.request({
@@ -85,6 +110,7 @@ function initBackgroundFun(model) {
         model.bgNav = 'navbar-inverse'
         model.bgLeaderBoard = ''
         model.bgTail = 'background-tail'
+        model.bgError = 'background-max'
         model.backgroundStatus = 'black'
     }
 }
@@ -96,6 +122,7 @@ function backgroundSwitchFun(model) {
         model.bgNav = 'navbar-default'
         model.bgLeaderBoard = 'table-striped'
         model.bgTail = ''
+        model.bgError = ''
         setBackgroundCookie("white")
         model.backgroundStatus = "white"
     } else if(model.backgroundStatus === "white") {
@@ -103,12 +130,9 @@ function backgroundSwitchFun(model) {
         model.bgNav = 'navbar-inverse'
         model.bgLeaderBoard = ''
         model.bgTail = 'background-tail'
+        model.bgError = 'background-max'
         setBackgroundCookie("black")
         model.backgroundStatus = "black"
     }
 }
-
-
-
-
 

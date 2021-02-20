@@ -2,10 +2,7 @@ package com.tracejp.yuka.controller;
 
 import com.tracejp.yuka.service.admin.UserUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
@@ -27,8 +24,8 @@ public class UserInfoUpdateController {
     }
 
     @PutMapping("/updatePassword")
-    public String updateUserPassword(@SessionAttribute String uid, String newPassword) {
-        return updateService.updateUserPassword(uid, newPassword);
+    public String updateUserPassword(@SessionAttribute String uid, String oldPassword, String newPassword) {
+        return updateService.updateUserPassword(uid, oldPassword, newPassword);
     }
 
     @PutMapping("/updateName")
@@ -42,11 +39,11 @@ public class UserInfoUpdateController {
     }
 
     @PutMapping("/updateBirthday")
-    public String updateUserBirthday(@SessionAttribute String uid, Date newBirthday) {
+    public String updateUserBirthday(@SessionAttribute String uid, String newBirthday) {
         return updateService.updateUserBirthday(uid, newBirthday);
     }
 
-    @PutMapping("/updateAvatar")
+    @PostMapping("/updateAvatar")
     public String updateUserAvatar(@SessionAttribute String uid, MultipartFile newAvatarFile) {
         return updateService.updateUserAvatar(uid, newAvatarFile);
     }

@@ -7,10 +7,13 @@ import com.tracejp.yuka.utils.LocalFileCommandUtil;
 import com.tracejp.yuka.utils.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /*********************************
@@ -35,8 +38,15 @@ public class UserUpdateServiceImpl implements UserUpdateService {
     }
 
     @Override
-    public String updateUserPassword(String uid, String password) {
-        userDao.updatePassword(uid, password);
+    public String updateUserPassword(String uid, String oldPassword, String newPassword) {
+        // 分别加密oldPassword和newPassword
+        String oldPasswordMD5 = DigestUtils.md5DigestAsHex(oldPassword.getBytes());
+        String newPasswordMD5 = DigestUtils.md5DigestAsHex(newPassword.getBytes());
+        int count = userDao.selectHasUserIdAndPassword(uid, oldPasswordMD5);
+        if(count == 0) {
+            return ResponseStatus.SUCCESS_ERROR.getStatus();
+        }
+        userDao.updatePassword(uid, newPasswordMD5);
         return ResponseStatus.SUCCESS_200.getStatus();
     }
 
@@ -53,18 +63,30 @@ public class UserUpdateServiceImpl implements UserUpdateService {
     }
 
     @Override
-    public String updateUserBirthday(String uid, Date newBirthday) {
-        userDao.updateBirthday(uid, newBirthday);
+    public String updateUserBirthday(String uid, String newBirthday) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = null;
+        try {
+            date = simpleDateFormat.parse(newBirthday);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        userDao.updateBirthday(uid, date);
         return ResponseStatus.SUCCESS_200.getStatus();
     }
 
     @Override
     public String updateUserAvatar(String uid, MultipartFile newAvatarFile) {
+        if(newAvatarFile == null) {
+            return ResponseStatus.SUCCESS_ERROR.getStatus();
+        }
         // 删除本地原始图片
         String localOldFileUrl = userDao.selectAvatar(uid);
-        File oldFile = new File(localOldFileUrl);
-        if(oldFile.delete()) {
-            return ResponseStatus.SUCCESS_ERROR.getStatus();
+        if(localOldFileUrl != null) {
+            File oldFile = new File(localOldFileUrl);
+            if(!oldFile.delete()) {
+                return ResponseStatus.SUCCESS_ERROR.getStatus();
+            }
         }
         // 新增图片到本地
         String localUrl = null;

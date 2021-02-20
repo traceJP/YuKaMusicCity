@@ -1,74 +1,43 @@
-// 背景状态变量
-var background_status = 'white'
+var app = new Vue({
+    el: '#vue-model',
 
-// 导航条盒模型
-var vueNav = new Vue({
-    el: '#nav_vue_object',
-    data() {
-        return {
-            // 导航条背景色
-            bgNav: 'navbar-default',
-            // TODO：我的音乐按钮
+    data: {
+        // 背景状态
+        backgroundStatus: 'white',
+        // 全局背景色变量
+        backgroundBox: '',
+        // 排行榜背景颜色变量
+        bgLeaderBoard: 'table-striped',
+        // 页脚背景颜色变量
+        bgTail: '',
+        // 导航条背景色
+        bgNav: 'navbar-default',
+        // 导航标题背景色
+        bgError: '',
 
-            // 登录按钮
-            userName: '登录',
-            // 登录按钮链接
-            userNameButtonHref: 'login.html',
-        }
+        // 搜索框绑定值
+        searchValue: '',
+        // 搜索框回显响应数据
+        searchResponse: [],
     },
 
     methods: {
         // 背景变换按钮
-        backgroundSwitch: function() {
-            if(background_status === "black") {
-                document.getElementById("background-box").setAttribute("class", "")
-                this.bgNav = 'navbar-default'
-                vueTail.bgTail = ''
-                vueError.bgError = ''
-                setBackgroundCookie("white")
-                background_status = "white"
-            } else {
-                document.getElementById("background-box").setAttribute("class", "background-max")
-                this.bgNav = 'navbar-inverse'
-                vueTail.bgTail = 'background-tail'
-                vueError.bgError = 'background-max'
-                setBackgroundCookie("black")
-                background_status = "black"
+        backgroundSwitch: function() { backgroundSwitchFun(this) },
+        // 搜索框跳转和查询
+        searchRequest: function(event) {
+            searchRequestFun()
+        },
+        searchRouter: function(id, type) {
+            if(type == "1") {
+                window.location.href = "/YuKaMusicCity/main/html/song.html?id=" + id
+            } else if(type == "2") {
+                window.location.href = "/YuKaMusicCity/main/html/playlist.html?id=" + id
             }
-        }
+        },
 
     },
-
-})
-
-// 错误提示盒模型
-var vueError = new Vue({
-    el: '#error_vue_object',
-    data() {
-        return {
-            bgError: ''
-        }
-    },
-})
-
-
-// 页脚盒模型
-var vueTail = new Vue({
-    el: '#tail_vue_object',
-    data() {
-        return {
-            // 页脚背景
-            bgTail: '',
-        }
-    },
-    // 初始化背景变换
-    mounted: function() {
-        if(getBackgroundCookie() === "black") {
-            document.getElementById("background-box").setAttribute("class", "background-max")
-            vueNav.bgNav = 'navbar-inverse'
-            vueError.bgError = 'background-max'
-            this.bgTail = 'background-tail'
-            background_status = "black"
-        }
-    },
+    created: function() {
+        initBackgroundFun(this)
+    }
 })
