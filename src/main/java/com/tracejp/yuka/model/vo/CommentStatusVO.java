@@ -3,6 +3,7 @@ package com.tracejp.yuka.model.vo;
 /*********************************
  * @author traceJP
  *********************************/
+@Deprecated
 public class CommentStatusVO {
 
     private Integer commentId;

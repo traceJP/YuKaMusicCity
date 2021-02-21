@@ -38,12 +38,6 @@ public class BaseViewDataServiceImpl implements BaseViewDataService {
     private UserAdminMapper userDao;
 
     @Override
-    public String getUserName(HttpSession session) {
-        String uid = (String) session.getAttribute("uid");
-        return userDao.selectUserName(uid);
-    }
-
-    @Override
     public IndexVO builderIndexData() {
         return indexService.createIndexVO();
     }

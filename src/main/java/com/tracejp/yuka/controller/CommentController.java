@@ -26,7 +26,7 @@ public class CommentController {
     }
 
     @GetMapping("/user/initUserComment")
-    public CommentStatusVO[] initUserCommentData(Integer[] commentList, @SessionAttribute String uid) {
+    public Integer[] initUserCommentData(Integer[] commentList, @SessionAttribute String uid) {
         return commentService.initUserCommentData(commentList, uid);
     }
 
@@ -42,7 +42,7 @@ public class CommentController {
 
     @PostMapping("/user/opposeComment/{id}")
     String userOpposeComment(@PathVariable("id") Integer id, @SessionAttribute String uid) {
-        return commentService.userCancelOpposeComment(id, uid);
+        return commentService.userOpposeComment(id, uid);
     }
 
     @DeleteMapping("/user/opposeCancel/{id}")

@@ -42,10 +42,10 @@
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">发现音乐<span class="sr-only">(current)</span></a></li>
+                        <li><a href="index.html">发现音乐<span class="sr-only">(current)</span></a></li>
                         <li><a :href="myMusicButtonHref">我的音乐</a></li>
                         <li @click="backgroundSwitch"><a href="#">改变主题</a></li>
-                        <li><a :href="userNameButtonHref">{{ userName }}</a></li>
+                        <li class="active"><a :href="userNameButtonHref">{{ userName }}</a></li>
                     </ul>
                     <form class="navbar-form navbar-left">
                         <div class="form-group">
@@ -221,7 +221,6 @@
                                                         placeholder="请输入原始密码"
                                                         required data-bv-notempty-message="当前密码不能为空"
                                                     />
-                                                    <!-- todo:需要制作密码检测判断 -->
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="exampleInputPassword1">新密码</label>

@@ -10,13 +10,6 @@ import javax.servlet.http.HttpSession;
 public interface BaseViewDataService {
 
     /**
-     * 获取用户名服务
-     * @param session 通过session获取uid
-     * @return 用户名userName
-     */
-    String getUserName(HttpSession session);
-
-    /**
      * 构建index页面的基本返回数据
      * @return IndexVO
      */

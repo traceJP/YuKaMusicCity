@@ -19,10 +19,6 @@ public class MasterViewController {
     @Autowired
     private BaseViewDataService viewService;
 
-    @GetMapping("/user/userName")
-    public String getUserName(HttpSession session) {
-        return viewService.getUserName(session);
-    }
 
     @GetMapping("/indexView")
     public IndexVO indexViewDateModelShow() {

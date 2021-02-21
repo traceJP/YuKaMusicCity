@@ -35,6 +35,18 @@ public class UserAdminServiceImpl implements UserAdminService {
     private UserAdminMapper userDao;
 
     @Override
+    public String getUserName(HttpSession session) {
+        String uid = (String) session.getAttribute("uid");
+        return userDao.selectUserName(uid);
+    }
+
+    @Override
+    public String getUserAvatar(HttpSession session) {
+        String uid = (String) session.getAttribute("uid");
+        return userDao.selectAvatar(uid);
+    }
+
+    @Override
     public String registered(RegisteredParameterDTO param) {
         if(param.getEmail() == null || param.getUserName() == null || param.getPassword() == null) {
             return ResponseStatus.FAIL_PARAM_IS_NULL.getStatus();

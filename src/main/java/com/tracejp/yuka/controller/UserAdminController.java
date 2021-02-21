@@ -20,6 +20,16 @@ public class UserAdminController {
     @Autowired
     private UserAdminService adminService;
 
+    @GetMapping("/user/userName")
+    public String getUserName(HttpSession session) {
+        return adminService.getUserName(session);
+    }
+
+    @GetMapping("/user/userAvatar")
+    public String getUserAvatar(HttpSession session) {
+        return adminService.getUserAvatar(session);
+    }
+
     @PostMapping("/registered")
     public String registered(RegisteredParameterDTO param) {
         return adminService.registered(param);

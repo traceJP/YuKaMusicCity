@@ -35,7 +35,7 @@
         SELECT upvote_oppose
         FROM `user_keep_comment`
         WHERE user_id=#{uid}
-        AND id=#{id};
+        AND comment_id=#{id};
     </select>
 
     <select id="selectCommentStatusList" resultType="com.tracejp.yuka.model.vo.CommentStatusVO">

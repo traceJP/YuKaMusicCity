@@ -24,11 +24,12 @@
     </select>
 
     <select id="selectUserMusicList" resultType="com.tracejp.yuka.model.vo.MusicCollectVO">
-        SELECT music_list.id,music_list_name,music_list_img_url,count(music_id) AS music_count
-        FROM music_list,music_list_value
-        WHERE music_list.id=music_list_value.music_list_id
-        AND user_id=#{uid}
-        GROUP BY music_list.id;
+        SELECT `music_list`.id,music_list_name,music_list_img_url,count(music_id) AS music_count
+        FROM `music_list`
+        LEFT JOIN `music_list_value`
+        ON `music_list`.id = `music_list_value`.music_list_id
+        WHERE user_id=#{uid}
+        GROUP BY `music_list`.id;
     </select>
 
     <select id="selectListHasMusicId" resultType="java.lang.Integer">

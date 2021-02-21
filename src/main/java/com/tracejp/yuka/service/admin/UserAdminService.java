@@ -15,6 +15,21 @@ public interface UserAdminService {
      */
     int AUTO_LOGIN_SESSION_TIME = 7 * 3600;
 
+
+    /**
+     * 获取用户名服务
+     * @param session 通过session获取uid
+     * @return 用户名userName
+     */
+    String getUserName(HttpSession session);
+
+    /**
+     * 获取用户头像服务
+     * @param session 通过session获取uid
+     * @return 头像url
+     */
+    String getUserAvatar(HttpSession session);
+
     /**
      * 用户注册服务
      *

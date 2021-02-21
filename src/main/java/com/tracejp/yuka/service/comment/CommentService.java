@@ -39,7 +39,7 @@ public interface CommentService {
      * @param uid uid
      * @return
      */
-    CommentStatusVO[] initUserCommentData(Integer[] commentList, String uid);
+    Integer[] initUserCommentData(Integer[] commentList, String uid);
 
     /**
      * 点赞评论

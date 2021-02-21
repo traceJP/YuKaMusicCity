@@ -63,7 +63,7 @@ public class CommentServiceImpl
 
     @Override
     public String addCommentText(Integer id, Integer type, String text, String uid) {
-        if(text.length() > COMMENT_TEXT_LENGTH) {
+        if(text.length() > COMMENT_TEXT_LENGTH || text.length() == 0) {
             return ResponseStatus.SUCCESS_ERROR.getStatus();
         }
         commentDAO.insertCommentText(id, type, text, uid);
@@ -71,11 +71,17 @@ public class CommentServiceImpl
     }
 
     @Override
-    public CommentStatusVO[] initUserCommentData(Integer[] commentList, String uid) {
-        List<CommentStatusVO> list = commentDAO.selectCommentStatusList(commentList, uid);
-        CommentStatusVO[] array = new CommentStatusVO[commentList.length];
-        Util.listTransformArray(list, array);
-        return array;
+    public Integer[] initUserCommentData(Integer[] commentList, String uid) {
+        int length = commentList.length;
+        if(length == 0) {
+            return null;
+        }
+        Integer[] res = new Integer[length];
+        for(int i = 0; i < length; i++) {
+            res[i] = commentList[i];
+            res[i] = commentDAO.selectCommentStatus(commentList[i], uid);
+        }
+        return res;
     }
 
     @Override

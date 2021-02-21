@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.RequestScope;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -45,11 +46,11 @@ public class HomePageServiceBuilder extends HomePageBuilder {
             return infoBO;
         }
         // 运算时间得到年龄
-        Date currentTime = new Date();
-        long nowTime = currentTime.getTime();
-        long birthdayTime = birthday.getTime();
-        int userAge =(int) ((nowTime - birthdayTime) / 86400000);
-        infoBO.setUserAge(userAge);
+        Calendar calendar = Calendar.getInstance();
+        int nowYear = calendar.get(Calendar.YEAR);
+        calendar.setTime(birthday);
+        int birthdayYear = calendar.get(Calendar.YEAR);
+        infoBO.setUserAge(nowYear - birthdayYear);
         return infoBO;
     }
 
