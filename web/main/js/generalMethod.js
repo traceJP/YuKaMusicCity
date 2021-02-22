@@ -29,7 +29,7 @@ function getUserNameService() {
         initUserServiceFun(response)
     })
     .catch(error => {
-        console.log("请求用户名失败" + error)
+        console.log("请求服务请求失败" + error)
     })
 }
 // 初始化用户服务
@@ -37,6 +37,7 @@ function initUserServiceFun(model) {
     app.userName = model.data
     app.myMusicButtonHref = 'myMusic.html'
     app.userNameButtonHref = 'home.html'
+    app.adminService = true
 }
 
 // 获取页面初始化数据：需要重写initPageData(model)

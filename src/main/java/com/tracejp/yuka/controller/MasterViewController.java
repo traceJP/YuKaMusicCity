@@ -26,8 +26,8 @@ public class MasterViewController {
     }
 
     @GetMapping("/playlistView/{playlistId}")
-    public void playlistViewDateModelShow(@PathVariable("playlistId") Integer playlistId) {
-        viewService.builderPlaylistData(playlistId);
+    public PlaylistVO playlistViewDateModelShow(@PathVariable("playlistId") Integer playlistId) {
+        return viewService.builderPlaylistData(playlistId);
     }
 
     @GetMapping("/songView/{musicId}")

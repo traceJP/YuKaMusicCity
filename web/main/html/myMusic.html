@@ -6,21 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YuKa音乐</title>
 
+    <!-- jquery -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Bootstrap -->
-    <link href="../../static/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="../../static/jquery-3.5.1.min.js"></script>
-    <script src="../../static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-validator/0.5.3/css/bootstrapValidator.min.css"
+        rel="stylesheet">
+    <script src="https://cdn.bootcdn.net/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js"></script>
     <!-- vue -->
-    <script src="../../static/vue.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.1/vue.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js"></script>
 
     <link rel="stylesheet" href="../css/style.css" />
 
 </head>
 
 <body>
-    <div id="background-box">
+    <div id="vue-model" :class="backgroundBox">
         <!-- 导航条 -->
-        <nav id="nav_vue_object" :class="bgNav" class="navbar bottom-zero">
+        <nav :class="bgNav" class="navbar bottom-zero">
             <div class="container-fluid navbar-center">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
@@ -37,14 +42,22 @@
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li><a href="#">发现音乐<span class="sr-only">(current)</span></a></li>
-                        <li class="active"><a href="#">我的音乐</a></li>
+                        <li><a href="index.html">发现音乐<span class="sr-only">(current)</span></a></li>
+                        <li class="active"><a :href="myMusicButtonHref">我的音乐</a></li>
                         <li @click="backgroundSwitch"><a href="#">改变主题</a></li>
                         <li><a :href="userNameButtonHref">{{ userName }}</a></li>
                     </ul>
                     <form class="navbar-form navbar-left">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="音乐/歌单/用户">
+                            <input v-on:input="searchRequest" v-model="searchValue" type="text" class="form-control"
+                                placeholder="音乐/歌单/用户">
+                            <div class="list-group" style="z-index: 1024;position: absolute;">
+                                <a v-for="item in searchResponse" @click="searchRouter(item.id, item.type)"
+                                    class="list-group-item">
+                                    {{ item.name }}
+                                    <span class="badge">{{ item.type=="1" ? "歌曲" : "歌单" }}</span>
+                                </a>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -64,38 +77,84 @@
                         href="#PlaylistCreated" aria-expanded="false" aria-controls="collapseExample">
                         <div>
                             <span class="glyphicon glyphicon-triangle-right"></span>
-                            <span>创建的歌单</span>
+                            <span>我的歌单</span>
                         </div>
                     </a>
                     <div class="collapse" id="PlaylistCreated">
-
-                        <div class="list-group-item">
-                            我喜欢
+                        <div v-for="item in userCreateList" @click="pageMusicListRouter(item.id)"
+                            class="list-group-item" :class="pageMusicId == item.id ? 'list-group-item-info' : ''">
+                            {{ item.musicListName }}
                         </div>
-
-                        <div class="list-group-item">
-                            111
-                        </div>
-
                     </div>
-
                     <!-- 收藏的歌单 -->
                     <a class="btn-primary list-group-item active" role="button" data-toggle="collapse"
                         href="#PlaylisFavorite" aria-expanded="false" aria-controls="collapseExample">
-                        <div>
+                        <div v-if="userFavoritesList != null">
                             <span class="glyphicon glyphicon-triangle-right"></span>
-                            <span>收藏的歌单</span>
+                            <span>我的收藏</span>
                         </div>
                     </a>
                     <div class="collapse" id="PlaylisFavorite">
-                        <div class="list-group-item">
-                            111
+                        <div v-for="item in userFavoritesList" @click="pageMusicListRouter(item.id)"
+                            class="list-group-item" :class="pageMusicId == item.id ? 'list-group-item-info' : ''">
+                            {{ item.musicListName }}
                         </div>
                     </div>
-
-
+                    <!-- 创建新的歌单 -->
+                    <a class="btn-primary list-group-item active" role="button" data-toggle="modal"
+                        data-target="#createList">
+                        <div>
+                            <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+                            <span>创建新的歌单</span>
+                        </div>
+                    </a>
+                    <div class="modal fade" id="createList" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="CreateListLabel">创建新的歌单</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="formCreateList" class="form-horizontal col-md-12"
+                                        data-bv-message="This value is not valid"
+                                        data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+                                        data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
+                                        data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+                                        <div class="form-group">
+                                            <label for="list-name" class="control-label">歌单名称:</label>
+                                            <input v-model="createListName" type="text" class="form-control" name="name"
+                                                placeholder="请输入歌单名称" required data-bv-notempty-message="歌单名不能为空"
+                                                autocomplete="off" data-bv-stringlength="true"
+                                                data-bv-stringlength-min="3" data-bv-stringlength-max="10"
+                                                data-bv-stringlength-message="歌单名需要大于3个且少于10个字符" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="list-type" class="control-label">歌单类型:</label>
+                                            <input v-model="createListType" type="text" class="form-control" name="type"
+                                                placeholder="请输入歌单类型" required data-bv-notempty-message="类型不能为空"
+                                                autocomplete="off" data-bv-stringlength="true"
+                                                data-bv-stringlength-min="3" data-bv-stringlength-max="10"
+                                                data-bv-stringlength-message="类型需要大于3个且少于10个字符" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="list-img" class="control-label">展示图片:</label>
+                                            <input v-model="createListFileImgName" @change="getFile($event)" type="file"
+                                                accept="image/*" name="fileImg" required
+                                                data-bv-notempty-message="图片不能为空" />
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                    <button @click="createListButton" type="button"
+                                        class="btn btn-primary">确认创建</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
             </div>
 
 
@@ -105,42 +164,41 @@
                 <div class="media" style="margin-top: 20px;">
                     <div class="media-left">
                         <!-- 歌单图片长宽为200px，计划使用两张不同大小的图片+栅格隐藏，制作响应式效果-->
-                        <img class="media-object hidden-xs" src="../image/ge3.jpg" alt="..." width="200px">
-                        <img class="media-object visible-xs-block" src="../image/ge3.jpg" alt="..." width="128px">
+                        <img class="media-object hidden-xs" :src="listMessage.musicListImgUrl"
+                            :alt="listMessage.musicListName" width="200px">
+                        <img class="media-object visible-xs-block" :src="listMessage.musicListImgUrl"
+                            :alt="listMessage.musicListName" width="128px">
                     </div>
                     <div class="media-body">
                         <span class="label label-danger">歌单</span>
-                        <span>紫罗兰永恒花园原声</span>
+                        <span>{{ listMessage.musicListName }}</span>
 
                         <!-- 作者信息 -->
                         <div class="media">
                             <div class="media-left media-middle">
-                                <a href="#">
-                                    <img width="35px" class="media-object" src="../image/ge5.jpg" alt="...">
+                                <a>
+                                    <img width="35px" class="media-object" :src="listMessage.userAvatarImgUrl"
+                                        alt="listMessage.userName">
                                 </a>
                             </div>
                             <div class="media-body">
-                                <a href="#">水野彩音</a>
+                                <a>{{ listMessage.userName }}</a>
                                 <!-- 屏幕<768隐藏创建时间 -->
-                                <span class="hidden-xs">2020-12-07&nbsp;创建</span>
+                                <span class="hidden-xs">{{ listMessage.musicListDatetime }}&nbsp;创建</span>
                             </div>
                         </div>
 
                         <!-- 按钮组 -->
                         <div style="margin-top: 10px;">
-
-                            <!-- 屏幕<768隐藏（分享，收藏）按钮 -->
-                            <span class="btn-group hidden-xs">
-                                <button type="button" class="btn btn-info btn-sm" disabled="disabled">收藏</button>
-                                <button type="button" class="btn btn-info btn-sm" disabled="disabled"
-                                    data-toggle="dropdown"><span class="glyphicon glyphicon-plus-sign"></span></button>
-                            </span>
+                            <!-- 屏幕<768隐藏（分享,评论）按钮 -->
                             <span>
+                                <a @click="userCollectButton" role="button" class="btn btn-info btn-sm"
+                                    :disabled="pageMusicStatus == 1">{{ pageMusicStatus == 2 ? "取消收藏" : "收藏" }}</a>
                                 <a href="#" role="button" class="btn btn-default btn-sm hidden-xs"><span
                                         class="glyphicon glyphicon-share-alt"></span>&nbsp;分享</a>
-                                <a href="#" role="button" class="btn btn-default btn-sm"><span
+                                <a @click="musicListDownloadButton" role="button" class="btn btn-default btn-sm"><span
                                         class="glyphicon glyphicon-save"></span>&nbsp;下载歌单</a>
-                                <a href="#" role="button" class="btn btn-default btn-sm"><span
+                                <a href="#commentFirst" role="button" class="btn btn-default btn-sm hidden-xs"><span
                                         class="glyphicon glyphicon-comment"></span>&nbsp;评论</a>
                             </span>
                         </div>
@@ -155,225 +213,169 @@
                             <span>
                                 <span style="margin-right: 5%;">歌曲列表</span>
                                 <!-- 屏幕<768隐藏歌曲数量 -->
-                                <small class="hidden-xs">113首歌</small>
+                                <small class="hidden-xs">{{ musicCount }}首歌</small>
                             </span>
                         </div>
-                        <div class="media-right media-body text-right">
+                        <!-- <div class="media-right media-body text-right">
                             <small>播放：</small>
                             <small style="color: #c20c0c;">111</small>
-                        </div>
+                        </div> -->
                     </div>
                 </h4>
                 <div>
                     <table class="table table-hover">
-
                         <thead>
                             <tr class="info">
                                 <td></td> <!-- 空head -->
                                 <td>歌曲标题</td>
-                                <td>时长</td>
                                 <td>歌手</td>
+                                <td v-if="pageMusicStatus == 1" class="text-center">删除</td>
                                 <!-- 屏幕<768px不显示专辑列 -->
-                                <td class="hidden-xs">专辑</td>
+                                <td class="text-center" :class="pageMusicStatus == 1 ? 'hidden-xs' : ''">单曲下载</td>
                             </tr>
                         </thead>
-
                         <tbody>
-                            <tr>
+                            <tr v-for="(item, i) in musicList">
                                 <td>
                                     <div class="media">
-                                        <div class="media-left">1</div>
+                                        <div class="media-left">{{ i + 1 }}</div>
                                         <div class="media-right">
-                                            <a href="#">
+                                            <a :href="['song.html?id=' + item.id]" target="_blank">
                                                 <span class="glyphicon glyphicon-play-circle"></span>
                                             </a>
                                         </div>
                                     </div>
                                 </td>
-                                <td>ふわふわ</td>
-                                <td>03:03</td>
-                                <td>安野希世乃</td>
-                                <td class="hidden-xs">TVあそかわ</td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    <div class="media">
-                                        <div class="media-left">1</div>
-                                        <div class="media-right">
-                                            <a href="#">
-                                                <span class="glyphicon glyphicon-play-circle"></span>
-                                            </a>
-                                        </div>
-                                    </div>
+                                <td>{{ item.musicName }}</td>
+                                <td>{{ item.musicAuthor }}</td>
+                                <td v-if="pageMusicStatus == 1" class="text-center">
+                                    <a @click="musicDeleteButton" class="close" style="float: none">
+                                        <span aria-hidden="true">&times;</span>
+                                    </a>
                                 </td>
-                                <td>歌曲标题</td>
-                                <td>时长</td>
-                                <td>歌手</td>
-                                <td class="hidden-xs">专辑</td>
+                                <td class="hidden-xs text-center">
+                                    <span @click="musicDownloadButton(item.id)"
+                                        :class="pageMusicStatus == 1 ? 'hidden-xs' : ''"
+                                        class="glyphicon glyphicon-download" aria-hidden="true"></span>
+                                </td>
                             </tr>
-
                         </tbody>
-
                     </table>
                 </div>
 
-                <!-- 个人评论 -->
-                <h4 class="tab-title-red" style="margin-top: 8%;">
-                    <span>
-                        <span style="margin-right: 5%;">评论</span>
-                        <small>共32条评论</small>
-                    </span>
-                </h4>
-                <div class="media">
-                    <div class="media-left">
-                        <a href="#">
-                            <img class="media-object" src="../image/ge4.jpg" alt="..." width="50px">
-                        </a>
-                    </div>
-                    <div class="media-body">
-                        <form class="form-horizontal">
-                            <textarea class="form-control" rows="3" style="resize: none;"></textarea>
-                            <div class="text-right" style="margin-top: 2%;">
-                                <span>你还能输入140个字</span>
-                                <button type="submit" class="btn btn-primary btn-xs">评论</button>
+                <div class="col-xs-12 col-sm-12">
+                    <!-- 个人评论 -->
+                    <h4 class="tab-title-red" style="margin-top: 8%;">
+                        <span>
+                            <span style="margin-right: 5%;">评论</span>
+                            <small>共{{ paginationInfo.commentCount }}条评论</small>
+                        </span>
+                    </h4>
+                    <div class="media">
+                        <div class="media-left">
+                            <div>
+                                <span>{{ userName=="登录"? "游客" : userName }}</span><span
+                                    class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span>
                             </div>
-                        </form>
+                        </div>
+                        <div class="media-body">
+                            <form onsubmit="return false" class="form-horizontal">
+                                <textarea v-model="commentText" class="form-control" rows="3"
+                                    style="resize: none;"></textarea>
+                                <div class="text-right" style="margin-top: 2%;">
+                                    <span>你还能输入{{ commentFontCount }}个字</span>
+                                    <button @click="commentPublishButton" class="btn btn-primary btn-xs">评论</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- 其他评论 -->
+                    <h4 class="tab-title-gray" style="margin-top: 8%;">
+                        <span>
+                            <span>最新评论</span>
+                            <small>（{{ paginationInfo.commentCount }}）</small>
+                        </span>
+                    </h4>
+                    <div v-if="paginationInfo.paginationCount == 0" class="alert alert-info alert-dismissible"
+                        role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <strong>当前歌曲没有评论！</strong> 快去抢占沙发吧~
+                    </div>
+                    <div>
+                        <a v-show="false" id="commentFirst" name="commentFirst"></a>
+                        <!-- 评论 -->
+                        <div v-for="(item, i) in comment" class="media tab-title-gray-dottedLine">
+                            <div class="media-left">
+                                <a>
+                                    <img class="media-object"
+                                        :src="item.userAvatarImgUrl == null ? '../image/ge1.jpg' : item.userAvatarImgUrl"
+                                        width="50px">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <a>{{ item.userName }}</a>
+                                <span>：</span>
+                                <span>{{ item.commentText }}</span>
+                                <div class="text-right" style="margin-top: 2%;">
+                                    <!-- 屏幕<768px不显示创建时间 -->
+                                    <span style="margin: auto 3%;" class="hidden-xs">
+                                        {{ item.commentDatetime }}
+                                    </span>
+                                    <!-- 点赞按钮 -->
+                                    <a @click="commentUpvoteButton(UserCommentAoInfo[i] != 1, i, item.id)">
+                                        <span class="glyphicon glyphicon-thumbs-up"
+                                            :style="UserCommentAoInfo[i] == 1 ? 'color: #C10D0C' : ''"></span>
+                                        <span :style="UserCommentAoInfo[i] == 1 ? 'color: #C10D0C' : ''">（{{
+                                            item.commentAwesome }}）</span>
+                                    </a>
+                                    <!-- 点踩按钮 -->
+                                    <a @click="commentOpposeButton(UserCommentAoInfo[i] != 2, i, item.id)">
+                                        <span class="glyphicon glyphicon-thumbs-down"
+                                            :style="UserCommentAoInfo[i] == 2 ? 'color: #C10D0C' : ''"></span>
+                                        <span :style="UserCommentAoInfo[i] == 2 ? 'color: #C10D0C' : ''">（{{
+                                            item.commentOppose }}）</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <a id="commentLast" name="commentLast"></a>
+                        <!-- 评论分页控制 -->
+                        <div class="text-center">
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination">
+                                    <li v-if="commentPageItemCount != 1">
+                                        <a @click="commentPaginationButton(commentPageItemCount-1)"
+                                            aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li v-else class="disabled">
+                                        <span>
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </span>
+                                    </li>
+                                    <li v-for="i in paginationInfo.paginationCount"
+                                        :class="i == commentPageItemCount ? 'active' : ''">
+                                        <a @click="commentPaginationButton(i)">{{ i }}</a>
+                                    </li>
+                                    <li
+                                        v-if="commentPageItemCount != paginationInfo.paginationCount && paginationInfo.paginationCount != 0">
+                                        <a @click="commentPaginationButton(commentPageItemCount+1)" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                    <li v-else class="disabled">
+                                        <span>
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
                     </div>
                 </div>
-
-                <!-- 其他评论 -->
-                <h4 class="tab-title-gray" style="margin-top: 8%;">
-                    <span>
-                        <span>最新评论</span>
-                        <small>（41）</small>
-                    </span>
-                </h4>
-                <div>
-                    <!-- 评论模板 -->
-                    <div class="media tab-title-gray-dottedLine">
-                        <div class="media-left">
-                            <a href="#">
-                                <img class="media-object" src="../image/ge4.jpg" alt="..." width="50px">
-                            </a>
-                        </div>
-                        <div class="media-body">
-                            <a href="#">w水野彩音w</a>
-                            <span>：</span>
-                            <span>
-                                小城的微风吹着，坐在办公室的窗边，一抹阳光突然照进来，
-                                看着小盆栽在摇晃的时候，那一刻觉得是春天来敲门了。
-                                它有些调皮，有些阴晴不定，这就是春天的魅力呀，
-                                它让人怀有期待，期待细雨，也期待阳光，期待花开，
-                                期待所有新鲜的事物。塞上耳机也能感受到慢慢美好的生活
-                                ，因为总有令人欣喜的旋律。
-                            </span>
-                            <div class="text-right" style="margin-top: 2%;">
-                                <!-- 屏幕<768px不显示创建时间 -->
-                                <span style="margin: auto 3%;" class="hidden-xs">2018年3月20日</span>
-                                <a href="#">
-                                    <span class="glyphicon glyphicon-thumbs-up"></span>
-                                    <span>（122）</span>
-                                </a>
-                                <a href="#">
-                                    <span class="glyphicon glyphicon-thumbs-down"></span>
-                                    <span>（122）</span>
-                                </a>
-                            </div>
-                            </form>
-                        </div>
-                    </div>
-
-                    <div class="media tab-title-gray-dottedLine">
-                        <div class="media-left">
-                            <a href="#">
-                                <img class="media-object" src="../image/ge4.jpg" alt="..." width="50px">
-                            </a>
-                        </div>
-                        <div class="media-body">
-                            <a href="#">w水野彩音w</a>
-                            <span>：</span>
-                            <span>
-                                小城的微风吹着，坐在办公室的窗边，一抹阳光突然照进来，
-                                看着小盆栽在摇晃的时候，那一刻觉得是春天来敲门了。
-                                它有些调皮，有些阴晴不定，这就是春天的魅力呀，
-                                它让人怀有期待，期待细雨，也期待阳光，期待花开，
-                                期待所有新鲜的事物。塞上耳机也能感受到慢慢美好的生活
-                                ，因为总有令人欣喜的旋律。
-                            </span>
-                            <div class="text-right" style="margin-top: 2%;">
-                                <!-- 屏幕<768px不显示创建时间 -->
-                                <span style="margin: auto 3%;" class="hidden-xs">2018年3月20日</span>
-                                <a href="#">
-                                    <span class="glyphicon glyphicon-thumbs-up"></span>
-                                    <span>（122）</span>
-                                </a>
-                                <a href="#">
-                                    <span class="glyphicon glyphicon-thumbs-down"></span>
-                                    <span>（122）</span>
-                                </a>
-                            </div>
-                            </form>
-                        </div>
-                    </div>
-
-                    <div class="media tab-title-gray-dottedLine">
-                        <div class="media-left">
-                            <a href="#">
-                                <img class="media-object" src="../image/ge4.jpg" alt="..." width="50px">
-                            </a>
-                        </div>
-                        <div class="media-body">
-                            <a href="#">w水野彩音w</a>
-                            <span>：</span>
-                            <span>
-                                小城的微风吹着，坐在办公室的窗边，一抹阳光突然照进来，
-                                看着小盆栽在摇晃的时候，那一刻觉得是春天来敲门了。
-                                它有些调皮，有些阴晴不定，这就是春天的魅力呀，
-                                它让人怀有期待，期待细雨，也期待阳光，期待花开，
-                                期待所有新鲜的事物。塞上耳机也能感受到慢慢美好的生活
-                                ，因为总有令人欣喜的旋律。
-                            </span>
-                            <div class="text-right" style="margin-top: 2%;">
-                                <!-- 屏幕<768px不显示创建时间 -->
-                                <span style="margin: auto 3%;" class="hidden-xs">2018年3月20日</span>
-                                <a href="#">
-                                    <span class="glyphicon glyphicon-thumbs-up"></span>
-                                    <span>（122）</span>
-                                </a>
-                                <a href="#">
-                                    <span class="glyphicon glyphicon-thumbs-down"></span>
-                                    <span>（122）</span>
-                                </a>
-                            </div>
-                            </form>
-                        </div>
-                    </div>
-
-                    <!-- 评论分页控制 -->
-                    <div class="text-center">
-                        <nav aria-label="Page navigation">
-                            <ul class="pagination">
-                                <li>
-                                    <a href="#" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
-                                <li><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                                <li>
-                                    <a href="#" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-
 
             </div>
 
@@ -381,8 +383,13 @@
 
     </div>
 
-
+    <!-- 通用js -->
     <script src="../js/generalMethod.js"></script>
+    <!-- 评论通用js -->
+    <script src="../js/commentMethod.js"></script>
+    <!-- list通用js -->
+    <script src="../js/listMethod.js"></script>
+    <!-- myMusic-vue对象 -->
     <script src="../js/myMusicViewObject.js"></script>
 
 </body>

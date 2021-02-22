@@ -131,32 +131,32 @@
                 <div class="carousel-inner lists-split-purchase" role="listbox">
                     <div v-for="i in 3" class="item" :class="i==3? 'active':''">
                         <div class="row">
-                            <div @click="songRouter(newSongMusic[i - 1].id)" class="col-sm-4 col-md-3 visible-lg-block visible-md-block">
-                                <img :src="newSongMusic[i - 1].musicImgUrl">
+                            <div @click="songRouter(newSongMusic[i].id)" class="col-sm-4 col-md-3 visible-lg-block visible-md-block">
+                                <img :src="newSongMusic[i].musicImgUrl">
                                 <div class="caption">
-                                    <h3>{{ newSongMusic[i - 1].musicName }}</h3>
-                                    <p>{{ newSongMusic[i - 1].musicAuthor }}</p>
+                                    <h3>{{ newSongMusic[i].musicName }}</h3>
+                                    <p>{{ newSongMusic[i].musicAuthor }}</p>
                                 </div>
                             </div>
-                            <div @click="songRouter(newSongMusic[i + 2].id)" class="col-sm-4 col-md-3 hidden-xs">
-                                <img :src="newSongMusic[i + 2].musicImgUrl">
+                            <div @click="songRouter(newSongMusic[i + 3].id)" class="col-sm-4 col-md-3 hidden-xs">
+                                <img :src="newSongMusic[i + 3].musicImgUrl">
                                 <div class="caption">
-                                    <h3>{{ newSongMusic[i + 2].musicName }}</h3>
-                                    <p>{{ newSongMusic[i + 2].musicAuthor }}</p>
+                                    <h3>{{ newSongMusic[i + 3].musicName }}</h3>
+                                    <p>{{ newSongMusic[i + 3].musicAuthor }}</p>
                                 </div>
                             </div>
                             <div @click="songRouter(newSongMusic[i + 5].id)" class="col-sm-4 col-md-3 hidden-xs">
-                                <img :src="newSongMusic[i + 5].musicImgUrl">
+                                <img :src="newSongMusic[i + 6].musicImgUrl">
                                 <div class="caption">
-                                    <h3>{{ newSongMusic[i + 5].musicName }}</h3>
-                                    <p>{{ newSongMusic[i + 5].musicAuthor }}</p>
+                                    <h3>{{ newSongMusic[i + 6].musicName }}</h3>
+                                    <p>{{ newSongMusic[i + 6].musicAuthor }}</p>
                                 </div>
                             </div>
                             <div @click="songRouter(newSongMusic[i + 8].id)" class="col-sm-4 col-md-3 col-xs-12">
-                                <img :src="newSongMusic[i + 8].musicImgUrl">
+                                <img :src="newSongMusic[i + 9].musicImgUrl">
                                 <div class="caption">
-                                    <h3>{{ newSongMusic[i + 8].musicName }}</h3>
-                                    <p>{{ newSongMusic[i + 8].musicAuthor }}</p>
+                                    <h3>{{ newSongMusic[i + 9].musicName }}</h3>
+                                    <p>{{ newSongMusic[i + 9].musicAuthor }}</p>
                                 </div>
                             </div>
                         </div>
@@ -208,20 +208,20 @@
                     <tr v-for="i in 10">
                         <td>
                             <span style="margin-right: 10px;">{{ i }}</span>
-                            <span>{{ rankListOneMusic[i-1].musicName }}</span>
-                            <a @click="songRouter(rankListOneMusic[i-1].id)">
+                            <span>{{ rankListOneMusic[i].musicName }}</span>
+                            <a @click="songRouter(rankListOneMusic[i].id)">
                                 <span class="glyphicon glyphicon-play-circle" style="font-size: 20px;"></span>
                             </a>
                         </td>
                         <td>
-                            <span>{{ rankListTwoMusic[i-1].musicName }}</span>
-                            <a @click="songRouter(rankListTwoMusic[i-1].id)">
+                            <span>{{ rankListTwoMusic[i].musicName }}</span>
+                            <a @click="songRouter(rankListTwoMusic[i].id)">
                                 <span class="glyphicon glyphicon-play-circle" style="font-size: 20px;"></span>
                             </a>
                         </td>
                         <td class="hidden-xs">
-                            <span>{{ rankListThreeMusic[i-1].musicName }}</span>
-                            <a @click="songRouter(rankListThreeMusic[i-1].id)">
+                            <span>{{ rankListThreeMusic[i].musicName }}</span>
+                            <a @click="songRouter(rankListThreeMusic[i].id)">
                                 <span class="glyphicon glyphicon-play-circle" style="font-size: 20px;"></span>
                             </a>
                         </td>

@@ -29,8 +29,15 @@ var app = new Vue({
         
         // 当前歌曲页面编号
         pageMusicId: 0,
-        // 歌曲信息初始化数据
-        songMessage: '',
+        // 歌单状态：0用户未登录-1用户歌单-2其他用户歌单（已收藏）-3其他用户歌单（未收藏）
+        pageMusicStatus: 0,
+        // 歌单信息初始化数据
+        listMessage: '',
+        // 歌单列表信息初始化数据
+        musicList: [],
+        // 歌曲个数信息
+        musicCount: '',
+
         // 评论初始化数据
         comment: [],
         // 评论分页模型初始化数据
@@ -38,16 +45,12 @@ var app = new Vue({
         // 用户评论点赞点踩数据
         UserCommentAoInfo: '',
 
-        // 用户歌单数据
-        userMusicListDate: [],
-
         // 评论表单：文本框
         commentText: '',
         // 评论输入字数
         commentFontCount: 140,
         // 当前评论页码
         commentPageItemCount: 1,
-
 
     },
 
@@ -64,21 +67,25 @@ var app = new Vue({
                 window.location.href = "/YuKaMusicCity/main/html/playlist.html?id=" + id
             }
         },
-        // 用户歌曲收藏按钮
+        // 用户歌单收藏按钮
         userCollectButton: function() {
-            userCollect(this)
+            userCollectMusicList(this)
         },
-        // 添加音乐收藏按钮
-        userCollectMusicButton: function(listId) {
-            userCollectMusic(this, listId)
+        // 歌单下载按钮
+        musicListDownloadButton: function() {
+            musicListDownload(this.pageMusicId)
         },
-        // 歌曲下载按钮
-        musicDownloadButton: function() {
-            musicDownload(this.pageMusicId)
+        // 单曲下载按钮
+        musicDownloadButton: function(id) {
+            musicDownload(id)
+        },
+        // 音乐删除按钮
+        musicDeleteButton: function() {
+            userCancelCollectList(id, this)
         },
         // 评论发表按钮
         commentPublishButton: function() {
-            commentPublish(1, this)
+            commentPublish(2, this)
         },
         // 评论点赞-取消按钮
         commentUpvoteButton: function(isUpvote, index, id) {
@@ -114,7 +121,7 @@ var app = new Vue({
         this.pageMusicId = getUrlParam("id")
         initBackgroundFun(this)
         getUserNameService()
-        getPageDataService("songView/" + this.pageMusicId)
+        getPageDataService("playlistView/" + this.pageMusicId)
     },
 
     watch: {
@@ -130,65 +137,21 @@ var app = new Vue({
             if(this.adminService) {
                 getUserCommentAO(this)   // AO:awesome,oppose
             }
+        },
+        userName: function() {
+            if(this.adminService) {
+                initIsUserCreateMusicList(this.pageMusicId)
+            }
         }
-        
     },
 
 })
 
 // 初始化页面渲染
 function initPageData(data) {
-    app.songMessage = data.songMessage
+    app.listMessage = data.message
+    app.musicList = data.musicList
+    app.musicCount = data.musicCount
     app.comment = data.comment
     app.paginationInfo = data.paginationInfo
-}
-
-// 用户歌曲收藏按钮服务
-function userCollect(model) {
-    // 无用户服务时直接跳转至myerror页面
-    if(!model.adminService) {
-        window.location.href = "/YuKaMusicCity/main/html/myError.html"
-    }
-    // 缓存时防止重复发起请求
-    if(model.userMusicListDate != 0) {
-        return
-    }
-    // 回显用户歌单
-    axios.request({
-        url: '/YuKaMusicCity/user/findUserMusicList',
-        params: {
-            musicId: model.pageMusicId,
-        },
-    })
-    .then(response => {
-        model.userMusicListDate = response.data
-    })
-    .catch(error => {
-        console.log("请求失败" + error)
-    })
-}
-
-// 添加音乐收藏服务
-function userCollectMusic(model, listId) {
-    axios.request({
-        url: '/YuKaMusicCity/user/addMusicCollect',
-        method: 'post',
-        params: {
-            musicId: model.pageMusicId,
-            listId: listId,
-        },
-    })
-    .then(response => {
-        if(response.data == "200") {
-            for(let i = 0;i < model.userMusicListDate.length;i++) {
-                if(model.userMusicListDate[i].id == listId) {
-                    model.userMusicListDate[i].hasMusic = true
-                    break
-                }
-            }
-        }
-    })
-    .catch(error => {
-        console.log("请求失败" + error)
-    })
 }

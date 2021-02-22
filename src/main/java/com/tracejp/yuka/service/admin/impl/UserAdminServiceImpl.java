@@ -123,10 +123,10 @@ public class UserAdminServiceImpl implements UserAdminService {
     @Override
     public void setFirstLoginCache(HttpServletResponse resp) {
         Cookie firstCache = new Cookie("firstCache", "true");
-        // 当天晚上23:59:59减去当前时间，即为cache的存活时间
+        // 当天晚上23:59:59减去当前时间，即为cache的存活时间：cookie-setMaxAge单位为秒
         long overTime = Util.getOneDayEndTime();
         long cut = System.currentTimeMillis();
-        int cookieTime = Math.toIntExact(overTime - cut);
+        int cookieTime = Math.toIntExact((overTime - cut) / 1000);
         firstCache.setMaxAge(cookieTime);
         resp.addCookie(firstCache);
     }

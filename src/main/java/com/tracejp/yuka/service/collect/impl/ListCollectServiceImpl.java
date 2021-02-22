@@ -25,6 +25,9 @@ public class ListCollectServiceImpl implements ListCollectService {
 
     @Override
     public String addUserMusicList(String uid, String listName, String listType, MultipartFile fileImg) {
+        if(fileImg == null) {
+            return ResponseStatus.SUCCESS_ERROR.getStatus();
+        }
         String localUrl = null;
         try {
             LocalFileCommandUtil fileObj = fileSave.builderMultipartFile(fileImg)

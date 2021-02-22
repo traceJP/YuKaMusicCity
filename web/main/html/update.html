@@ -421,7 +421,7 @@
                                             <form>
                                                 <div class="form-group">
                                                     <label for="recipient-name" class="control-label">新的头像:</label>
-                                                    <input @change="getFile($event)" type="file" accept="image/*" id="exampleInputFile" />
+                                                    <input v-model="updateAvatarFileName" @change="getFile($event)" type="file" accept="image/*" id="exampleInputFile" />
                                                 </div>
                                             </form>
                                             <div class="progress">

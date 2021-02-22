@@ -40,6 +40,7 @@ public class UserAttestInterceptor implements HandlerInterceptor {
         if(sessionUid == null) {
             // 未登录过的页面请求全部直接响应状态码1005
             response.getWriter().write(ResponseStatus.FAIL_LOGIN_INTERCEPT.getStatus());
+            return false;
         }
         // 已登录：进行各种检查项
         toDayFirstLogin(request, response, sessionUid);

@@ -42,6 +42,7 @@ var app = new Vue({
         updateArea: '',
         updateIntroduction: '',
         updateAvatarFile: '',
+        updateAvatarFileName: '',
         avatarFileSchedule: {width : "0%"},
     },
 
@@ -359,6 +360,8 @@ function updateAxiosUserAvatar() {
             app.serviceOk = true
             app.basic.userAvatarImgUrl = getImg(app.updateAvatarFile)
             setTimeout(() =>{
+                app.updateAvatarFileName = ""
+                app.updateAvatarFile = ""
                 app.avatarFileSchedule.width = "0%"
                 $("#avatar").modal('hide')
             },3000);

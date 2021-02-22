@@ -9,7 +9,6 @@
         SELECT id, music_list_name
         FROM `music_list`
         WHERE user_id=#{uid}
-        AND is_user_default=0;
     </select>
 
     <select id="selectFavoritesMusicList" resultType="com.tracejp.yuka.model.dao.MyMusicUserMusicListDAO">

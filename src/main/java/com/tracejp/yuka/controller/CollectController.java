@@ -36,13 +36,13 @@ public class CollectController {
     }
 
 
-    @GetMapping("/isUserCreateList")
-    public Boolean isUserCreateMusicList(@SessionAttribute String uid, Integer listId) {
+    @GetMapping("/isUserCreateList/{listId}")
+    public Boolean isUserCreateMusicList(@SessionAttribute String uid, @PathVariable("listId") Integer listId) {
         return listService.isUserCreateMusicList(uid, listId);
     }
 
-    @GetMapping("/isUserCollectList")
-    public Boolean isUserCollectMusicList(@SessionAttribute String uid, Integer listId) {
+    @GetMapping("/isUserCollectList/{listId}")
+    public Boolean isUserCollectMusicList(@SessionAttribute String uid, @PathVariable("listId") Integer listId) {
         return listService.isUserCollectMusicList(uid, listId);
     }
 
@@ -51,18 +51,18 @@ public class CollectController {
         return listService.addUserMusicList(uid, listName, listType, fileImg);
     }
 
-    @DeleteMapping("/deleteMusicList")
-    public String removeUserMusicList(@SessionAttribute String uid, Integer listId) {
+    @DeleteMapping("/deleteMusicList/{listId}")
+    public String removeUserMusicList(@SessionAttribute String uid, @PathVariable("listId") Integer listId) {
         return listService.removeUserMusicList(uid, listId);
     }
 
-    @PostMapping("/addMusicListCollect")
-    public String collectMusicList(@SessionAttribute String uid, Integer listId) {
+    @PostMapping("/addMusicListCollect/{listId}")
+    public String collectMusicList(@SessionAttribute String uid, @PathVariable("listId") Integer listId) {
         return listService.addUserCollectMusicList(uid, listId);
     }
 
-    @DeleteMapping("/deleteMusicListCollect")
-    public String cancelMusicListCollect(@SessionAttribute String uid, Integer listId) {
+    @DeleteMapping("/deleteMusicListCollect/{listId}")
+    public String cancelMusicListCollect(@SessionAttribute String uid, @PathVariable("listId") Integer listId) {
         return listService.removeUserCollectMusicList(uid, listId);
     }
 
