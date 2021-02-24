@@ -90,12 +90,16 @@ var app = new Vue({
             musicDownload(id)
         },
         // 音乐删除按钮
-        musicDeleteButton: function() {
-            userCancelCollectList(id, this)
+        musicDeleteButton: function(id) {
+            userCancelListToMusic(id, this)
         },
         // 评论发表按钮
         commentPublishButton: function() {
             commentPublish(2, this)
+        },
+        // 评论时间戳转换为时间方法
+        commentDataFormat: function(date) {
+            return formatDate(date)
         },
         // 评论点赞-取消按钮
         commentUpvoteButton: function(isUpvote, index, id) {
@@ -120,7 +124,7 @@ var app = new Vue({
             if(pageNo == this.commentPageItemCount) {
                 return
             }
-            commentPagination(pageNo, 1, this)
+            commentPagination(pageNo, 2, this)
             this.commentPageItemCount = pageNo
             this.$forceUpdate()
             $('html, body').animate({scrollTop: $('#commentFirst').offset().top}, 1000)

@@ -26,7 +26,7 @@ var app = new Vue({
         // 用户基本信息
         userInfomation: '',
         // 用户头像
-        avtar : '../image/ge3.jpg',
+        avtar : '../image/defaultUserImg.jpg',
         // 用户名
         name: 'admin',
         // 用户性别

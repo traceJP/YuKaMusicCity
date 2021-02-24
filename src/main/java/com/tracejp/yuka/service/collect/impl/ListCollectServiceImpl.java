@@ -1,6 +1,7 @@
 package com.tracejp.yuka.service.collect.impl;
 
 import com.tracejp.yuka.dao.CollectMapper;
+import com.tracejp.yuka.model.dao.CreateListParamsDAO;
 import com.tracejp.yuka.model.enums.ResponseStatus;
 import com.tracejp.yuka.service.collect.ListCollectService;
 import com.tracejp.yuka.utils.LocalFileCommandUtil;
@@ -41,8 +42,11 @@ public class ListCollectServiceImpl implements ListCollectService {
         if(localUrl == null) {
             return ResponseStatus.SUCCESS_ERROR.getStatus();
         }
-        musicCollect.insertUserMusicList(uid, listName, listType, localUrl, false);
-        return ResponseStatus.SUCCESS_200.getStatus();
+        CreateListParamsDAO createListParams = new CreateListParamsDAO(
+                null, uid, listName, listType, localUrl, false
+        );
+        musicCollect.insertUserMusicList(createListParams);
+        return createListParams.getId().toString();
     }
 
     @Override

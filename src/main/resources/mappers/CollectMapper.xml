@@ -39,13 +39,13 @@
     </select>
 
 
-    <insert id="insertUserMusicList">
+    <insert id="insertUserMusicList" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO `music_list`(music_list_name, music_list_img_url, music_list_type, user_id, is_user_default, music_list_play_count)
         <if test="isDefault == true">
-            VALUES(#{listName}, #{imgUrl}, #{listType}, #{uid}, 1, 0);
+            VALUES(#{listName}, #{localUrl}, #{listType}, #{uid}, 1, 0);
         </if>
         <if test="isDefault == false">
-            VALUES(#{listName}, #{imgUrl}, #{listType}, #{uid}, 0, 0);
+            VALUES(#{listName}, #{localUrl}, #{listType}, #{uid}, 0, 0);
         </if>
     </insert>
 

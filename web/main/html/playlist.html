@@ -82,14 +82,14 @@
                         <div class="media">
                             <div class="media-left media-middle">
                                 <a>
-                                    <img width="35px" class="media-object" :src="listMessage.userAvatarImgUrl"
+                                    <img width="35px" class="media-object" :src="listMessage.userAvatarImgUrl == null ? '../image/defaultUserImg.jpg' : listMessage.userAvatarImgUrl"
                                         alt="listMessage.userName">
                                 </a>
                             </div>
                             <div class="media-body">
                                 <a>{{ listMessage.userName }}</a>
                                 <!-- 屏幕<768隐藏创建时间 -->
-                                <span class="hidden-xs">{{ listMessage.musicListDatetime }}&nbsp;创建</span>
+                                <span class="hidden-xs">{{ commentDataFormat(listMessage.musicListDatetime) }}&nbsp;创建</span>
                             </div>
                         </div>
 
@@ -153,7 +153,7 @@
                                 <td>{{ item.musicName }}</td>
                                 <td>{{ item.musicAuthor }}</td>
                                 <td v-if="pageMusicStatus == 1" class="text-center">
-                                    <a @click="musicDeleteButton" class="close" style="float: none">
+                                    <a @click="musicDeleteButton(item.id)" class="close" style="float: none">
                                         <span aria-hidden="true">&times;</span>
                                     </a>
                                 </td>
@@ -212,7 +212,7 @@
                             <div class="media-left">
                                 <a>
                                     <img class="media-object"
-                                        :src="item.userAvatarImgUrl == null ? '../image/ge1.jpg' : item.userAvatarImgUrl"
+                                        :src="item.userAvatarImgUrl == null ? '../image/defaultUserImg.jpg' : item.userAvatarImgUrl"
                                         width="50px">
                                 </a>
                             </div>
@@ -223,7 +223,7 @@
                                 <div class="text-right" style="margin-top: 2%;">
                                     <!-- 屏幕<768px不显示创建时间 -->
                                     <span style="margin: auto 3%;" class="hidden-xs">
-                                        {{ item.commentDatetime }}
+                                        {{ commentDataFormat(item.commentDatetime) }}
                                     </span>
                                     <!-- 点赞按钮 -->
                                     <a @click="commentUpvoteButton(UserCommentAoInfo[i] != 1, i, item.id)">
@@ -281,12 +281,27 @@
 
             </div>
 
-            <!-- 页脚 -->
-            <!-- <div class="jumbotron text-center" style="margin: 0;">
-            <p>。。。</p>
-        </div> -->
-
         </div>
+
+        <!-- 页脚 -->
+        <div :class="bgTail" class="row jumbotron" style="margin: 0;">
+            <h4 class="text-center">YuKa音乐-JavaSSM项目</h4>
+            <div class="col-sm-6">
+                <h4>技术栈：</h4>
+                <ul>
+                    <li><h5>前端技术：<small>bootStrap+vue</small></h5></li>
+                    <li><h5>后端技术：<small>SpringMVC+Spring+MyBatis</small></h5></li>
+                    <li><h5>项目管理构建：<small>Git+Maven</small></h5></li>
+                    <li><h5>数据库：<small>MySQL</small></h5></li>
+                </ul>
+            </div>
+            <div class="col-sm-6">
+                <h4>制作：<small>LJP-/2020.12.25—2021.2.25</small></h4>
+                <h4>开源：<a href="https://github.com/traceJP/YuKaMusicCity.git" target="_blank"><small>https://github.com</small></a></h4>
+                <h4>其他项目：<a href="/BookCityObject/index.jsp" target="_blank"><small>BookCity书城项目</small></a></h4>
+            </div>
+        </div>
+
     </div>
 
     <!-- 通用js -->

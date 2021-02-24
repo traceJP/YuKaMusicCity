@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tracejp.yuka.dao.BehaviorMapper">
+
+    <select id="selectUserMusicBroadcastNumber" resultType="java.lang.Integer">
+        SELECT broadcast_number_times
+        FROM `user_song_leaderboard`
+        WHERE user_id=#{uid}
+        AND music_id=#{id}
+    </select>
+
+    <insert id="insertUserMusicBroadcastNumber">
+        REPLACE INTO `user_song_leaderboard`(music_id, user_id, broadcast_number_times)
+        VALUES(#{id}, #{uid}, #{number});
+    </insert>
+
+    <update id="updateMusicListPlayCount">
+        UPDATE `music_list`
+        SET music_list_play_count = music_list_play_count + 1
+        WHERE id=#{id};
+    </update>
+
+</mapper>

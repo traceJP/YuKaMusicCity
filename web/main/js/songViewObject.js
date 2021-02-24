@@ -98,6 +98,10 @@ var app = new Vue({
             }
             this.$forceUpdate()
         },
+        // 评论时间戳转换为时间方法
+        commentDataFormat: function(date) {
+            return formatDate(date)
+        },
         // 分页资源获取
         commentPaginationButton: function(pageNo) {
             if(pageNo == this.commentPageItemCount) {

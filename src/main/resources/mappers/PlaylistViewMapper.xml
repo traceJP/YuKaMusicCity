@@ -6,7 +6,7 @@
 <mapper namespace="com.tracejp.yuka.dao.PlaylistViewMapper">
 
     <select id="selectPlaylistMessage" resultType="com.tracejp.yuka.model.dao.PlaylistMessageDAO">
-        SELECT `music_list`.id, music_list_name, music_list_img_url, `music_list`.gmt_create,
+        SELECT `music_list`.id, music_list_name, music_list_img_url, `music_list`.gmt_create AS music_list_datetime,
                user_name, user_avatar_img_url
         FROM `music_list`, `user_info`
         WHERE `music_list`.user_id = `user_info`.user_id

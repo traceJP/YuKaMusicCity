@@ -76,11 +76,22 @@ function userCancelCollectList(id, model) {
 }
 
 // 删除歌单中的歌曲服务
-function userCancelCollectList(id, model) {
-    axios.delete("/YuKaMusicCity/user/deleteMusicListCollect/" + id)
+function userCancelListToMusic(id, model) {
+    axios.request({
+        url: "/YuKaMusicCity/user/deleteMusicCollect/",
+        method: "delete",
+        params: {
+            musicId: id,
+            listId: model.pageMusicId,
+        },
+    })
     .then(response => {
         if(response.data == "200") {
-            model.pageMusicStatus = 3
+            for (let i = 0; i < model.musicList.length; i++) {
+                if(model.musicList[i].id == id) {
+                    model.musicList.splice(i, 1)
+                }
+            }
         }
     })
     .catch(error => {

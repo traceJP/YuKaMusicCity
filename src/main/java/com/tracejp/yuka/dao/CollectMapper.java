@@ -1,5 +1,6 @@
 package com.tracejp.yuka.dao;
 
+import com.tracejp.yuka.model.dao.CreateListParamsDAO;
 import com.tracejp.yuka.model.vo.MusicCollectVO;
 import org.apache.ibatis.annotations.Param;
 
@@ -51,17 +52,9 @@ public interface CollectMapper {
 
     /**
      * 通过用户id，歌单名，歌单图片url向music_list表中添加一条记录
-     * @param uid
-     * @param listName
-     * @param imgUrl
-     * @param isDefault
+     * @param listInfo 参数pojo
      */
-    void insertUserMusicList(@Param("uid") String uid,
-                             @Param("listName") String listName,
-                             @Param("listType") String listType,
-                             @Param("imgUrl") String imgUrl,
-                             @Param("isDefault") Boolean isDefault
-                             );
+    void insertUserMusicList(CreateListParamsDAO listInfo);
 
     /**
      * 通过歌单id删除music_list表中相应的记录

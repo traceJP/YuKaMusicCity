@@ -131,32 +131,32 @@
                 <div class="carousel-inner lists-split-purchase" role="listbox">
                     <div v-for="i in 3" class="item" :class="i==3? 'active':''">
                         <div class="row">
-                            <div @click="songRouter(newSongMusic[i].id)" class="col-sm-4 col-md-3 visible-lg-block visible-md-block">
-                                <img :src="newSongMusic[i].musicImgUrl">
+                            <div @click="songRouter(newSongMusic[i - 1].id)" class="col-sm-4 col-md-3 visible-lg-block visible-md-block">
+                                <img :src="newSongMusic[i - 1].musicImgUrl">
                                 <div class="caption">
-                                    <h3>{{ newSongMusic[i].musicName }}</h3>
-                                    <p>{{ newSongMusic[i].musicAuthor }}</p>
+                                    <h3>{{ newSongMusic[i - 1].musicName }}</h3>
+                                    <p>{{ newSongMusic[i - 1].musicAuthor }}</p>
                                 </div>
                             </div>
-                            <div @click="songRouter(newSongMusic[i + 3].id)" class="col-sm-4 col-md-3 hidden-xs">
-                                <img :src="newSongMusic[i + 3].musicImgUrl">
+                            <div @click="songRouter(newSongMusic[i + 2].id)" class="col-sm-4 col-md-3 hidden-xs">
+                                <img :src="newSongMusic[i + 2].musicImgUrl">
                                 <div class="caption">
-                                    <h3>{{ newSongMusic[i + 3].musicName }}</h3>
-                                    <p>{{ newSongMusic[i + 3].musicAuthor }}</p>
+                                    <h3>{{ newSongMusic[i + 2].musicName }}</h3>
+                                    <p>{{ newSongMusic[i + 2].musicAuthor }}</p>
                                 </div>
                             </div>
                             <div @click="songRouter(newSongMusic[i + 5].id)" class="col-sm-4 col-md-3 hidden-xs">
-                                <img :src="newSongMusic[i + 6].musicImgUrl">
+                                <img :src="newSongMusic[i + 5].musicImgUrl">
                                 <div class="caption">
-                                    <h3>{{ newSongMusic[i + 6].musicName }}</h3>
-                                    <p>{{ newSongMusic[i + 6].musicAuthor }}</p>
+                                    <h3>{{ newSongMusic[i + 5].musicName }}</h3>
+                                    <p>{{ newSongMusic[i + 5].musicAuthor }}</p>
                                 </div>
                             </div>
                             <div @click="songRouter(newSongMusic[i + 8].id)" class="col-sm-4 col-md-3 col-xs-12">
-                                <img :src="newSongMusic[i + 9].musicImgUrl">
+                                <img :src="newSongMusic[i + 8].musicImgUrl">
                                 <div class="caption">
-                                    <h3>{{ newSongMusic[i + 9].musicName }}</h3>
-                                    <p>{{ newSongMusic[i + 9].musicAuthor }}</p>
+                                    <h3>{{ newSongMusic[i + 8].musicName }}</h3>
+                                    <p>{{ newSongMusic[i + 8].musicAuthor }}</p>
                                 </div>
                             </div>
                         </div>
@@ -190,22 +190,22 @@
                 <thead>
                     <tr>
                         <th>
-                            <img src="../image/ge1.jpg" width="80" />
-                            <span class="hidden-xs">音乐飙升榜</span>
+                            <img src="../image/Newsonglist.jpg" width="80" />
+                            <span class="hidden-xs">音乐新歌榜</span>
                         </th>
                         <th>
-                            <img src="../image/ge2.jpg" width="80" />
+                            <img src="../image/Soaringlist.jpg" width="80" />
                             <span class="hidden-xs">音乐飙升榜</span>
                         </th>
                         <th class="hidden-xs">
-                            <img src="../image/ge3.jpg" width="80" />
-                            <span>音乐飙升榜</span>
+                            <img src="../image/HotSongs.jpg" width="80" />
+                            <span>音乐热歌榜</span>
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     <!-- 排行榜模板 -->
-                    <tr v-for="i in 10">
+                    <tr v-for="(index, i) in 10">
                         <td>
                             <span style="margin-right: 10px;">{{ i }}</span>
                             <span>{{ rankListOneMusic[i].musicName }}</span>
@@ -233,8 +233,22 @@
         <!-- 抵消固定页脚 -->
         <br /><br /><br /><br /><br /><br />
         <!-- 页脚 -->
-        <div id="tail_vue_object" :class="bgTail" class="jumbotron text-center" style="margin: 0;">
-            <p>。。。</p>
+        <div :class="bgTail" class="row jumbotron" style="margin: 0;">
+            <h4 class="text-center">YuKa音乐-JavaSSM项目</h4>
+            <div class="col-sm-6">
+                <h4>技术栈：</h4>
+                <ul>
+                    <li><h5>前端技术：<small>bootStrap+vue</small></h5></li>
+                    <li><h5>后端技术：<small>SpringMVC+Spring+MyBatis</small></h5></li>
+                    <li><h5>项目管理构建：<small>Git+Maven</small></h5></li>
+                    <li><h5>数据库：<small>MySQL</small></h5></li>
+                </ul>
+            </div>
+            <div class="col-sm-6">
+                <h4>制作：<small>LJP-/2020.12.25—2021.2.25</small></h4>
+                <h4>开源：<a href="https://github.com/traceJP/YuKaMusicCity.git" target="_blank"><small>https://github.com</small></a></h4>
+                <h4>其他项目：<a href="/BookCityObject/index.jsp" target="_blank"><small>BookCity书城项目</small></a></h4>
+            </div>
         </div>
     </div>
 
