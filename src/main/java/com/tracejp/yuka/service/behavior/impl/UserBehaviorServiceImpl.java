@@ -5,10 +5,12 @@ import com.tracejp.yuka.model.enums.ResponseStatus;
 import com.tracejp.yuka.service.behavior.UserBehaviorService;
 import com.tracejp.yuka.service.level.UserLevelService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /*********************************
  * @author traceJP
  *********************************/
+@Service
 public class UserBehaviorServiceImpl implements UserBehaviorService {
 
     @Autowired

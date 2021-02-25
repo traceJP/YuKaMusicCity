@@ -62,6 +62,10 @@ var app = new Vue({
         createListFileImgName: '',
         createListName: '',
         createListType: '',
+
+        // 删除歌单确认input数据
+        deleteListText: '',
+
     },
 
     methods: {
@@ -149,6 +153,12 @@ var app = new Vue({
             }
             createUserMusicList(this)
         },
+        // 删除歌单按钮
+        deleteListButton: function(id, listName) {
+            if(this.deleteListText == listName) {
+                deleteMusicList(id, this)
+            }
+        },
 
     },
     created: function() {
@@ -224,17 +234,35 @@ function createUserMusicList(model) {
         },
     })
     .then(response => {
-        if(response.data == "200") {
-            // 创建成功
-            // 1 后端返回创建成功的歌单自增唯一标识
-            // 2 通过该标识调用资源请求服务
-            model.createListFileImg = ""
-            model.createListFileImgName = ""
-            model.createListName = ""
-            model.createListType = ""
-            $("#formCreateList").data("bootstrapValidator").resetForm()
-            $("#createList").modal('hide')
-        }
+        let listId = response.data
+        pageMusicListAxios(listId, model)
+        let createListObj = {id: listId, musicListName: model.createListName}
+        model.userCreateList.push(createListObj)
+        model.createListFileImg = ""
+        model.createListFileImgName = ""
+        model.createListName = ""
+        model.createListType = ""
+        $("#formCreateList").data("bootstrapValidator").resetForm()
+        $("#createList").modal('hide')
+    })
+    .catch(error => {
+        console.log("接口请求失败" + error)
+    })
+}
+
+// 删除歌单请求
+function deleteMusicList(id, model) {
+    axios.delete("/YuKaMusicCity/user/deleteMusicList/" + id)
+    .then(response => {
+        for(let i = 0;i < model.userCreateList.length;i++) {
+            if(model.userCreateList[i].id == id) {
+                model.userCreateList.splice(i, 1)
+                pageMusicListAxios(model.userCreateList[0].id, model)
+                deleteListText = ""
+                $("#deleteList").modal('hide')
+                return
+            }
+        }    
     })
     .catch(error => {
         console.log("接口请求失败" + error)

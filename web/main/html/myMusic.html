@@ -81,9 +81,36 @@
                         </div>
                     </a>
                     <div class="collapse" id="PlaylistCreated">
-                        <div v-for="item in userCreateList" @click="pageMusicListRouter(item.id)"
+                        <div v-for="(item, i) in userCreateList" @click="pageMusicListRouter(item.id)"
                             class="list-group-item" :class="pageMusicId == item.id ? 'list-group-item-info' : ''">
-                            {{ item.musicListName }}
+                            <span>{{ item.musicListName }}</span>
+                            <button v-if="i != 0" type="button" class="close pull-right" aria-label="Close" data-toggle="modal" data-target="#deleteList"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <!-- 按钮单击后出现拟态框进行确认删除 -->
+                        <div class="modal fade" id="deleteList" tabindex="-1" role="dialog">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="CreateListLabel">您真的要删除此歌单吗？</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="alert alert-danger" role="alert">为了防止您的错误操作，我们需要您进行确认删除操作！</div>
+                                        <p>
+                                            <span>在下方输入您的歌单名&nbsp;</span>
+                                            <mark>{{ listMessage.musicListName }}</mark>
+                                            <span>&nbsp;后单击确认删除即可</span>
+                                        </p>
+                                        <input v-model="deleteListText" type="text" class="form-control" :placeholder="listMessage.musicListName">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                        <button @click="deleteListButton(listMessage.id, listMessage.musicListName)" type="button"
+                                            class="btn btn-primary">确认删除</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <!-- 收藏的歌单 -->

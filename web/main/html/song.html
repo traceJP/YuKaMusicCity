@@ -134,7 +134,7 @@
 
                 <!-- 音乐播放控件 -->
                 <div class="col-xs-12 col-sm-4" style="margin-top: 10px;">
-                    <audio id="my-music" :src="songMessage.musicUrl" controls style="width:260px"></audio>
+                    <audio id="my-music" @canplay="getDuration" @timeupdate="updateTime" ref="audio" :src="songMessage.musicUrl" controls style="width:260px"></audio>
                 </div>
 
                 <div class="col-xs-12 col-sm-12">

@@ -48,6 +48,10 @@ var app = new Vue({
         // 当前评论页码
         commentPageItemCount: 1,
 
+        // 歌曲总时长
+        audioDuration: 0,
+        // 是否完整听过
+        audioIsPlayMusicComplete: false,
 
     },
 
@@ -113,6 +117,24 @@ var app = new Vue({
             $('html, body').animate({scrollTop: $('#commentFirst').offset().top}, 1000)
         },
 
+        // audio播放
+        getDuration() {
+            this.audioDuration = this.$refs.audio.duration
+        },
+        updateTime(e) {
+            if(!this.adminService) {
+                return
+            }
+            let record = e.target.currentTime > this.audioDuration * 0.75
+            // 如果 当前播放时间>0.75的总时间 并且 未发送过请求 , 则发送请求
+            if(!this.audioIsPlayMusicComplete && record) {
+                axiosUserSongPlayRecord()
+                this.audioIsPlayMusicComplete = true
+            // 如果 发送过请求 并且 当前时间=总时间，则重置为未发送过请求
+            } else if(this.audioIsPlayMusicComplete && e.target.currentTime == this.audioDuration) {
+                this.audioIsPlayMusicComplete = false
+            }
+        },
     },
     created: function() {
         this.pageMusicId = getUrlParam("id")
@@ -191,6 +213,17 @@ function userCollectMusic(model, listId) {
                 }
             }
         }
+    })
+    .catch(error => {
+        console.log("请求失败" + error)
+    })
+}
+
+
+// 用户服务-听歌记录
+function axiosUserSongPlayRecord() {
+    axios.put("/YuKaMusicCity/user/songPlayRecord/" + app.pageMusicId)
+    .then(response => {
     })
     .catch(error => {
         console.log("请求失败" + error)

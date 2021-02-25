@@ -126,6 +126,7 @@ var app = new Vue({
         initBackgroundFun(this)
         getUserNameService()
         getPageDataService("playlistView/" + this.pageMusicId)
+        addServerPlaylistCount(this.pageMusicId)
     },
 
     watch: {
@@ -158,4 +159,14 @@ function initPageData(data) {
     app.musicCount = data.musicCount
     app.comment = data.comment
     app.paginationInfo = data.paginationInfo
+}
+
+// 服务器歌单点击量请求
+function addServerPlaylistCount(id) {
+    axios.put("/YuKaMusicCity/listClickVolume/" + id)
+    .then(response => {
+    })
+    .catch(error => {
+        console.log("请求失败" + error)
+    })
 }
