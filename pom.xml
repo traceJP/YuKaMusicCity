@@ -7,6 +7,7 @@
     <groupId>com.TraceJP.YuKaMusicCity</groupId>
     <artifactId>YuKaMusicCity</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
     <build>
         <plugins>
             <plugin>

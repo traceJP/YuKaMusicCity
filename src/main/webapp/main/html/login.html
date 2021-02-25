@@ -41,7 +41,7 @@
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li><a href="/main/html/index.html">发现音乐<span class="sr-only">(current)</span></a></li>
+                        <li><a href="index.html">发现音乐<span class="sr-only">(current)</span></a></li>
                         <li><a :href="myMusicButtonHref">我的音乐</a></li>
                         <li @click="backgroundSwitch"><a href="#">改变主题</a></li>
                         <li class="active"><a :href="userNameButtonHref">{{ userName }}</a></li>
@@ -63,58 +63,44 @@
             </div>
         </nav>
 
-        <div v-if="responseInputOk"  class="alert alert-success">
-            <strong>注册成功！</strong>即将跳转到首页！
+        <div v-if="responseInputError"  class="alert alert-danger">
+            <strong>警告！</strong>您输入的账号或密码有误！
         </div>
 
-        <!-- 注册表单 -->
+        <!-- 登录表单 -->
         <div class="login-form row">
-
             <form id="defaultForm" onsubmit="return false" class="form-horizontal col-md-12" data-bv-message="This value is not valid"
                 data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
                 data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
                 data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
                 <div class="form-group col-md-12">
-                    <label for="exampleInputEmail1">用户名</label>
-                    <input v-model="nameValue" type="text" class="form-control" name="username" placeholder="请输入您的用户名" required
-                        data-bv-notempty-message="用户名不能为空" data-bv-stringlength="true" data-bv-stringlength-min="6"
-                        data-bv-stringlength-max="20" data-bv-stringlength-message="用户名必须超过6个且少于20个字符"
-                        autocomplete="off" />
-                </div>
-                <div class="form-group col-md-12">
                     <label for="exampleInputEmail1">邮箱账号</label>
-                    <input v-model="emailValue" class="form-control" name="email" type="email" placeholder="请输入您的邮箱" required
-                        data-bv-notempty-message="邮箱不能为空" data-bv-emailaddress-message="请输入有效的电子邮件地址"
-                        autocomplete="off" data-bv-remote="true" data-bv-remote-url="/YuKaMusicCity/hasEmail" data-bv-remote-message="邮箱已被注册" />
+                    <input v-model="accountValue" type="text" class="form-control" name="email" placeholder="书城项目邮箱号/YuKa账号" required
+                        data-bv-notempty-message="账号不能为空" autocomplete="off" />
                 </div>
                 <div class="form-group col-md-12">
                     <label for="exampleInputPassword1">密码</label>
                     <input v-model="passwordValue" type="password" class="form-control" name="password" placeholder="请输入密码" required
-                        data-bv-notempty-message="密码不能为空" data-bv-identical="true"
-                        data-bv-identical-field="confirmPassword" data-bv-identical-message="两次密码不相同"
-                        data-bv-different="true" data-bv-different-field="username"
-                        data-bv-different-message="密码不能和用户名相同" data-bv-stringlength="true" data-bv-stringlength-min="8"
-                        data-bv-stringlength-message="密码过于简单" />
+                        data-bv-notempty-message="密码不能为空" />
                 </div>
-                <div class="form-group col-md-12">
-                    <label for="exampleInputPassword1">确认密码</label>
-                    <input v-model="passwordValue2" type="password" class="form-control" name="confirmPassword" placeholder="请再次输入密码" required
-                        data-bv-notempty-message="确认密码不能为空" data-bv-identical="true" data-bv-identical-field="password"
-                        data-bv-identical-message="两次密码不相同" data-bv-different="true" data-bv-different-field="username"
-                        data-bv-different-message="密码不能和用户名相同" />
+                <div class="checkbox col-md-12">
+                    <label>
+                        <input v-model="isAutoLogin" type="checkbox"> 7天内免密码登录
+                    </label>
                 </div>
-                <a href="login.html">
-                    <p class="text-right col-md-12">前往登录&nbsp;<span class="glyphicon glyphicon-menu-right"></span></p>
+                <a href="registered.html">
+                    <p class="text-right col-md-12">没有账号？点我注册&nbsp;<span class="glyphicon glyphicon-menu-right"></span>
+                    </p>
                 </a>
                 <div class="col-md-12">
-                    <button @click="submitButton" class="btn btn-default" :disabled="responseInputOk">{{ responseInputOk? "注册成功" : "立即注册" }}</button>
+                    <button @click="submitButton" class="btn btn-default" :style="">登录</button>
                 </div>
             </form>
-
         </div>
 
         <!-- 抵消固定页脚 -->
         <br /><br /><br /><br /><br /><br />
+
         <!-- 页脚 -->
         <div :class="bgTail" class="row jumbotron" style="margin: 0;">
             <h4 class="text-center">YuKa音乐-JavaSSM项目</h4>
@@ -137,7 +123,7 @@
     </div>
 
     <script src="../js/generalMethod.js"></script>
-    <script src="../js/registeredViewObject.js"></script>
+    <script src="../js/loginViewObject.js"></script>
 
 </body>
 

@@ -68,8 +68,8 @@
                 <div class="col-xs-12 col-sm-8">
                     <div class="media-left">
                         <!-- 歌单图片长宽为200px，计划使用两张不同大小的图片+栅格隐藏，制作响应式效果-->
-                        <img class="media-object hidden-xs" :src="songMessage.musicImgUrl" :alt="songMessage.musicName" width="200px">
-                        <img class="media-object visible-xs-block" :src="songMessage.musicImgUrl" :alt="songMessage.musicName" width="128px">
+                        <img class="media-object hidden-xs" :src="songMessage.musicImgUrl == null ? '../image/defaultMusicImg.jpg' : songMessage.musicImgUrl" :alt="songMessage.musicName" width="200px">
+                        <img class="media-object visible-xs-block" :src="songMessage.musicImgUrl == null ? '../image/defaultMusicImg.jpg' : songMessage.musicImgUrl" :alt="songMessage.musicName" width="128px">
                     </div>
                     <div class="media-body">
                         <span class="label label-danger">单曲</span>
