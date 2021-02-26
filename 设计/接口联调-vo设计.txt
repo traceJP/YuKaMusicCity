@@ -1,0 +1,123 @@
+用户认证服务
+	必须认证页面（需要使用拦截器拦截资源请求->查看是否有前端传递参数或session中存在user信息）
+			存在->将信息传递给对应的资源请求接口->接口响应页面渲染资源
+			不存在->返回响应错误码->前端页面根据错误码直接跳转到myError页面
+		home页面、updata页面、...
+	非必须认证页面（需要使用拦截器拦截用户信息请求接口->查看是否有前端传递参数或session中存在user信息）
+			存在->将信息传递给对应的资源请求接口->接口返回用户信息->将用户信息映射到页面中
+			不存在->返回响应错误码->不做任何反应
+		index页面、playlist页面、song页面...
+
+index页面
+	热门推荐 array[6]
+		歌单展示图片 music_list_img_url（music_list表）
+		歌单名 music_list_name（music_list表）
+		music_list表id（跳转参数）->跳转至playlist.html页面（music_list表）
+	新曲上架 array[12]
+		歌曲展示图片 music_img_url（music_resources表）
+		歌曲名 music_name（music_resources表）
+		歌曲作者 music_author（music_resources表）
+		music_resources表id（跳转参数）->跳转至song.html页面（music_resources表）
+	今日排行榜 array[10] * 3
+		歌曲名 music_name（music_resources表）
+		music_resources表id（跳转参数）->跳转至song.html页面（music_resources表）
+
+home页面 （需要被传递参数 email/password 或者 session中存在会话用户信息）/（无参数将直接返回到myError.html页面）
+	个人资料
+		用户头像图片 user_avatar_img_url（user_info表）
+		用户名 user_name（user_info表）
+		个人介绍 user_introduction（user_info表）
+		所在地区 user_area（user_info表）
+		性别 user_sex（user_info表）
+		年龄 当前日期减去user_birthday（user_info表）
+		编辑个人资料 user_id（用户唯一标识字段）（跳转参数） ->跳转至updata.html页面（user表）
+	我的等级
+		当前等级 level_number（user_level表）
+		距离下一等级登录天数 user_login_days（当前登录天数）（user_level表）需要设计等级与天数之间的关系
+		登录天数进度条百分比
+		距离下一等级需要听歌数 user_song_number（当前听歌数）（user_level表）需要设计等级与听歌数之间的关系
+		听歌数进度条百分比
+	
+	听歌排行榜
+		累计听歌数（听过歌曲的数量） user_song_number（user_level表）    // 包含在 我的等级VO中返回
+		排行榜元素 array[10]
+			歌曲名 music_name（music_resources表）
+			歌曲作者 music_author（music_resources表）
+			该歌曲听歌次数 broadcast_number_times（user_song_leaderboard表）
+			总播放量与个人听歌数占比（页面字段为歌曲专辑）broadcast_number_times（user_song_leaderboard表）
+			music_resources表id（跳转参数）->跳转至song.html页面（music_resources表）
+
+updata页面（需要被传递参数 email/password 或者 session中存在会话用户信息）/（无参数将直接返回到myError.html页面）
+	基础信息
+		用户唯一标识 user_uid（user表）
+		昵称 user_name（user_info表）
+		邮箱 user_email（user表）
+		密码 直接返回星号****
+		性别 user_sex（user_info表）
+		生日 user_birthday（user_info表）
+	个人介绍
+		用户头像 user_avatar_img_url（user_info表）
+		所在地区 user_area（user_info表）
+		个人介绍 user_introduction（user_info表）
+		
+song页面（需要music_id标识才可放行）
+	歌曲基本信息
+		歌曲唯一标识 id（music_resources表）（用于 记录用户听歌服务 / 歌曲下载服务 / 歌曲分享服务 / 收藏服务）
+		歌曲图片 music_img_url（music_resources表）
+		歌曲名 music_name（music_resources表）
+		歌曲作者 music_author（music_resources表）
+		歌曲本身 music_url（music_resources表）
+	评论分页
+		需要制作特定的分页模型逻辑，其中应包括 分页歌曲/歌单评论
+		具体对应 music_comment表和music_list_comment表  分别为歌曲评论表和歌单评论表
+
+playlist页面（需要music_list_id标识才可放行）
+	歌单基本信息
+		歌单唯一标识 id（music_list表）（用于 歌单下载服务 / 歌曲分享服务 / 收藏服务）
+		歌单名 music_list_name（music_list表）
+		歌单展示图片 music_list_img_url（music_list表）
+		歌单创建时间 music_list_datatime（music_list表）
+		歌单创建者用户名 user_name（user_info表）
+		歌单创建者头像 user_avatar_img_url（user_info表）
+	歌曲列表基本信息
+		歌单中包含多少首歌 （使用list.size得出）
+	歌曲列表 array[]
+		歌曲唯一标识id
+		歌曲名 music_name（music_resources表）
+		歌手 music_author（music_resources表）
+			时长，由前端计算（无法计算则直接变更删除该列）
+			前端需求变动（将表格中专辑列改为下载按钮，使用歌曲唯一标识进行歌曲下载服务）
+	评论分页
+		使用commentService进行评论分页制作
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+	
+

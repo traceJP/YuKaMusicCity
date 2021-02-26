@@ -37,10 +37,10 @@
             <param-value>UTF-8</param-value>
         </init-param>
 <!-- bug:强制转码会导致请求静态资源时中文乱码 2020.12.27 -->
-<!--        <init-param>-->
-<!--            <param-name>forceRequestEncoding</param-name>-->
-<!--            <param-value>true</param-value>-->
-<!--        </init-param>-->
+        <init-param>
+            <param-name>forceRequestEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
 <!--        <init-param>-->
 <!--            <param-name>forceResponseEncoding</param-name>-->
 <!--            <param-value>true</param-value>-->

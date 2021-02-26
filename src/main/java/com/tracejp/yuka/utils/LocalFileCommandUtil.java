@@ -45,7 +45,28 @@ public class LocalFileCommandUtil {
      * 保存文件
      * @return
      */
-    public String saveFile() throws IOException {
+    public void saveFile() throws IOException {
+        Properties properties = PropertiesLoaderUtils.loadAllProperties(configUrl);
+        String url = properties.getProperty(configKey);
+        StringBuilder maxUrl = new StringBuilder();
+        maxUrl.append(properties.getProperty("localURL"));
+        maxUrl.append(url);
+        maxUrl.append(File.separator);
+        maxUrl.append(fileName);
+        maxUrl.append(".");
+        maxUrl.append(fileType);
+        // 创建并保存文件
+        File localFile = new File(maxUrl.toString());
+        localFile.createNewFile();
+        multipartFile.transferTo(localFile);
+    }
+
+    /**
+     * 获取相对路径的文件url
+     * @return 相对路径url
+     * @throws IOException
+     */
+    public String getFileRelativelyUrl() throws IOException {
         Properties properties = PropertiesLoaderUtils.loadAllProperties(configUrl);
         String url = properties.getProperty(configKey);
         StringBuilder maxUrl = new StringBuilder();
@@ -54,12 +75,6 @@ public class LocalFileCommandUtil {
         maxUrl.append(fileName);
         maxUrl.append(".");
         maxUrl.append(fileType);
-        // 创建并保存文件
-        File localFile = new File(maxUrl.toString());
-        if(!localFile.createNewFile()) {
-            return null;
-        }
-        multipartFile.transferTo(localFile);
         return maxUrl.toString();
     }
 

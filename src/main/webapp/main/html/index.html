@@ -132,28 +132,28 @@
                     <div v-for="i in 3" class="item" :class="i==3? 'active':''">
                         <div class="row">
                             <div @click="songRouter(newSongMusic[i - 1].id)" class="col-sm-4 col-md-3 visible-lg-block visible-md-block">
-                                <img :src="newSongMusic[i - 1].musicImgUrl">
+                                <img :src="newSongMusic[i - 1].musicImgUrl == null ? '../image/defaultMusicImg.jpg' : newSongMusic[i - 1].musicImgUrl">
                                 <div class="caption">
                                     <h3>{{ newSongMusic[i - 1].musicName }}</h3>
                                     <p>{{ newSongMusic[i - 1].musicAuthor }}</p>
                                 </div>
                             </div>
                             <div @click="songRouter(newSongMusic[i + 2].id)" class="col-sm-4 col-md-3 hidden-xs">
-                                <img :src="newSongMusic[i + 2].musicImgUrl">
+                                <img :src="newSongMusic[i + 2].musicImgUrl == null ? '../image/defaultMusicImg.jpg' : newSongMusic[i + 2].musicImgUrl">
                                 <div class="caption">
                                     <h3>{{ newSongMusic[i + 2].musicName }}</h3>
                                     <p>{{ newSongMusic[i + 2].musicAuthor }}</p>
                                 </div>
                             </div>
                             <div @click="songRouter(newSongMusic[i + 5].id)" class="col-sm-4 col-md-3 hidden-xs">
-                                <img :src="newSongMusic[i + 5].musicImgUrl">
+                                <img :src="newSongMusic[i + 5].musicImgUrl == null ? '../image/defaultMusicImg.jpg' : newSongMusic[i + 5].musicImgUrl">
                                 <div class="caption">
                                     <h3>{{ newSongMusic[i + 5].musicName }}</h3>
                                     <p>{{ newSongMusic[i + 5].musicAuthor }}</p>
                                 </div>
                             </div>
                             <div @click="songRouter(newSongMusic[i + 8].id)" class="col-sm-4 col-md-3 col-xs-12">
-                                <img :src="newSongMusic[i + 8].musicImgUrl">
+                                <img :src="newSongMusic[i + 8].musicImgUrl == null ? '../image/defaultMusicImg.jpg' : newSongMusic[i + 8].musicImgUrl">
                                 <div class="caption">
                                     <h3>{{ newSongMusic[i + 8].musicName }}</h3>
                                     <p>{{ newSongMusic[i + 8].musicAuthor }}</p>

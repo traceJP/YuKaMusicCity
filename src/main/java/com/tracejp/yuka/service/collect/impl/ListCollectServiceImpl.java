@@ -35,7 +35,8 @@ public class ListCollectServiceImpl implements ListCollectService {
                                                         .builderConfigKey("musicListImgUrl")
                                                         .builderFileName(Util.getRandomString(16))
                                                         .builder();
-            localUrl = fileObj.saveFile();
+            fileObj.saveFile();
+            localUrl = fileObj.getFileRelativelyUrl();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -54,6 +55,7 @@ public class ListCollectServiceImpl implements ListCollectService {
         if(!isUserCreateMusicList(uid, listId)) {
             return ResponseStatus.SUCCESS_ERROR.getStatus();
         }
+        // TODO: 2021/2/25 删除歌单图片本地文件
         // 清除歌单表
         musicCollect.deleteUserMusicList(listId);
         // 清除歌单值表

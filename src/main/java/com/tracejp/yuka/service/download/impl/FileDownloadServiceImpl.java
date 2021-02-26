@@ -30,7 +30,16 @@ public class FileDownloadServiceImpl implements FileDownloadService {
         if(localFileUrl == null) {
             return null;
         }
-        File file = new File(localFileUrl);
+        String absoluteUrl = null;
+        try {
+            Properties properties = PropertiesLoaderUtils.loadAllProperties(
+                    "properties/LocalFileUrlConfig.properties"
+            );
+            absoluteUrl = properties.getProperty("localURL");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        File file = new File(absoluteUrl + localFileUrl);
         byte[] bytes = new byte[1024];
         try {
             bytes = FileUtils.getBytes(file);
@@ -61,14 +70,15 @@ public class FileDownloadServiceImpl implements FileDownloadService {
         Properties properties = PropertiesLoaderUtils.loadAllProperties(
                 "properties/LocalFileUrlConfig.properties"
         );
+        String absoluteUrl = properties.getProperty("localURL");
         String url = properties.getProperty("musicAudioUrl");
         // 创建zip文件流并压缩文件集合
-        String randomName = url + Util.getRandomString(3);
+        String randomName = absoluteUrl + url + Util.getRandomString(3);
         ZipOutputStream zipFile = new ZipOutputStream(
                 new FileOutputStream(randomName)
         );
         for (String list : musicList) {
-            File file = new File(list);
+            File file = new File(absoluteUrl + list);
             FileInputStream input = new FileInputStream(file);
             zipFile.putNextEntry(
                     new ZipEntry(file.getName())

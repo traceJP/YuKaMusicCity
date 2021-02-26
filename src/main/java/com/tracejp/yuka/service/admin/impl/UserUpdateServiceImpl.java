@@ -6,6 +6,7 @@ import com.tracejp.yuka.service.admin.UserUpdateService;
 import com.tracejp.yuka.utils.LocalFileCommandUtil;
 import com.tracejp.yuka.utils.Util;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Properties;
 
 /*********************************
  * @author traceJP
@@ -80,10 +82,20 @@ public class UserUpdateServiceImpl implements UserUpdateService {
         if(newAvatarFile == null) {
             return ResponseStatus.SUCCESS_ERROR.getStatus();
         }
+        // 获取本地绝对路径前缀
+        String absoluteUrl = null;
+        try {
+            Properties properties = PropertiesLoaderUtils.loadAllProperties(
+                    "properties/LocalFileUrlConfig.properties"
+            );
+            absoluteUrl = properties.getProperty("localURL");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         // 删除本地原始图片
         String localOldFileUrl = userDao.selectAvatar(uid);
         if(localOldFileUrl != null) {
-            File oldFile = new File(localOldFileUrl);
+            File oldFile = new File(absoluteUrl + localOldFileUrl);
             if(!oldFile.delete()) {
                 return ResponseStatus.SUCCESS_ERROR.getStatus();
             }
@@ -95,7 +107,8 @@ public class UserUpdateServiceImpl implements UserUpdateService {
                     .builderConfigKey("userImgUrl")
                     .builderFileName(Util.getRandomString(16))
                     .builder();
-            localUrl = fileObj.saveFile();
+            fileObj.saveFile();
+            localUrl = fileObj.getFileRelativelyUrl();
         } catch (IOException e) {
             e.printStackTrace();
         }

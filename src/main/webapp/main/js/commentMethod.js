@@ -127,20 +127,10 @@ function userCommentAoCancel(id, type, index, model) {
 
 // 歌曲下载服务
 function musicDownload(id) {
-    axios.get("/YuKaMusicCity/musicDownload/" + id)
-    .then(response => {
-    })
-    .catch(error => {
-        console.log("请求失败" + error)
-    })
+    window.location.href = "/YuKaMusicCity/musicDownload/" + id
 }
 
 // 歌单下载服务
 function musicListDownload(id) {
-    axios.get("/YuKaMusicCity/listDownload/" + id)
-    .then(response => {
-    })
-    .catch(error => {
-        console.log("请求失败" + error)
-    })
+    window.location.href = "/YuKaMusicCity/listDownload/" + id
 }

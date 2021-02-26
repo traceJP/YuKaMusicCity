@@ -1,5 +1,6 @@
 package com.tracejp.yuka.sqlDataTest;
 
+import com.tracejp.yuka.utils.Util;
 import org.junit.Test;
 
 import java.io.File;
@@ -14,7 +15,7 @@ import java.util.List;
 public class AddMusicResourcesTable {
 
     // 本地音乐资源url
-    private final String localMusicResourcesURL = "/usr/local/tomcat/webapps/YuKaMusicCity/main/fileSQL/audio/";
+    private final String localMusicResourcesURL = "/YuKaMusicCity/main/fileSQL/audio/";
     // 本地音乐图片url
     private final String localMusicImgURL = "../../sqlresources/musicImg/";
 
@@ -51,8 +52,13 @@ public class AddMusicResourcesTable {
             rts[i++][0] = a[0];
             // 1 歌名
             rts[j++][1] = a[1].replace(".mp3", "");
+            // 获取一个16位随机数
+            String rand = Util.getRandomString(16);
+            // 修改歌曲名为这个16位数
+            File file1 = new File("D:\\CloudMusic\\" + fileName);
+            file1.renameTo(new File("D:\\CloudMusic\\" + rand + ".mp3"));
             // 2 歌曲url
-            rts[k++][2] = localMusicResourcesURL + fileName;
+            rts[k++][2] = localMusicResourcesURL + rand + ".mp3";
         }
         return rts;
     }
